@@ -15,7 +15,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const CONTENT_POSITIONS = {
-  TOP_Center: 'topCenter',
+  TOP_CENTER: 'topCenter',
   TOP_LEFT: 'topLeft',
   TOP_RIGHT: 'topRight',
   BOTTOM_CENTER: 'bottomCenter',
@@ -122,11 +122,16 @@ const HomepageHeroWrapper = styled.div`
     
     .slick-prev:before, .slick-next:before {
       color: ${colors.solids.BROWN};
-      font-size: 32px;
+      font-size: ${sizing(32)};
     }
     
     .slick-dots {
       bottom: 0;
+    }
+    
+    .slick-arrow {
+      width: ${sizing(32)};
+      height: ${sizing(32)};
     }
     
     .slick-dots li button:before {
@@ -142,13 +147,13 @@ const HomepageHeroWrapper = styled.div`
 
 export const getSlideLayoutStyles = (position: string) => {
   switch (position) {
-    case CONTENT_POSITIONS.TOP: {
+    case CONTENT_POSITIONS.TOP_CENTER: {
       return `
         justify-content: center;
         align-items: flex-start;
       `;
     }
-    case CONTENT_POSITIONS.BOTTOM: {
+    case CONTENT_POSITIONS.BOTTOM_CENTER: {
       return `
         justify-content: center;
         align-items: flex-end;
