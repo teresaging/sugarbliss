@@ -180,6 +180,7 @@ const Dropdown = styled.div<{isVisible: boolean}>`
     background-color: white;
     padding: ${sizing(5)} 0;
     flex-direction: column;
+    z-index: 99;
 `;
 
 const ChildNavLink = styled(Link)`

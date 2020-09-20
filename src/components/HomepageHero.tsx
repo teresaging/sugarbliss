@@ -83,8 +83,6 @@ const options = {
 
 const HomepageHero = ({slideData}: Props) => {
 
-  console.log(slideData);
-
   return (
     <HomepageHeroWrapper>
       <Slider {...SLIDER_SETTINGS}>
