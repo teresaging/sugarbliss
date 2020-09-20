@@ -1,2 +1,0 @@
-# sugarbliss
-Sugar Bliss Cakes
