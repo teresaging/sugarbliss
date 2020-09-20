@@ -15,7 +15,7 @@ const NavData = [
         children: [
             {
                 name: 'Cupcakes',
-                url: '/',
+                url: '/cupcakes',
             },
             {
                 name: 'Macarons',

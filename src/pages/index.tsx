@@ -70,8 +70,6 @@ const IndexPage = ({data}: IndexProps) => {
     }
   ];
 
-  console.log(data);
-
     return (
       <Layout>
         <HomepageHero slideData={data.allContentfulHomepageHero.edges} />

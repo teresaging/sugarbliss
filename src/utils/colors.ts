@@ -10,6 +10,7 @@ const solids = {
   BROWN: '#562a0d',
   MAIN_MED_BLUE: '#36bee8',
   MAIN_LIGHT_BLUE: '#98d9ec',
+  BABY_BLUE: '#d9edf7',
   BABY_PINK: '#fef6f5',
   WHITE: '#FFF',
 };

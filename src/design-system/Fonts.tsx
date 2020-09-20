@@ -208,6 +208,12 @@ const cursiveText = {
     'font-weight': '400',
     'line-height': sizing(46),
   },
+  5000: {
+    'font-family': FONT_FAMILIES.SACRAMENTO,
+    'font-size': sizing(102),
+    'font-weight': '400',
+    'line-height': sizing(42),
+  },
 };
 
 export const fonts: Fonts = {
