@@ -9,7 +9,7 @@ const contentfulConfig = {
 
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Contentful TypeScript starter',
+    title: 'Sugar Bliss Cakes',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -25,10 +25,25 @@ module.exports = {
         icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/images`,
+        name: 'images',
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `utils`,
+        path: `${__dirname}/src/utils/`,
+      },
+    },
     'gatsby-plugin-offline',
     `gatsby-plugin-typescript`,
     'gatsby-transformer-remark',
     'gatsby-plugin-sharp',
+    `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-source-contentful`,
       options: contentfulConfig,
@@ -36,5 +51,27 @@ module.exports = {
     {
       resolve: `gatsby-plugin-emotion`,
     },
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Muli`,
+            variants: [`400`, `500`, `700`]
+          },
+          {
+            family: `Sacramento`,
+            variants: [`400`]
+          },
+        ],
+      },
+    },
+    {
+      resolve: `gatsby-source-instagram`,
+      options: {
+        username: `sugarblisscakes`,
+      },
+    },
+    'gatsby-plugin-instagram-embed',
   ],
 }

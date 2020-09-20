@@ -1,37 +1,45 @@
-import React from 'react'
-import { Link } from 'gatsby'
-import styled from '@emotion/styled'
+import React from 'react';
+import { Link } from 'gatsby';
+import styled from '@emotion/styled';
+import Img, { FluidObject } from 'gatsby-image';
+
+import Nav from './Nav';
 
 type Props = {
-  siteTitle: string
+  siteTitle: string;
+  logo: FluidObject;
 }
 
-const Header = ({ siteTitle }: Props) => (
+const Header = ({ siteTitle, logo }: Props) => (
   <HeaderWrapper>
-    <HeaderContainer>
-      <StyledHeader>
-        <StyledLink to="/">{siteTitle}</StyledLink>
-      </StyledHeader>
-    </HeaderContainer>
+      <LogoContainer>
+          <StyledLink to="/">
+            <Img alt={siteTitle} fluid={logo} />
+          </StyledLink>
+      </LogoContainer>
+      <NavContainer>
+          <Nav />
+      </NavContainer>
   </HeaderWrapper>
 )
 
-export default Header
+export default Header;
 
 const HeaderWrapper = styled.div`
-  background: rebeccapurple;
-  margin-bottom: '1.45rem';
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  padding: 15px;
+  width: 100%;
 `
-const HeaderContainer = styled.div`
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 1.45rem 1.0875rem;
-`
-const StyledHeader = styled.h1`
-  margin: 0;
+
+const LogoContainer = styled.div`
+  position: relative;
 `
 
 const StyledLink = styled(Link)`
-  color: white;
   text-decoration: none;
+`
+const NavContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
 `

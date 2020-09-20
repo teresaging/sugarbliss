@@ -1,9 +1,10 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import { StaticQuery, graphql } from 'gatsby'
-import styled from '@emotion/styled'
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { StaticQuery, graphql } from 'gatsby';
+import styled from '@emotion/styled';
 
-import Header from './header'
+import Header from './header';
+import Footer from './Footer';
 
 import './layout.css'
 
@@ -19,32 +20,54 @@ const Layout = ({ children }: Props) => (
           siteMetadata {
             title
           }
+        },
+        logo: file(absolutePath: {regex: "/\\/images\\/sbboutique-logo\\.png/"}) {
+          childImageSharp {
+            fluid(maxWidth: 160) {
+                  ...GatsbyImageSharpFluid
+            }
+          }
+        },
+        WBELogo: file(absolutePath: {regex: "/\\/images\\/Certified-WBE\\.png/"}) {
+          childImageSharp {
+            fluid(maxWidth: 225) {
+                  ...GatsbyImageSharpFluid
+            }
+          }
+        },
+        NMSDCLogo: file(absolutePath: {regex: "/\\/images\\/NMSDC-logo\\.png/"}) {
+          childImageSharp {
+            fluid(maxWidth: 225) {
+                  ...GatsbyImageSharpFluid
+            }
+          }
         }
       }
     `}
-    render={(data) => (
-      <>
-        <Helmet
-          title={data.site.siteMetadata.title}
-          meta={[
-            { name: 'description', content: 'Sample' },
-            { name: 'keywords', content: 'sample, something' },
-          ]}
-        >
-          <html lang="en" />
-        </Helmet>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <Container style={{}}>{children}</Container>
-      </>
-    )}
-  />
+    render={(data) => {
+        return (
+          <>
+            <Helmet
+              title={data.site.siteMetadata.title}
+              meta={[
+                { name: 'description', content: 'Sample' },
+                { name: 'keywords', content: 'sample, something' },
+              ]}
+            >
+              <html lang="en" />
+            </Helmet>
+            <Header siteTitle={data.site.siteMetadata.title} logo={data.logo.childImageSharp.fluid} />
+            <Container style={{}}>{children}</Container>
+            <Footer logo={data.logo.childImageSharp.fluid} WBELogo={data.WBELogo.childImageSharp.fluid} NMSDCLogo={data.NMSDCLogo.childImageSharp.fluid}/>
+          </>
+    )}}
+/>
 )
 
 export default Layout
 
 const Container = styled.div`
   margin: 0 auto;
-  max-width: 960px;
-  padding: 0px 1.0875rem 1.45rem;
-  padding-top: 0;
+  max-width: 100%;
+  padding: 0 0 1.45rem;
 `

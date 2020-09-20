@@ -1,10 +1,19 @@
+:root {
+  --main-light-blue: #98d9ec;
+  --main-med-blue: #36bee8;
+  --main-text-color: #562a0d;
+}
+
 html {
-  font-family: sans-serif;
+  font-family: 'Muli', sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  color: var(--main-text-color);
+  font-size: 10px;
 }
 body {
   margin: 0;
+  font-family: 'Sacramento', cursive;
 }
 article,
 aside,
@@ -40,10 +49,12 @@ template {
 a {
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
+  color: var(--main-text-color);
 }
 a:active,
 a:hover {
   outline-width: 0;
+  color: var(--main-text-color);
 }
 abbr[title] {
   border-bottom: none;
@@ -183,7 +194,6 @@ textarea {
   font: inherit;
 }
 html {
-  font: 112.5%/1.45em georgia, serif;
   box-sizing: border-box;
   overflow-y: scroll;
 }
@@ -197,9 +207,10 @@ html {
   box-sizing: inherit;
 }
 body {
-  color: hsla(0, 0%, 0%, 0.8);
-  font-family: georgia, serif;
+  color: var(--main-text-color);
+  font-family: 'Mulie', sans-serif;
   font-weight: normal;
+  font-size: 16px;
   word-wrap: break-word;
   font-kerning: normal;
   -moz-font-feature-settings: "kern", "liga", "clig", "calt";
@@ -621,4 +632,8 @@ pre tt:after {
   html {
     font-size: 100%;
   }
+}
+
+.cursive {
+  font-family: 'Sacramento', cursive;
 }
