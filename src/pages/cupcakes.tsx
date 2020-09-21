@@ -112,6 +112,24 @@ export default CupcakesPage;
 
 export const query = graphql`
 query CupcakesQuery {
+allContentfulCupcake(sort: {fields: position}) {
+    edges {
+      node {
+        name
+        description
+        image {
+          file {
+            url
+          }
+        }
+        isEveryDayFlavor
+        isSeasonal
+        monthAvailable
+        isDaily
+        dayAvailable
+      }
+    }
+  }
   cupcakesHeaderImage: file(absolutePath: {regex: "/\\/images\\/cupcakes\\/cupcakesHeaderImage\\.jpg/"}) {
     childImageSharp {
       fluid(maxWidth: 1600) {
