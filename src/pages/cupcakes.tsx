@@ -3,47 +3,60 @@ import { graphql, Link, PageProps } from 'gatsby'
 import Img, { FluidObject } from 'gatsby-image';
 
 import Layout from '../components/layout'
+import CupcakeDailyFlavors from '../components/CupcakeDailyFlavors';
 import styled from '@emotion/styled';
 import { fonts, Button } from '../design-system';
 import { sizing, colors } from '../utils';
+import CupcakeSeasonalFlavors from '../components/CupcakeSeasonalFlavors';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
 type CupcakeQueryProps = {
   cupcakesHeaderImage: FluidImage;
   underlineImage: FluidImage;
+  allContentfulCupcake: {
+    nodes: any; // Todo: add shared cupcake type here
+  };
 };
 
-type CupcakeProps = PageProps<CupcakeQueryProps>
+type CupcakeProps = PageProps<CupcakeQueryProps>;
 
-const CupcakesPage = ({data}: CupcakeProps) => (
-  <Layout>
-    <Header>
-      <HeaderImage fluid={data.cupcakesHeaderImage.childImageSharp.fluid} />
-      <HeaderTextContainer>
-       <HeaderText>Cupcakes</HeaderText>
-       <Underline fluid={data.underlineImage.childImageSharp.fluid} />
-      </HeaderTextContainer>
-    </Header>
-    <Intro>
-      <div>
-        <IntroTitle>Regular Cupcakes:</IntroTitle>
-        <IntroText>Single: $3.95 | Dozen: $45</IntroText>
-        <IntroText>Gluten Free, Single: $4.25 | Dozen: $48</IntroText>
-        <IntroText>Vegan, Single: $4.50 | Dozen: $50</IntroText>
-      </div>
-      <div>
-        <IntroTitle>Mini Cupcakes: </IntroTitle>
-        <IntroText>Single: $2 | Dozen: $22</IntroText>
-        <IntroText> Gluten Free, Dozen: $25</IntroText>
-        <IntroText>Vegan, Dozen: $28</IntroText>
-      </div>
-    </Intro>
-    <DailyMenuSection>
-      <Button url="" text="View Daily Menu" size="LARGE"/>
-    </DailyMenuSection>
-  </Layout>
-)
+const CupcakesPage = ({data}: CupcakeProps) => {
+
+  const seasonalCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isSeasonal);
+  const dailyCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isDaily);
+
+  return (
+    <Layout>
+      <Header>
+        <HeaderImage fluid={data.cupcakesHeaderImage.childImageSharp.fluid}/>
+        <HeaderTextContainer>
+          <HeaderText>Cupcakes</HeaderText>
+          <Underline fluid={data.underlineImage.childImageSharp.fluid}/>
+        </HeaderTextContainer>
+      </Header>
+      <Intro>
+        <div>
+          <IntroTitle>Regular Cupcakes:</IntroTitle>
+          <IntroText>Single: $3.95 | Dozen: $45</IntroText>
+          <IntroText>Gluten Free, Single: $4.25 | Dozen: $48</IntroText>
+          <IntroText>Vegan, Single: $4.50 | Dozen: $50</IntroText>
+        </div>
+        <div>
+          <IntroTitle>Mini Cupcakes: </IntroTitle>
+          <IntroText>Single: $2 | Dozen: $22</IntroText>
+          <IntroText>Gluten Free, Dozen: $25</IntroText>
+          <IntroText>Vegan, Dozen: $28</IntroText>
+        </div>
+      </Intro>
+      <DailyMenuSection>
+        <Button url="" text="View Daily Menu" size="LARGE"/>
+      </DailyMenuSection>
+      <CupcakeSeasonalFlavors cupcakes={seasonalCupcakes} />
+      <CupcakeDailyFlavors cupcakes={dailyCupcakes}/>
+    </Layout>
+  )
+}
 
 const Header = styled.div`
   display: flex;
@@ -112,22 +125,20 @@ export default CupcakesPage;
 
 export const query = graphql`
 query CupcakesQuery {
-allContentfulCupcake(sort: {fields: position}) {
-    edges {
-      node {
-        name
-        description
-        image {
-          file {
-            url
-          }
+  allContentfulCupcake {
+    nodes {
+      name
+      description
+      image {
+        file {
+          url
         }
-        isEveryDayFlavor
-        isSeasonal
-        monthAvailable
-        isDaily
-        dayAvailable
       }
+      isEverydayFlavor
+      isSeasonal
+      monthAvailable
+      isDaily
+      dayAvailable
     }
   }
   cupcakesHeaderImage: file(absolutePath: {regex: "/\\/images\\/cupcakes\\/cupcakesHeaderImage\\.jpg/"}) {

@@ -1,12 +1,8 @@
 import React from 'react';
-import { Link } from 'gatsby';
 import styled from '@emotion/styled';
-import Img, {FluidImage} from "gatsby-image"
-import { BLOCKS, MARKS } from '@contentful/rich-text-types';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import Img, { FluidImage } from 'gatsby-image'
 import { Button, fonts } from '../design-system';
 import { sizing } from '../utils';
-
 
 import { colors } from '../utils';
 
