@@ -4,10 +4,11 @@ import Img, { FluidObject } from 'gatsby-image';
 
 import Layout from '../components/layout'
 import CupcakeDailyFlavors from '../components/CupcakeDailyFlavors';
+import CupcakeSeasonalFlavors from '../components/CupcakeSeasonalFlavors';
+import CupcakeEveryDayFlavors from '../components/CupcakeEveryDayFlavors';
 import styled from '@emotion/styled';
 import { fonts, Button } from '../design-system';
 import { sizing, colors } from '../utils';
-import CupcakeSeasonalFlavors from '../components/CupcakeSeasonalFlavors';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
@@ -25,6 +26,7 @@ const CupcakesPage = ({data}: CupcakeProps) => {
 
   const seasonalCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isSeasonal);
   const dailyCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isDaily);
+  const everyDayCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isEverydayFlavor);
 
   return (
     <Layout>
@@ -53,6 +55,7 @@ const CupcakesPage = ({data}: CupcakeProps) => {
         <Button url="" text="View Daily Menu" size="LARGE"/>
       </DailyMenuSection>
       <CupcakeSeasonalFlavors cupcakes={seasonalCupcakes} />
+      <CupcakeEveryDayFlavors cupcakes={everyDayCupcakes} />
       <CupcakeDailyFlavors cupcakes={dailyCupcakes}/>
     </Layout>
   )

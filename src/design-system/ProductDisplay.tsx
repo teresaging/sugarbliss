@@ -34,7 +34,7 @@ const Image = styled.img`
     border-radius: 50%;
     height: auto;
     width: 100%;
-    max-width: ${sizing(400)};
+    max-width: ${sizing(350)};
     margin-bottom: ${sizing(35)};
 `
 const Name = styled.p`
