@@ -7,7 +7,7 @@ import CupcakeDailyFlavors from '../components/CupcakeDailyFlavors';
 import CupcakeSeasonalFlavors from '../components/CupcakeSeasonalFlavors';
 import CupcakeEveryDayFlavors from '../components/CupcakeEveryDayFlavors';
 import styled from '@emotion/styled';
-import { fonts, Button } from '../design-system';
+import { fonts, Button, OrderFooter } from '../design-system';
 import { sizing, colors } from '../utils';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
@@ -15,6 +15,7 @@ type FluidImage = { childImageSharp: {fluid: FluidObject} };
 type CupcakeQueryProps = {
   cupcakesHeaderImage: FluidImage;
   underlineImage: FluidImage;
+  cupcakesFooterImage: FluidImage;
   allContentfulCupcake: {
     nodes: any; // Todo: add shared cupcake type here
   };
@@ -52,11 +53,12 @@ const CupcakesPage = ({data}: CupcakeProps) => {
         </div>
       </Intro>
       <DailyMenuSection>
-        <Button url="" text="View Daily Menu" size="LARGE"/>
+        <Button url="" text="View Daily Menu" size="XLARGE"/>
       </DailyMenuSection>
       <CupcakeSeasonalFlavors cupcakes={seasonalCupcakes} />
       <CupcakeEveryDayFlavors cupcakes={everyDayCupcakes} />
       <CupcakeDailyFlavors cupcakes={dailyCupcakes}/>
+      <OrderFooter backgroundImage={data.cupcakesFooterImage} />
     </Layout>
   )
 }
@@ -155,6 +157,13 @@ query CupcakesQuery {
   underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline\\.png/"}) {
     childImageSharp {
       fluid(maxWidth: 300) {
+            ...GatsbyImageSharpFluid
+      }
+    }
+  }
+  cupcakesFooterImage: file(absolutePath: {regex: "/\\/images\\/cupcakes\\/cupcakesFooterImage\\.jpg/"}) {
+    childImageSharp {
+      fluid(maxWidth: 1600) {
             ...GatsbyImageSharpFluid
       }
     }

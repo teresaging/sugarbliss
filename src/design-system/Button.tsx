@@ -12,6 +12,7 @@ enum Sizes {
   SMALL = 'SMALL',
   MEDIUM = 'MEDIUM',
   LARGE = 'LARGE',
+  XLARGE = 'XLARGE',
 }
 
 type Props = {
@@ -36,6 +37,9 @@ export const getFont = (size: keyof typeof Sizes) => {
     }
     case Sizes.LARGE: {
       return fonts.cursiveText['500'];
+    }
+    case Sizes.XLARGE: {
+      return fonts.cursiveText['700'];
     }
     default: {
       return fonts.cursiveText['400'];
@@ -63,6 +67,11 @@ export const getSize = (size: keyof typeof Sizes) => {
     case Sizes.LARGE: {
       return `
         padding: ${sizing(16)} ${sizing(18)};
+      `;
+    }
+    case Sizes.XLARGE: {
+      return `
+        padding: ${sizing(18)} ${sizing(20)};
       `;
     }
     default: {
