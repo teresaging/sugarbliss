@@ -1,7 +1,23 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { fonts } from '../design-system';
+import { fonts, SeasonalCarousel } from '../design-system';
 import { sizing } from '../utils';
+
+// Todo: make shared
+const MONTHS = {
+  1: 'January',
+  2: 'February',
+  3: 'March',
+  4: 'April',
+  5: 'May',
+  6: 'June',
+  7: 'July',
+  8: 'August',
+  9: 'September',
+  10: 'October',
+  11: 'November',
+  12: 'December',
+}
 
 type Cupcake = {
   name: string;
@@ -16,16 +32,58 @@ type Cupcake = {
   monthAvailable: string; // ToDo: make this a shared type and add a months enum, typeOf: months
   isDaily: boolean;
   dayAvailable: string;
+  seasonalDaysAvailable: string;
 };
 
 type Props = {
   cupcakes: Cupcake[];
 };
 
+const getCurrentMonths = () => {
+  const currentDate = new Date();
+  const currentMonthNumber = currentDate.getMonth() + 1;
+
+  return {
+    currentMonth: MONTHS[currentMonthNumber],
+    nextMonth: MONTHS[currentMonthNumber + 1],
+  };
+};
+
+const groomCupcakeDataForCarousel = (cupcakes) => {
+  const groomedData = cupcakes.map((cupcake) => {
+    return {
+      name: cupcake.name,
+      imageUrl: cupcake.image.file.url,
+      datesAvailable: cupcake.seasonalDaysAvailable,
+      description: cupcake.description,
+    }
+  });
+
+  return groomedData;
+};
+
 const CupcakeSeasonalFlavors = ({cupcakes}: Props) => {
+
+  const currentSeasonalCupcakes = cupcakes.filter((cupcake) => {
+    const monthAvailable = cupcake.monthAvailable;
+    const currentMonths = getCurrentMonths();
+    if (Boolean(monthAvailable.length)) {
+      for (let i = 0; i < monthAvailable.length; i++) {
+        if (monthAvailable[i] ===  currentMonths.currentMonth || monthAvailable[i] ===  currentMonths.nextMonth) {
+          return true;
+        }
+      }
+
+      return false;
+    } else {
+      return cupcake.monthAvailable === currentMonths.currentMonth || cupcake.monthAvailable === currentMonths.nextMonth;
+    }
+  });
+
   return (
     <Wrapper>
       <Title>Seasonal Flavors</Title>
+      <SeasonalCarousel seasonalProducts={groomCupcakeDataForCarousel(currentSeasonalCupcakes)} />
     </Wrapper>
   )
 };

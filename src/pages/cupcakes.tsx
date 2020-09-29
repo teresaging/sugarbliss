@@ -139,6 +139,7 @@ query CupcakesQuery {
       monthAvailable
       isDaily
       dayAvailable
+      seasonalDaysAvailable
     }
   }
   cupcakesHeaderImage: file(absolutePath: {regex: "/\\/images\\/cupcakes\\/cupcakesHeaderImage\\.jpg/"}) {
