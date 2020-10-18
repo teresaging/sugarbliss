@@ -1,5 +1,5 @@
-import React from 'react'
-import { graphql, Link, PageProps } from 'gatsby'
+import React from 'react';
+import { graphql, PageProps } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
 
 import Layout from '../components/layout'
@@ -7,7 +7,7 @@ import CupcakeDailyFlavors from '../components/CupcakeDailyFlavors';
 import CupcakeSeasonalFlavors from '../components/CupcakeSeasonalFlavors';
 import CupcakeEveryDayFlavors from '../components/CupcakeEveryDayFlavors';
 import styled from '@emotion/styled';
-import { fonts, Button, OrderFooter } from '../design-system';
+import { fonts, Button, OrderFooter, ProductHeader } from '../design-system';
 import { sizing, colors } from '../utils';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
@@ -31,13 +31,7 @@ const CupcakesPage = ({data}: CupcakeProps) => {
 
   return (
     <Layout>
-      <Header>
-        <HeaderImage fluid={data.cupcakesHeaderImage.childImageSharp.fluid}/>
-        <HeaderTextContainer>
-          <HeaderText>Cupcakes</HeaderText>
-          <Underline fluid={data.underlineImage.childImageSharp.fluid}/>
-        </HeaderTextContainer>
-      </Header>
+      <ProductHeader productName="Cupcakes" backgroundImage={data.cupcakesHeaderImage} underlineImage={data.underlineImage} />
       <Intro>
         <div>
           <IntroTitle>Regular Cupcakes:</IntroTitle>
@@ -62,39 +56,6 @@ const CupcakesPage = ({data}: CupcakeProps) => {
     </Layout>
   )
 }
-
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: ${sizing(330)};
-  background-repeat: no-repeat;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-`;
-
-const HeaderImage = styled(Img)`
-  width: 100%;
-  height: auto;
-`;
-
-const HeaderText = styled.p`
-  ${fonts.cursiveText['5000']};
-  text-align: center;
-  color: ${colors.solids.WHITE};
-`;
-
-const HeaderTextContainer = styled.div`
-  position: absolute;
-`;
-
-const Underline = styled(Img)`
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: ${sizing(300)};
-`;
 
 const Intro = styled.div`
   text-align: center;
