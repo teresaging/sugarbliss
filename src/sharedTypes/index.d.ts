@@ -26,3 +26,17 @@ export type Macaron = {
   monthAvailable?: string | string[];
   seasonalDaysAvailable?: string;
 }
+
+export type CakePop = {
+  name: string;
+  description: string;
+  image: {
+    file: {
+      url: string;
+    }
+  }
+  isClassicCollection: boolean;
+  isSeasonal: boolean;
+  monthAvailable?: string | string[];
+  seasonalDaysAvailable?: string;
+}

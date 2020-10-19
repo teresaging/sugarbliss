@@ -49,6 +49,10 @@ const SeasonalProductCarousel = ({products}: Props) => {
     }
   });
 
+  if (currentSeasonalProducts.length === 0) {
+    return null;
+  }
+
   return (
     <Wrapper>
       <Title>Seasonal Flavors</Title>

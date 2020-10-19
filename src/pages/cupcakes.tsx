@@ -5,7 +5,7 @@ import { FluidObject } from 'gatsby-image';
 import Layout from '../components/layout'
 import CupcakeDailyFlavors from '../components/CupcakeDailyFlavors';
 import SeasonalProductCarousel from '../components/SeasonalProductCarousel';
-import EverydayProductsList from '../components/EverydayProductsList';
+import ProductsList from '../components/ProductsList';
 import styled from '@emotion/styled';
 import { fonts, Button, OrderFooter, ProductHeader } from '../design-system';
 import { sizing, colors } from '../utils';
@@ -51,7 +51,7 @@ const CupcakesPage = ({data}: CupcakeProps) => {
         <Button url="" text="View Daily Menu" size="XLARGE"/>
       </DailyMenuSection>
       <SeasonalProductCarousel products={seasonalCupcakes} />
-      <EverydayProductsList products={everyDayCupcakes} />
+      <ProductsList products={everyDayCupcakes} />
       <CupcakeDailyFlavors cupcakes={dailyCupcakes}/>
       <OrderFooter backgroundImage={data.cupcakesFooterImage} />
     </Layout>

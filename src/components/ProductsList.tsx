@@ -6,13 +6,14 @@ import { sizing } from '../utils';
 type Props = {
   // tslint:disable-next-line:no-any
   products: any;
+  title?: string;
 };
 
-const EverydayProductsList = ({products}: Props) => {
+const ProductsList = ({products, title}: Props) => {
 
   return (
     <Wrapper>
-      <Title>Everyday Flavors</Title>
+      <Title>{title || 'Everyday Flavors'}</Title>
       <FlavorsContainer>
         {products.map((product) => {
           return (
@@ -62,4 +63,4 @@ const FlavorsContainer = styled.div`
   }
 `;
 
-export default EverydayProductsList;
+export default ProductsList;

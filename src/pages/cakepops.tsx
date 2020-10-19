@@ -9,40 +9,42 @@ import ProductsList from '../components/ProductsList';
 
 import { fonts, OrderFooter, ProductHeader } from '../design-system';
 import { sizing, colors } from '../utils';
-import { Macaron } from '../sharedTypes';
+import { CakePop } from '../sharedTypes';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
-type MacaronsQueryProps = {
-  macaronsHeaderImage: FluidImage;
+type CakePopsQueryProps = {
+  cakePopsHeaderImage: FluidImage;
   underlineImage: FluidImage;
-  macaronsFooterImage: FluidImage;
-  allContentfulMacaron: {
-    nodes: Macaron[]; // Todo: add shared macaron type here
+  cakePopsFooterImage: FluidImage;
+  allContentfulCakePops: {
+    nodes: CakePop[]; // Todo: add shared macaron type here
   };
 };
 
-type MacaronsProps = PageProps<MacaronsQueryProps>;
+type CakePopsProps = PageProps<CakePopsQueryProps>;
 
-const MacaronsPage = ({data}: MacaronsProps) => {
+const CakePopsPage = ({data}: CakePopsProps) => {
 
-  const seasonalMacarons = data.allContentfulMacaron.nodes.filter((macaron) => macaron.isSeasonalFlavor);
-  const everyDayFlavors = data.allContentfulMacaron.nodes.filter((macaron) => macaron.isSeasonalFlavor === false);
+  const seasonalFlavors = data.allContentfulCakePops.nodes.filter((cakePop) => cakePop.isSeasonal);
+  const classicCollectionFlavors = data.allContentfulCakePops.nodes.filter((cakePop) => cakePop.isClassicCollection);
+  const everyDayFlavors = data.allContentfulCakePops.nodes.filter((cakePop) => cakePop.isSeasonal === false);
 
   return (
     <Layout>
-      <ProductHeader productName="Macarons" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} />
+      <ProductHeader productName="Cake Pops" backgroundImage={data.cakePopsHeaderImage} underlineImage={data.underlineImage} />
       <PricesContainer>
-        <Price>$2.50 Each | Box of 6: $15 | Box of 12: $28</Price>
+        <Price>$3 Each | $34 Dozen</Price>
       </PricesContainer>
-      <SeasonalProductCarousel products={seasonalMacarons} />
-      <ProductsList products={everyDayFlavors} />
-      <OrderFooter backgroundImage={data.macaronsFooterImage} />
+      <SeasonalProductCarousel products={seasonalFlavors} />
+      <ProductsList title="Classic Collection Flavors" products={classicCollectionFlavors} />
+      <ProductsList title="Assorted Rotating Flavors" products={everyDayFlavors} />
+      <OrderFooter backgroundImage={data.cakePopsFooterImage} />
     </Layout>
   )
 };
 
-export default MacaronsPage;
+export default CakePopsPage;
 
 const PricesContainer = styled.div`
   width: 100%;
@@ -62,8 +64,8 @@ const Price = styled.p`
 `;
 
 export const query = graphql`
-query MacaronsQuery {
-allContentfulMacaron {
+query CakePopsQuery {
+allContentfulCakePops {
     nodes {
       name
       description
@@ -72,12 +74,13 @@ allContentfulMacaron {
           url
         }
       }
-      isSeasonalFlavor
+      isClassicCollection
+      isSeasonal
       monthAvailable
       seasonalDaysAvailable
     }
   }
-  macaronsHeaderImage: file(absolutePath: {regex: "/\\/images\\/macarons\\/macaronsHeaderImage\\.jpg/"}) {
+  cakePopsHeaderImage: file(absolutePath: {regex: "/\\/images\\/cakePops\\/cakePopsHeaderImage\\.jpg/"}) {
     childImageSharp {
       fluid(maxWidth: 1600) {
             ...GatsbyImageSharpFluid
@@ -91,7 +94,7 @@ allContentfulMacaron {
       }
     }
   }
-  macaronsFooterImage: file(absolutePath: {regex: "/\\/images\\/macarons\\/macaronsFooterImage\\.jpg/"}) {
+  cakePopsFooterImage: file(absolutePath: {regex: "/\\/images\\/cakePops\\/cakePopsFooterImage\\.jpg/"}) {
     childImageSharp {
       fluid(maxWidth: 1600) {
             ...GatsbyImageSharpFluid

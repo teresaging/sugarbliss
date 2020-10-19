@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { fonts, Tabs, ProductDisplay } from '../design-system';
 import { sizing } from '../utils';
+import { Cupcake } from '../sharedTypes';
 
 const TABS_DATA = [
   {
@@ -29,21 +30,6 @@ const TABS_DATA = [
     name: 'Saturday',
   },
 ];
-
-type Cupcake = {
-  name: string;
-  description: string;
-  image: {
-    file: {
-      url: string;
-    }
-  }
-  isEveryDayFlavor: boolean;
-  isSeasonal: boolean;
-  monthAvailable: string; // ToDo: make this a shared type and add a months enum, typeOf: months
-  isDaily: boolean;
-  dayAvailable: string;
-};
 
 type Props = {
   cupcakes: Cupcake[];

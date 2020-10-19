@@ -23,7 +23,7 @@ const NavData = [
             },
             {
                 name: 'Cake Pops',
-                url: '/',
+                url: '/cakepops',
             },
             {
                 name: 'Cakes',
@@ -115,7 +115,6 @@ const Header = () => {
             </NavWithChildrenContainer>
         )
     };
-
 
     return (
         <NavWrapper>
