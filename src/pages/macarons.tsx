@@ -1,34 +1,67 @@
 import React from 'react';
-import { graphql, Link, PageProps } from 'gatsby';
-import Img, { FluidObject } from 'gatsby-image';
+import { graphql, PageProps } from 'gatsby';
+import { FluidObject } from 'gatsby-image';
 import styled from '@emotion/styled';
 
 import Layout from '../components/layout';
-import { fonts, Button, OrderFooter, ProductHeader } from '../design-system';
+import SeasonalProductCarousel from '../components/SeasonalProductCarousel';
+import EverydayProductsList from '../components/EverydayProductsList';
+
+import { fonts, ProductHeader } from '../design-system';
 import { sizing, colors } from '../utils';
+import { Macaron } from '../sharedTypes';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
 type MacaronsQueryProps = {
   macaronsHeaderImage: FluidImage;
   underlineImage: FluidImage;
-  cupcakesFooterImage: FluidImage;
+  allContentfulMacaron: {
+    nodes: Macaron[]; // Todo: add shared macaron type here
+  };
 };
 
-const MacaronsPage = ({data}: MacaronsQueryProps) => {
+type MacaronsProps = PageProps<MacaronsQueryProps>;
 
+const MacaronsPage = ({data}: MacaronsProps) => {
+
+  const seasonalMacarons = data.allContentfulMacaron.nodes.filter((macaron) => macaron.isSeasonalFlavor);
+  const everyDayFlavors = data.allContentfulMacaron.nodes.filter((macaron) => macaron.isSeasonalFlavor === false);
 
   return (
     <Layout>
-      <ProductHeader productName="Macarons" />
+      <ProductHeader productName="Macarons" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} />
+      <PricesContainer>
+        <Price>$2.50 Each | Box of 6: $15 | Box of 12: $28</Price>
+      </PricesContainer>
+      <SeasonalProductCarousel products={seasonalMacarons} />
+      <EverydayProductsList products={everyDayFlavors} />
     </Layout>
-  );
-
+  )
 };
 
+export default MacaronsPage;
+
+const PricesContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.solids.BABY_BLUE};
+  padding: ${sizing(40)} 0;
+  margin: ${sizing(50)} 0;
+`;
+
+const Price = styled.p`
+  ${fonts.mediumText['500']};
+  color: ${colors.solids.BROWN};
+  margin-bottom: 0;
+  text-align: center;
+`;
+
 export const query = graphql`
-query CupcakesQuery {
-  allContentfulCupcake {
+query MacaronsQuery {
+allContentfulMacaron {
     nodes {
       name
       description
@@ -37,15 +70,12 @@ query CupcakesQuery {
           url
         }
       }
-      isEverydayFlavor
-      isSeasonal
+      isSeasonalFlavor
       monthAvailable
-      isDaily
-      dayAvailable
       seasonalDaysAvailable
     }
   }
-  cupcakesHeaderImage: file(absolutePath: {regex: "/\\/images\\/cupcakes\\/cupcakesHeaderImage\\.jpg/"}) {
+  macaronsHeaderImage: file(absolutePath: {regex: "/\\/images\\/macarons\\/macaronsHeaderImage\\.jpg/"}) {
     childImageSharp {
       fluid(maxWidth: 1600) {
             ...GatsbyImageSharpFluid
@@ -55,13 +85,6 @@ query CupcakesQuery {
   underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline\\.png/"}) {
     childImageSharp {
       fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
-      }
-    }
-  }
-  cupcakesFooterImage: file(absolutePath: {regex: "/\\/images\\/cupcakes\\/cupcakesFooterImage\\.jpg/"}) {
-    childImageSharp {
-      fluid(maxWidth: 1600) {
             ...GatsbyImageSharpFluid
       }
     }

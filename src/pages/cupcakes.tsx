@@ -1,14 +1,15 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import Img, { FluidObject } from 'gatsby-image';
+import { FluidObject } from 'gatsby-image';
 
 import Layout from '../components/layout'
 import CupcakeDailyFlavors from '../components/CupcakeDailyFlavors';
-import CupcakeSeasonalFlavors from '../components/CupcakeSeasonalFlavors';
-import CupcakeEveryDayFlavors from '../components/CupcakeEveryDayFlavors';
+import SeasonalProductCarousel from '../components/SeasonalProductCarousel';
+import EverydayProductsList from '../components/EverydayProductsList';
 import styled from '@emotion/styled';
 import { fonts, Button, OrderFooter, ProductHeader } from '../design-system';
 import { sizing, colors } from '../utils';
+import { Cupcake } from '../sharedTypes';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
@@ -17,7 +18,7 @@ type CupcakeQueryProps = {
   underlineImage: FluidImage;
   cupcakesFooterImage: FluidImage;
   allContentfulCupcake: {
-    nodes: any; // Todo: add shared cupcake type here
+    nodes: Cupcake[]; // Todo: add shared cupcake type here
   };
 };
 
@@ -49,8 +50,8 @@ const CupcakesPage = ({data}: CupcakeProps) => {
       <DailyMenuSection>
         <Button url="" text="View Daily Menu" size="XLARGE"/>
       </DailyMenuSection>
-      <CupcakeSeasonalFlavors cupcakes={seasonalCupcakes} />
-      <CupcakeEveryDayFlavors cupcakes={everyDayCupcakes} />
+      <SeasonalProductCarousel products={seasonalCupcakes} />
+      <EverydayProductsList products={everyDayCupcakes} />
       <CupcakeDailyFlavors cupcakes={dailyCupcakes}/>
       <OrderFooter backgroundImage={data.cupcakesFooterImage} />
     </Layout>

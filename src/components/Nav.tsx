@@ -19,7 +19,7 @@ const NavData = [
             },
             {
                 name: 'Macarons',
-                url: '/',
+                url: '/macarons',
             },
             {
                 name: 'Cake Pops',
