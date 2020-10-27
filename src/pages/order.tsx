@@ -54,7 +54,7 @@ const OrderPage = ({data}: OrderProps) => {
         className="snipcart-add-item"
         data-item-id="silver-stacking-ring"
         data-item-price="19.99"
-        data-item-url="http://localhost:8000/order"
+        data-item-url="/order"
         data-item-name="Silver Stacking Ring"
         data-item-custom1-name="Size"
         data-item-custom1-options="6|6.5|7|7.5|8|8.5|9"
