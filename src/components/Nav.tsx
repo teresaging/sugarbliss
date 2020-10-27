@@ -81,7 +81,7 @@ const NavData = [
     },
     {
         name: 'Order',
-        url: '/',
+        url: '/order',
     }
 ]
 

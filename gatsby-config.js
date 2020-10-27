@@ -26,6 +26,25 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-env-variables`,
+      options: {
+        allowList: ["SHOP_NAME", "SHOP_TOKEN"]
+      },
+    },
+    {
+      resolve: `gatsby-plugin-snipcart-advanced`,
+      options: {
+        version: '3.0.15',
+        publicApiKey: process.env.GATSBY_SNIPCART_API_KEY, // use public api key here or in environment variable
+        openCartOnAdd: false,
+        // innerHTML: `
+        //     <billing section="bottom">
+        //         <!-- Customization goes here -->
+        //         hi
+        //     </billing>`,
+      },
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/src/images`,
@@ -50,21 +69,6 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-emotion`,
-    },
-    {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
-      options: {
-        fonts: [
-          {
-            family: `Muli`,
-            variants: [`400`, `500`, `700`]
-          },
-          {
-            family: `Sacramento`,
-            variants: [`400`]
-          },
-        ],
-      },
     },
     {
       resolve: `gatsby-source-instagram`,
