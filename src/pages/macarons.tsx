@@ -63,7 +63,7 @@ const Price = styled.p`
 
 export const query = graphql`
 query MacaronsQuery {
-allContentfulMacaron {
+  allContentfulMacaron {
     nodes {
       name
       description
