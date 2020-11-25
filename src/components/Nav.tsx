@@ -30,8 +30,8 @@ const NavData = [
                 url: '/',
             },
             {
-                name: 'Breakfast Cupcakes',
-                url: '/',
+                name: 'Morning Pastries',
+                url: '/morning-pastries',
             },
             {
                 name: 'Frosting Shots',
