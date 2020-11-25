@@ -5,5 +5,6 @@ import ProductDisplay from './ProductDisplay';
 import ProductHeader from './ProductHeader';
 import SeasonalCarousel from './SeasonalCarousel';
 import OrderFooter from './OrderFooter';
+import ProductList from './ProductList';
 
-export { Button, fonts, Tabs, ProductDisplay, ProductHeader, SeasonalCarousel, OrderFooter };
+export { Button, fonts, Tabs, ProductDisplay, ProductHeader, SeasonalCarousel, OrderFooter, ProductList };
