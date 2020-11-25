@@ -50,11 +50,14 @@ export type MorningPastry = {
 }
 
 export type FrostingShot = {
-  image: {
-    file: {
-      url: string;
-    }
-  }
   price: number;
   flavors: string[];
+}
+
+export type Cakes = {
+  name: string;
+  category: string;
+  price: number;
+  servingDescription: string;
+  description: string;
 }

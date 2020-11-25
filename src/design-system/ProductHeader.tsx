@@ -10,14 +10,13 @@ import { fonts } from './Fonts';
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
 type Props = {
-  backgroundImage?: FluidImage;
+  backgroundImage: FluidImage;
   underlineImage: FluidImage;
   productName: string;
   isFullWidth?: boolean;
-  imageUrl?: string;
 }
 
-const ProductHeader = ({backgroundImage, underlineImage, productName, isFullWidth = false, imageUrl}: Props) => {
+const ProductHeader = ({backgroundImage, underlineImage, productName, isFullWidth = false}: Props) => {
 
   if (isFullWidth) {
     return (
@@ -36,7 +35,7 @@ const ProductHeader = ({backgroundImage, underlineImage, productName, isFullWidt
       <Text>{productName}</Text>
       <Underline fluid={underlineImage.childImageSharp.fluid}/>
       <CircleImageContainer>
-        <CircleImage src={imageUrl} alt={productName}/>
+        <CircleImage fluid={backgroundImage.childImageSharp.fluid} alt={productName}/>
       </CircleImageContainer>
     </Container>
   );
@@ -91,7 +90,7 @@ const CircleImageContainer = styled.div`
   overflow: hidden;
 `;
 
-const CircleImage = styled.img`
+const CircleImage = styled(Img)`
   width: 100%;
   height: auto;
 `;

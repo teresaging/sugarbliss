@@ -27,7 +27,7 @@ const NavData = [
             },
             {
                 name: 'Cakes',
-                url: '/',
+                url: '/cakes',
             },
             {
                 name: 'Morning Pastries',

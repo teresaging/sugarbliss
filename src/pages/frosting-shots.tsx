@@ -12,8 +12,9 @@ type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
 type FrostingShotsQueryProps = {
   underlineImage: FluidImage;
+  frostingShotsImage: FluidImage;
   allContentfulFrostingShots: {
-    nodes: FrostingShot[]; // Todo: add shared cupcake type here
+    nodes: FrostingShot[];
   };
 }
 
@@ -25,7 +26,7 @@ const FrostingShots = ({data}: FrostingShotsProps) => {
 
   return (
     <Layout>
-      <ProductHeader productName="Frosting Shots" imageUrl={frostingData.image.file.url} underlineImage={data.underlineImage} />
+      <ProductHeader productName="Frosting Shots" backgroundImage={data.frostingShotsImage} underlineImage={data.underlineImage} />
       <PriceSection>
         <Price>Price: ${frostingData.price}</Price>
         <Underline />
@@ -91,11 +92,6 @@ export const query = graphql`
   query FrostingShotsQuery {
     allContentfulFrostingShots(filter: {name: {eq: "Frosting Shot"}}) {
       nodes {
-        image {
-          file {
-            url
-          }
-        }
         price
         flavors
       }
@@ -103,6 +99,13 @@ export const query = graphql`
     underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline_brown\\.png/"}) {
       childImageSharp {
         fluid(maxWidth: 300) {
+              ...GatsbyImageSharpFluid
+        }
+      }
+    }
+    frostingShotsImage: file(absolutePath: {regex: "/\\/images\\/frostingShots\\/frostingShotsHeaderImage\\.jpg/"}) {
+      childImageSharp {
+        fluid(maxWidth: 350) {
               ...GatsbyImageSharpFluid
         }
       }
