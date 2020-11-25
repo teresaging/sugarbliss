@@ -40,3 +40,11 @@ export type CakePop = {
   monthAvailable?: string | string[];
   seasonalDaysAvailable?: string;
 }
+
+export type MorningPastry = {
+  name: string;
+  description?: string;
+  flavors?: string[];
+  price?: number;
+  dozenPrice?: number;
+}
