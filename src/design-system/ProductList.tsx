@@ -58,7 +58,7 @@ const Top = styled.div`
 `;
 
 const Title = styled.p`
-  ${fonts.cursiveText['800']};
+  ${fonts.cursiveText['900']};
   text-align: center;
 `
 

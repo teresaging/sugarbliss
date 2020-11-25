@@ -57,8 +57,6 @@ const MorningPastriesPage = ({data}: MorningPastriesProps) => {
     return item.name !== 'Muffins' && item.name !== 'Scones';
   }).reverse();
 
-  console.log('otherTreats', otherTreats);
-
   return(
     <Layout>
       <ProductHeader productName="Morning Pastries" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} />
@@ -99,7 +97,7 @@ const HighlightedProduct = styled.div`
 `;
 
 const Title = styled.p`
-  ${fonts.cursiveText['800']};
+  ${fonts.cursiveText['900']};
   text-align: center;
   margin-bottom: ${sizing(50)};
 `;
