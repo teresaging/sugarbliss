@@ -26,7 +26,7 @@ const HomepageProducts = ({products}: Props) => {
           return (
           <Product key={product.name}>
             <Image fluid={product.fluidImage} />
-            <Button url={product.url} text={product.name} size="LARGE"/>
+            <Button url={product.url} text={product.name} size="XLARGE"/>
           </Product>)
         })}
       </ProductsContainer>
@@ -47,7 +47,7 @@ const HomepageProductsWrapper = styled.div`
   }
 `
 const Title = styled.p`
- ${fonts.cursiveText['1000']};
+ ${fonts.cursiveText['1200']};
  color: ${colors.solids.BROWN};
  text-align: center;
 `

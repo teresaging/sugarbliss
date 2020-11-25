@@ -36,7 +36,7 @@ export const getFont = (size: keyof typeof Sizes) => {
       return fonts.cursiveText['400'];
     }
     case Sizes.LARGE: {
-      return fonts.cursiveText['500'];
+      return fonts.cursiveText['600'];
     }
     case Sizes.XLARGE: {
       return fonts.cursiveText['700'];
