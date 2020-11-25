@@ -10,25 +10,39 @@ import { fonts } from './Fonts';
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
 type Props = {
-  backgroundImage: FluidImage;
+  backgroundImage?: FluidImage;
   underlineImage: FluidImage;
   productName: string;
+  isFullWidth?: boolean;
+  imageUrl?: string;
 }
 
-const ProductHeader = ({backgroundImage, underlineImage, productName}: Props) => {
+const ProductHeader = ({backgroundImage, underlineImage, productName, isFullWidth = false, imageUrl}: Props) => {
+
+  if (isFullWidth) {
+    return (
+      <FullWidthContainer>
+        <BackgroundImage fluid={backgroundImage.childImageSharp.fluid} />
+        <TextContainer>
+          <FullWidthText>{productName}</FullWidthText>
+          <Underline fluid={underlineImage.childImageSharp.fluid}/>
+        </TextContainer>
+      </FullWidthContainer>
+    )
+  }
 
   return (
     <Container>
-      <Image fluid={backgroundImage.childImageSharp.fluid} />
-      <TextContainer>
-        <Text>{productName}</Text>
-        <Underline fluid={underlineImage.childImageSharp.fluid}/>
-      </TextContainer>
+      <Text>{productName}</Text>
+      <Underline fluid={underlineImage.childImageSharp.fluid}/>
+      <CircleImageContainer>
+        <CircleImage src={imageUrl} alt={productName}/>
+      </CircleImageContainer>
     </Container>
-  )
+  );
 };
 
-const Container = styled.div`
+const FullWidthContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,7 +53,7 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-const Image = styled(Img)`
+const BackgroundImage = styled(Img)`
   width: 100%;
   height: auto;
 `;
@@ -48,7 +62,7 @@ const TextContainer = styled.div`
   position: absolute;
 `;
 
-const Text = styled.p`
+const FullWidthText = styled.p`
   ${fonts.cursiveText['5000']};
   text-align: center;
   color: ${colors.solids.WHITE};
@@ -59,6 +73,33 @@ const Underline = styled(Img)`
   margin-left: auto;
   margin-right: auto;
   width: ${sizing(300)};
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: ${sizing(35)};
+`;
+
+const CircleImageContainer = styled.div`
+  margin-top: ${sizing(35)};
+  width: ${sizing(350)};
+  height: ${sizing(350)};
+  border-radius: 50%;
+  overflow: hidden;
+`;
+
+const CircleImage = styled.img`
+  width: 100%;
+  height: auto;
+`;
+
+const Text = styled.p`
+  ${fonts.cursiveText['1200']};
+  text-align: center;
+  color: ${colors.solids.BROWN};
 `;
 
 export default ProductHeader;

@@ -32,7 +32,7 @@ const CakePopsPage = ({data}: CakePopsProps) => {
 
   return (
     <Layout>
-      <ProductHeader productName="Cake Pops" backgroundImage={data.cakePopsHeaderImage} underlineImage={data.underlineImage} />
+      <ProductHeader productName="Cake Pops" backgroundImage={data.cakePopsHeaderImage} underlineImage={data.underlineImage} isFullWidth />
       <PricesContainer>
         <Price>$3 Each | $34 Dozen</Price>
       </PricesContainer>

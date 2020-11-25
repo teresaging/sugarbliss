@@ -31,7 +31,7 @@ const MacaronsPage = ({data}: MacaronsProps) => {
 
   return (
     <Layout>
-      <ProductHeader productName="Macarons" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} />
+      <ProductHeader productName="Macarons" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} isFullWidth />
       <PricesContainer>
         <Price>$2.50 Each | Box of 6: $15 | Box of 12: $28</Price>
       </PricesContainer>

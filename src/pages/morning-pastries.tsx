@@ -57,9 +57,9 @@ const MorningPastriesPage = ({data}: MorningPastriesProps) => {
     return item.name !== 'Muffins' && item.name !== 'Scones';
   }).reverse();
 
-  return(
+  return (
     <Layout>
-      <ProductHeader productName="Morning Pastries" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} />
+      <ProductHeader productName="Morning Pastries" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} isFullWidth />
       {Boolean(muffins) && (
         <HighlightedProduct>
           <ProductList title={muffins.name} price={muffins.price} dozenPrice={muffins.dozenPrice} flavors={muffins.flavors}/>

@@ -48,3 +48,13 @@ export type MorningPastry = {
   price?: number;
   dozenPrice?: number;
 }
+
+export type FrostingShot = {
+  image: {
+    file: {
+      url: string;
+    }
+  }
+  price: number;
+  flavors: string[];
+}

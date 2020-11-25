@@ -32,7 +32,7 @@ const CupcakesPage = ({data}: CupcakeProps) => {
 
   return (
     <Layout>
-      <ProductHeader productName="Cupcakes" backgroundImage={data.cupcakesHeaderImage} underlineImage={data.underlineImage} />
+      <ProductHeader productName="Cupcakes" backgroundImage={data.cupcakesHeaderImage} underlineImage={data.underlineImage} isFullWidth />
       <Intro>
         <div>
           <IntroTitle>Regular Cupcakes:</IntroTitle>

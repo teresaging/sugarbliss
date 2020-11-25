@@ -35,7 +35,7 @@ const NavData = [
             },
             {
                 name: 'Frosting Shots',
-                url: '/',
+                url: '/frosting-shots',
             },
             {
                 name: 'Pairings',

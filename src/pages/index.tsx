@@ -79,7 +79,7 @@ const IndexPage = ({data}: IndexProps) => {
         <HomepageProducts products={productSectionData} />
         <OrderOnline>
           <OrderOnlineImage fluid={data.homeOrderImage.childImageSharp.fluid}/>
-          <Button url="/" text="OrderOnline" size="LARGE"/>
+          <Button url="/" text="Order Online" size="XLARGE"/>
         </OrderOnline>
         <Link to="/page-2/">Go to page 2</Link>
       </Layout>

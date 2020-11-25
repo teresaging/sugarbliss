@@ -7,7 +7,7 @@ interface Colors {
 }
 
 const solids = {
-  BROWN: '#562a0d',
+  BROWN: '#4F2C1D',
   MAIN_MED_BLUE: '#36bee8',
   MAIN_LIGHT_BLUE: '#98d9ec',
   BABY_BLUE: '#d9edf7',
