@@ -251,5 +251,15 @@ module.exports = {
       },
     },
     'gatsby-plugin-instagram-embed',
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `muli`,
+          `source sans pro\:200,300, 400, 500, 600, 700, 800, 900`,
+        ],
+        display: 'swap'
+      }
+    }
   ],
 }
