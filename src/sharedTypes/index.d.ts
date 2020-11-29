@@ -61,3 +61,12 @@ export type Cakes = {
   servingDescription: string;
   description: string;
 }
+
+export type Cookies = {
+  name: string;
+  type: string;
+  description: string; // supports rich text
+  price?: number;
+  dozenPrice?: number;
+  customPrice?: number;
+}

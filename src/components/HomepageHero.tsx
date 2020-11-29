@@ -42,7 +42,8 @@ export type SlideTypes = {
     textPosition: keyof typeof CONTENT_POSITIONS;
     buttonLink: string;
     buttonText: string;
-    childContentfulHomepageHeroTextRichTextNode: any;
+    // tslint:disable-next-line:no-any
+    childContentfulHomepageHeroTextRichTextNode: any; // supports rich text
     backgroundImage: {
       file: {
         url: string;

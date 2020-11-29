@@ -9,6 +9,9 @@ import { sizing } from '../utils';
 type flavor = {
   name: string;
   description?: string;
+  price?: string;
+  dozenPrice?: string;
+  customPrice?: string;
 }
 
 type Props = {
@@ -37,7 +40,11 @@ const ProductList = ({title, description, price, dozenPrice, flavors}: Props) =>
           flavors.map((flavor, idx) => (
             <FlavorContainer key={idx}>
               <FlavorName>{flavor.name}</FlavorName>
+              {Boolean(flavor.price) && Boolean(flavor.dozenPrice) ? (
+                <FlavorPrice>Single: ${flavor.price} | Dozen: ${flavor.dozenPrice}</FlavorPrice> )
+                : flavor.price ? (<FlavorPrice>${flavor.price}</FlavorPrice>) : null }
               {Boolean(flavor.description) && (<FlavorDescription>{flavor.description}</FlavorDescription>)}
+              {Boolean(flavor.customPrice) && (<FlavorPrice>Custom price starts at: ${flavor.customPrice}</FlavorPrice>)}
             </FlavorContainer>
           ))
         }
@@ -84,6 +91,7 @@ const FlavorsListContainer = styled.div`
 `;
 
 const FlavorContainer = styled.div`
+  min-width: ${sizing(400)};
   max-width: 50%;
   width: 50%;
   display: flex;
@@ -94,7 +102,7 @@ const FlavorContainer = styled.div`
 `;
 
 const FlavorName = styled.p`
-  ${fonts.regularText['300']};
+  ${fonts.boldText['400']};
   text-align: center;
 `;
 
@@ -102,5 +110,11 @@ const FlavorDescription = styled.p`
   ${fonts.regularText['300']};
   text-align: center;
 `;
+
+const FlavorPrice = styled.p`
+  ${fonts.regularText['300']};
+  text-align: center;
+  font-weight: 600;
+`
 
 export default ProductList;

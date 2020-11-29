@@ -19,7 +19,7 @@ const OrderFooter = ({backgroundImage}: Props) => {
     <Container>
       <Image fluid={backgroundImage.childImageSharp.fluid} />
       <OrderButtonContainer>
-        <Button url="" text="Order Online" size="XLARGE" />
+        <Button url="/order" text="Order Online" size="XLARGE" />
       </OrderButtonContainer>
     </Container>
   )
