@@ -49,6 +49,14 @@ const NavData = [
                 name: 'Pairings',
                 url: '/',
             },
+            {
+                name: 'Sweet Crepes',
+                url: '/sweet-crepes',
+            },
+            {
+                name: 'Other Goodies',
+                url: '/other-goodies',
+            },
         ],
     },
     {

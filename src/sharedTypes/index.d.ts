@@ -75,3 +75,18 @@ export type BarsBrownies = {
   name: string;
   description?: string;
 }
+
+export type OtherGoodies = {
+  name: string;
+  description?: string;
+  type: string;
+  price?: number;
+}
+
+export type SweetCrepes = {
+  name: string;
+  description?: string;
+  price?: number;
+  isTopping?: boolean;
+  flavors?: string[];
+}

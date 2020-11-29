@@ -6,7 +6,7 @@ import { FluidObject } from 'gatsby-image';
 
 import { fonts, ProductHeader } from '../design-system';
 import { Cakes } from '../sharedTypes';
-import { sizing, colors } from '../utils';
+import { sizing } from '../utils';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 

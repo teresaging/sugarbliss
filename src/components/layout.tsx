@@ -57,7 +57,7 @@ const Layout = ({ children }: Props) => (
               <html lang="en" />
             </Helmet>
             <Header siteTitle={data.site.siteMetadata.title} logo={data.logo.childImageSharp.fluid} />
-            <Container style={{}}>{children}</Container>
+            <Container>{children}</Container>
             <Footer logo={data.logo.childImageSharp.fluid} WBELogo={data.WBELogo.childImageSharp.fluid} NMSDCLogo={data.NMSDCLogo.childImageSharp.fluid}/>
           </>
     )}}
@@ -69,5 +69,5 @@ export default Layout
 const Container = styled.div`
   margin: 0 auto;
   max-width: 100%;
-  padding: 0 0 1.45rem;
+  padding: 0;
 `
