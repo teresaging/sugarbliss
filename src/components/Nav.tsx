@@ -34,6 +34,10 @@ const NavData = [
                 url: '/cookies',
             },
             {
+                name: 'Bars & Brownies',
+                url: '/bars-brownies',
+            },
+            {
                 name: 'Morning Pastries',
                 url: '/morning-pastries',
             },

@@ -2,13 +2,11 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { FluidObject } from 'gatsby-image';
 import { graphql, PageProps } from 'gatsby';
-import { BLOCKS, MARKS } from '@contentful/rich-text-types';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 import Layout from '../components/layout';
-import { fonts, ProductHeader, ProductList, OrderFooter } from '../design-system';
+import { ProductHeader, ProductList, OrderFooter } from '../design-system';
 import { Cookies } from '../sharedTypes';
-import { sizing, colors } from '../utils';
+import { sizing } from '../utils';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
@@ -36,7 +34,6 @@ const CookiesPage = ({data}: CookiesPageProps) => {
   const everydayFlavors = data.allContentfulCookies.nodes.filter((flavor) => flavor.type === 'everyday');
   const rotatingFlavors = data.allContentfulCookies.nodes.filter((flavor) => flavor.type === 'rotating');
   const seasonalFlavors = data.allContentfulCookies.nodes.filter((flavor) => flavor.type === 'seasonal');
-  console.log('seasonalFlavors', seasonalFlavors);
 
   return (
     <Layout>
@@ -70,8 +67,8 @@ const Section = styled.div`
 export default CookiesPage;
 
 export const query = graphql`
-  query CokoiesQuery {
-    allContentfulCookies {
+  query CookiesQuery {
+    allContentfulCookies(sort: {fields: createdAt}) {
       nodes {
         name
         description

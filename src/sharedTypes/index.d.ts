@@ -70,3 +70,8 @@ export type Cookies = {
   dozenPrice?: number;
   customPrice?: number;
 }
+
+export type BarsBrownies = {
+  name: string;
+  description?: string;
+}

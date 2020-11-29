@@ -9,9 +9,9 @@ import { sizing } from '../utils';
 type flavor = {
   name: string;
   description?: string;
-  price?: string;
-  dozenPrice?: string;
-  customPrice?: string;
+  price?: number;
+  dozenPrice?: number;
+  customPrice?: number;
 }
 
 type Props = {
