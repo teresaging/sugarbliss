@@ -41,27 +41,27 @@ const IndexPage = ({data}: IndexProps) => {
     {
       name: 'CakePops',
       fluidImage: data.productCakePopImage.childImageSharp.fluid,
-      url: '/',
+      url: '/cake-pops',
     },
     {
       name: 'Macarons',
       fluidImage: data.productMacaronImage.childImageSharp.fluid,
-      url: '/',
+      url: '/macarons',
     },
     {
       name: 'Cakes',
       fluidImage: data.productCakeImage.childImageSharp.fluid,
-      url: '/',
+      url: '/cakes',
     },
     {
-      name: 'Breakfast Cupcakes',
+      name: 'Morning Pastries',
       fluidImage: data.productBreakfastCupcakesImage.childImageSharp.fluid,
-      url: '/',
+      url: '/morning-pastries',
     },
     {
       name: 'Frosting Shots',
       fluidImage: data.productFrostingShotImage.childImageSharp.fluid,
-      url: '/',
+      url: '/frosting-shots',
     },
     {
      name: 'Pairings',
@@ -81,7 +81,6 @@ const IndexPage = ({data}: IndexProps) => {
           <OrderOnlineImage fluid={data.homeOrderImage.childImageSharp.fluid}/>
           <Button url="/" text="Order Online" size="XLARGE"/>
         </OrderOnline>
-        <Link to="/page-2/">Go to page 2</Link>
       </Layout>
     )
 }
