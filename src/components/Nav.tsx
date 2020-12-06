@@ -1,8 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Link } from 'gatsby';
-import { ChevronDown } from 'react-feather';
+import React from 'react';
 import styled from '@emotion/styled';
-import { sizing } from '../utils';
 import { NavLink } from '../design-system';
 
 const NavData = [
