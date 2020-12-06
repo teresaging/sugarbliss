@@ -90,3 +90,24 @@ export type SweetCrepes = {
   isTopping?: boolean;
   flavors?: string[];
 }
+
+export type CateringProducts = {
+  name: string;
+  category: string;
+  description?: string;
+  price?: number;
+  smallPrice?: number;
+  smallServingSize?: string;
+  mediumPrice?: number;
+  mediumServingSize?: string;
+  largePrice?: number;
+  largeServingSize?: string;
+  isMainFlavor?: boolean;
+}
+
+export type ContentfulAsset = {
+  file: {
+    url: string;
+  };
+  title?: string;
+}
