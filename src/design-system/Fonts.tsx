@@ -47,7 +47,7 @@ const regularText = {
     'font-family': FONT_FAMILIES.MULI,
     'font-size': sizing(22),
     'font-weight': '400',
-    'line-height': sizing(23),
+    'line-height': sizing(34),
   },
 };
 
