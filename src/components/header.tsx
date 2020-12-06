@@ -3,6 +3,8 @@ import { Link } from 'gatsby';
 import styled from '@emotion/styled';
 import Img, { FluidObject } from 'gatsby-image';
 
+import { sizing } from '../utils';
+
 import Nav from './Nav';
 
 type Props = {
@@ -14,7 +16,7 @@ const Header = ({ siteTitle, logo }: Props) => (
   <HeaderWrapper>
       <LogoContainer>
           <StyledLink to="/">
-            <Img alt={siteTitle} fluid={logo} />
+            <LogoImg alt={siteTitle} fluid={logo} />
           </StyledLink>
       </LogoContainer>
       <NavContainer>
@@ -43,3 +45,7 @@ const NavContainer = styled.div`
     display: flex;
     justify-content: flex-end;
 `
+
+const LogoImg = styled(Img)`
+  width: ${sizing(275)};
+`;
