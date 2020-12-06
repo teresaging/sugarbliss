@@ -21,9 +21,9 @@ const Layout = ({ children }: Props) => (
             title
           }
         },
-        logo: file(absolutePath: {regex: "/\\/images\\/sbboutique-logo\\.png/"}) {
+        logo: file(absolutePath: {regex: "/\\/images\\/SugarBliss_Logo_2020\\.png/"}) {
           childImageSharp {
-            fluid(maxWidth: 160) {
+            fluid(maxWidth: 600) {
                   ...GatsbyImageSharpFluid
             }
           }
