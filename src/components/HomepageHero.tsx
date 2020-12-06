@@ -66,8 +66,8 @@ const SLIDER_SETTINGS = {
   slidesToScroll: 1
 };
 
-const Bold = ({ children }) => <span className="bold">{children}</span>
-const Text = ({ children }) => <p>{children}</p>
+const Bold = ({ children }) => <span className="bold">{children}</span>;
+const Text = ({ children }) => <p>{children}</p>;
 
 const options = {
   renderMark: {

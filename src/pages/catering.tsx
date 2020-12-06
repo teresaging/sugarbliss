@@ -4,7 +4,7 @@ import { FluidObject } from 'gatsby-image'
 import styled from '@emotion/styled';
 
 import Layout from '../components/layout';
-import { ProductHeader, ProductList, OrderFooter, fonts, Button } from '../design-system';
+import { ProductHeader, OrderFooter, fonts, Button } from '../design-system';
 import { sizing, colors } from '../utils';
 import { ContentfulAsset, CateringProducts } from '../sharedTypes';
 
@@ -52,7 +52,7 @@ const CateringPage = ({data}: CateringPageProps) => {
 
   const beveragesData = data.allContentfulCatering.nodes.filter((data) => data.category === 'Beverages');
 
-  return(
+  return (
     <Layout>
       <ProductHeader backgroundImage={data.cateringHeaderImage} underlineImage={data.underlineImage} productName="Catering" isFullWidth />
       <MenuSection>
