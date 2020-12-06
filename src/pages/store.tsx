@@ -7,7 +7,7 @@ import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 import Layout from '../components/layout';
 import { ProductHeader, fonts } from '../design-system';
-import { sizing, colors } from '../utils';
+import { sizing } from '../utils';
 import { Store } from '../sharedTypes';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
