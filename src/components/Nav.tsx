@@ -89,7 +89,7 @@ const NavData = [
     },
     {
         name: 'Store',
-        url: '/',
+        url: '/store',
     },
     {
         name: 'Faq',

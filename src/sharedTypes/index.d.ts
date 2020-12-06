@@ -105,6 +105,17 @@ export type CateringProducts = {
   isMainFlavor?: boolean;
 }
 
+export type Store = {
+  childContentfulStoreAddressRichTextNode: {
+    // tslint:disable-next-line:no-any
+    json: any;
+  };
+  childContentfulStoreHoursRichTextNode: {
+    // tslint:disable-next-line:no-any
+    json: any;
+  }
+}
+
 export type ContentfulAsset = {
   file: {
     url: string;
