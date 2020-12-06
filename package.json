@@ -39,6 +39,7 @@
     "react-emotion": "^10.0.0",
     "react-feather": "^2.0.9",
     "react-helmet": "^6.1.0",
+    "react-markdown": "^5.0.3",
     "react-slick": "^0.26.1",
     "save": "^2.4.0",
     "slick-carousel": "^1.8.1",

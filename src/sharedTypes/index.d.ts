@@ -116,6 +116,19 @@ export type Store = {
   }
 }
 
+export type About = {
+  teresaImage: {
+    file: {
+      url: string;
+    }
+  };
+  about: {
+    childMarkdownRemark: {
+      rawMarkdownBody: string;
+    }
+  }
+}
+
 export type ContentfulAsset = {
   file: {
     url: string;
