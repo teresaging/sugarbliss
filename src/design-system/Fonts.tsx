@@ -23,13 +23,13 @@ const regularText = {
     'font-family': FONT_FAMILIES.MULI,
     'font-size': sizing(14),
     'font-weight': '400',
-    'line-height': sizing(18),
+    'line-height': sizing(22),
   },
   300: {
     'font-family': FONT_FAMILIES.MULI,
     'font-size': sizing(16),
     'font-weight': '400',
-    'line-height': sizing(20),
+    'line-height': sizing(26),
   },
   400: {
     'font-family': FONT_FAMILIES.MULI,

@@ -129,6 +129,16 @@ export type About = {
   }
 }
 
+export type Weddings = {
+  name: string;
+  price: number;
+  miniPrice: number;
+  priceAmount: string;
+  priceRange: string;
+  flavors: string[];
+  type: string;
+}
+
 export type ContentfulAsset = {
   file: {
     url: string;
