@@ -70,8 +70,8 @@ const NavData = [
                 url: '/catering',
             },
             {
-                name: 'Wedding',
-                url: '/',
+                name: 'Weddings',
+                url: '/weddings',
             },
             {
                 name: 'Sweets Cart',
