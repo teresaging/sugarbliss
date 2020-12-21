@@ -40,9 +40,11 @@ const OrderPage = ({data}: OrderProps) => {
 
   const removeAllItemsFromCart = () => {
     // ToDo: add removeItem to snipcart plugin
-    cartItems.forEach(async (item) => {
-      await removeItem(item.uniqueId);
-    });
+    if (cartItems && cartItems.length !== 0) {
+      cartItems.forEach(async (item) => {
+        await removeItem(item.uniqueId);
+      });
+    }
   }
 
   const addItemToCart = (item) => {
