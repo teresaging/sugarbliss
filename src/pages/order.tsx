@@ -9,7 +9,7 @@ import OrderDeliveryForm from '../components/OrderDeliveryForm';
 import OrderPickupForm from '../components/OrderPickupForm';
 
 import styled from '@emotion/styled';
-import { font, Button } from '../design-system';
+import { fonts, Button } from '../design-system';
 import { sizing, colors } from '../utils';
 import { Cupcake } from '../sharedTypes';
 
@@ -147,6 +147,35 @@ const Container = styled.div`
   width: 85%;
   @media all and (min-width: 992px) {
      width: 60%;
+  }
+  
+  .MuiInputBase-root {
+    ${fonts.regularText['400']};
+    color: ${colors.solids.BROWN}
+  }
+  .MuiFormLabel-root {
+    ${fonts.mediumText['400']};
+    line-height: ${sizing(2)};
+    color: rgba(79, 44, 29, 0.54);
+  }
+  .MuiInput-underline:before {
+    border-bottom: 1px solid rgba(79, 44, 29, 0.42);
+    transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+  .MuiInput-underline:after {
+    border-bottom: 2px solid ${colors.solids.BROWN};
+  }
+  .MuiInput-underline:hover:not(.Mui-disabled):before {
+    border-bottom: 2px solid rgba(79, 44, 29, 0.87);
+  }
+  .MuiFormLabel-root.Mui-focused {
+    color: ${colors.solids.BROWN};
+  }
+  .MuiList-root {
+    ${fonts.regularText['500']};
+  }
+  .MuiMenuItem-root {
+    ${fonts.regularText['500']};
   }
 `;
 
