@@ -1,12 +1,15 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 import { graphql, PageProps } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 import { SnipcartContext } from 'gatsby-plugin-snipcart-advanced/context';
 
 import Layout from '../components/layout';
+import OrderDeliveryPickup from '../components/OrderDeliveryPickup';
+import OrderDeliveryForm from '../components/OrderDeliveryForm';
+import OrderPickupForm from '../components/OrderPickupForm';
 
 import styled from '@emotion/styled';
-import { fonts } from '../design-system';
+import { font, Button } from '../design-system';
 import { sizing, colors } from '../utils';
 import { Cupcake } from '../sharedTypes';
 
@@ -21,22 +24,29 @@ type OrderQueryProps = {
 type OrderProps = PageProps<OrderQueryProps>;
 
 const OrderPage = ({data}: OrderProps) => {
-  const { state, addItem } = useContext(SnipcartContext);
-  const { userStatus, cartQuantity } = state;
+  const { state, addItem, removeItem } = useContext(SnipcartContext);
+  const { userStatus, cartQuantity, cartItems } = state;
+  const [ orderType, setOrderType ] = useState(null);
+  const [ step, setStep ] = useState(1);
+  const [ dayOfWeek, setDayOfWeek ] = useState(null);
 
   const testingRef = useRef(null);
 
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    // cleanse cart
+    removeAllItemsFromCart();
+  }, [0]);
+
+  const removeAllItemsFromCart = () => {
+    // ToDo: add removeItem to snipcart plugin
+    cartItems.forEach(async (item) => {
+      await removeItem(item.uniqueId);
+    });
+  }
+
   const addItemToCart = (item) => {
-      addItem({
-        id: 'PRODUCT_ID',
-        name: 'Product 1',
-        price: 20.00,
-        alternatePrices: {
-          vip: 10.00
-        },
-        url: '/order',
-        quantity: 1,
-      });
+      addItem(item);
   }
 
   const applyDiscount = (productId) => {
@@ -49,8 +59,44 @@ const OrderPage = ({data}: OrderProps) => {
     }
   }
 
+  const handleOptionPress = (value) => {
+    setOrderType(value);
+    const nextStep = 2; // this will always be step 2
+    setStep(nextStep);
+  }
+
+  const handleAddPickupOrDeliveryToCart = (value) => {
+    addItem({
+      id: value === 'pickup' ? 'pickup-from-store' : 'local-delivery',
+      name: value === 'pickup' ? 'Pickup From Store' : 'Local Delivery',
+      price: 0,
+
+    });
+  }
+
+  const goBackAStep = () => {
+    const previousStep = step - 1;
+    setStep(previousStep);
+  }
+
   return (
     <Layout>
+      <Container>
+      {step === 1 && (
+        <OrderDeliveryPickup onOptionPress={handleOptionPress} />
+      )}
+      {step === 2 && (
+        <>
+          <Button size="MEDIUM" text="Back" onClick={goBackAStep}/>
+          {orderType === 'delivery' ? (
+            <OrderDeliveryForm />
+            ) :
+            (
+              <OrderPickupForm />
+            )
+          }
+        </>
+      )}
         {userStatus === 'SignedOut' ? (
           <button className="snipcart-customer-signin">
             <span>Login</span>
@@ -76,6 +122,7 @@ const OrderPage = ({data}: OrderProps) => {
         >
           Add to cart
         </button>
+      <div><button onClick={removeAllItemsFromCart}>remove all items from cart</button></div>
 
       <button
         className="snipcart-add-item"
@@ -90,8 +137,17 @@ const OrderPage = ({data}: OrderProps) => {
         Add Pickup
       </button>
       <button onClick={handleOnClick}>test!!!</button>
+      </Container>
     </Layout>
   )
 }
+
+const Container = styled.div`
+  margin: ${sizing(100)} auto ${sizing(75)} auto;
+  width: 85%;
+  @media all and (min-width: 992px) {
+     width: 60%;
+  }
+`;
 
 export default OrderPage;

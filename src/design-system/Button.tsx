@@ -20,8 +20,9 @@ type Props = {
   textColor?: string;
   isFullWidth?: boolean;
   size?: keyof typeof Sizes;
-  url: string;
+  url?: string;
   text: string;
+  onClick?: Function;
 }
 
 export const getFont = (size: keyof typeof Sizes) => {
@@ -33,7 +34,7 @@ export const getFont = (size: keyof typeof Sizes) => {
       return fonts.cursiveText['300'];
     }
     case Sizes.MEDIUM: {
-      return fonts.cursiveText['400'];
+      return fonts.mediumText['400'];
     }
     case Sizes.LARGE: {
       return fonts.cursiveText['600'];
@@ -82,16 +83,49 @@ export const getSize = (size: keyof typeof Sizes) => {
   }
 };
 
-const Button = ({url, size = Sizes.MEDIUM, isFullWidth = false, text, backgroundColor = colors.solids.BROWN, textColor = colors.solids.WHITE}: Props) => {
+const Button = ({url, size = Sizes.MEDIUM, isFullWidth = false, text, backgroundColor = colors.solids.BROWN, textColor = colors.solids.WHITE, onClick = null}: Props) => {
+
+  const handleOnClick = () => {
+    onClick();
+  }
 
   return (
-    <StyledButton to={url} size={size} isFullWidth={isFullWidth} backgroundColor={backgroundColor} textColor={textColor} >
-      {text}
-    </StyledButton>
+    <>
+      {url && (
+        <StyledLink to={url} size={size} isFullWidth={isFullWidth} backgroundColor={backgroundColor} textColor={textColor} >
+          {text}
+        </StyledLink>
+      )}
+      {onClick && (
+        <StyledButton onClick={handleOnClick} size={size} isFullWidth={isFullWidth} backgroundColor={backgroundColor} textColor={textColor} >
+          {text}
+        </StyledButton>
+      )}
+    </>
   )
 };
 
-const StyledButton = styled(Link)<{size: keyof typeof Sizes, isFullWidth: boolean, backgroundColor: string, textColor: string}>`
+const StyledLink = styled(Link)<{size: keyof typeof Sizes, isFullWidth: boolean, backgroundColor: string, textColor: string}>`
+    border-radius: ${sizing(40)};
+    color: ${({textColor}) => textColor};
+    cursor: pointer;
+    background-color: ${({backgroundColor}) => backgroundColor};
+    display: inline-block;
+    appearance: none;
+    position: relative;
+    outline: none;
+    text-decoration: none;
+    width: ${({isFullWidth}) => isFullWidth ? '100%' : 'auto'};
+    ${({ size }) => getFont(size)};
+    ${({ size }) => getSize(size)}; 
+    
+    &:hover, &:focus {
+      color: ${({textColor}) => textColor};
+      background-color: ${({backgroundColor}) => backgroundColor};
+    }
+`
+
+const StyledButton = styled.a<{size: keyof typeof Sizes, isFullWidth: boolean, backgroundColor: string, textColor: string}>`
     border-radius: ${sizing(40)};
     color: ${({textColor}) => textColor};
     cursor: pointer;
