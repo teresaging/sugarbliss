@@ -13,6 +13,7 @@ const solids = {
   BABY_BLUE: '#d9edf7',
   BABY_PINK: '#fef6f5',
   WHITE: '#FFF',
+  ERROR: 'red',
 };
 
 

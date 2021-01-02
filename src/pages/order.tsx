@@ -4,9 +4,9 @@ import { FluidObject } from 'gatsby-image';
 import { SnipcartContext } from 'gatsby-plugin-snipcart-advanced/context';
 
 import Layout from '../components/layout';
-import OrderDeliveryPickup from '../components/OrderDeliveryPickup';
-import OrderDeliveryForm from '../components/OrderDeliveryForm';
-import OrderPickupForm from '../components/OrderPickupForm';
+import OrderDeliveryPickup from '../components/order/OrderDeliveryPickup';
+import OrderDeliveryForm from '../components/order/OrderDeliveryForm';
+import OrderPickupForm from '../components/order/OrderPickupForm';
 
 import styled from '@emotion/styled';
 import { fonts, Button } from '../design-system';
@@ -32,11 +32,10 @@ const OrderPage = ({data}: OrderProps) => {
 
   const testingRef = useRef(null);
 
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-    // cleanse cart
-    removeAllItemsFromCart();
-  }, [0]);
+  // useEffect(() => {
+  //   // cleanse cart
+  //   removeAllItemsFromCart();
+  // }, [0]);
 
   const removeAllItemsFromCart = () => {
     // ToDo: add removeItem to snipcart plugin
@@ -178,6 +177,9 @@ const Container = styled.div`
   }
   .MuiMenuItem-root {
     ${fonts.regularText['500']};
+  }
+  .MuiFormHelperText-root {
+    ${fonts.boldText['100']};
   }
 `;
 
