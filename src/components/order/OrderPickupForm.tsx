@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from 'react-final-form';
 import { DatePicker, Select } from 'mui-rff';
 import { MenuItem } from '@material-ui/core';
@@ -83,7 +83,9 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek}: Props) =
                   <MenuItem value="1pm-2pm">1pm - 2pm</MenuItem>
                   <MenuItem value="2pm-3pm">2pm - 3pm</MenuItem>
                   <MenuItem value="3pm-4pm">3pm - 4pm</MenuItem>
-                  <MenuItem value="4pm-5pm">4pm - 5pm</MenuItem>
+                  {moment(values.date).format('dddd') !== 'Saturday' && moment(values.date).format('dddd') !== 'Sunday' && (
+                    <MenuItem value="4pm-5pm">4pm - 5pm</MenuItem>
+                  )}
                 </Select>
               </Row>
               <SubmitButton
