@@ -12,18 +12,66 @@ import { Container, Title, SubTitle, FormContainer, Row, SingleRow, SubmitButton
 
 type Props = {
   handleNextStep: Function;
+  addItemToCart: Function;
+  setDayOfWeek: Function;
 }
 
-const OrderDeliveryForm = ({handleNextStep}: Props) => {
+const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek}: Props) => {
 
   const [ canDeliver, setCanDeliver ] = useState(false);
+  const [ deliveryPrice, setDeliveryPrice ] = useState(0);
 
-  const handleSubmit = () => {
+  const handleSubmit = async (values) => {
+    await addItemToCart({
+      id: 'delivery',
+      name: 'Delivery',
+      price: deliveryPrice || 0,
+      url: '/order',
+      quantity: 1,
+      customFields: [
+        {
+          name: 'Date',
+          type: 'readonly',
+          value: moment(values.date).format('MMMM Do YYYY'),
+        },
+        {
+          name: 'Time',
+          type: 'readonly',
+          value: values.time,
+        },
+        {
+          name: 'Name',
+          type: 'readonly',
+          value: values.name,
+        },
+        {
+          name: 'Address',
+          type: 'readonly',
+          value: values.address,
+        },
+        {
+          name: 'Apartment',
+          type: 'readonly',
+          value: values.addressApt || '',
+        },
+        {
+          name: 'City',
+          type: 'readonly',
+          value: values.city,
+        },
+        {
+          name: 'Zip Code',
+          type: 'readonly',
+          value: values.zipCode,
+        }
+      ],
+    });
+    await setDayOfWeek(moment(values.date).format('dddd'));
     handleNextStep();
   }
 
   const getDeliveryPrice = (zipCode) => {
-    return CityDeliveryZipCodePrices[zipCode] || SuburbDeliveryZipCodePrices[zipCode] || 0
+    return CityDeliveryZipCodePrices[zipCode] || SuburbDeliveryZipCodePrices[zipCode] || null
   }
 
   return (
@@ -55,15 +103,17 @@ const OrderDeliveryForm = ({handleNextStep}: Props) => {
               errors.zipCode = 'Required';
             }
 
-            if (values.zipCode?.length > 4 && !getDeliveryPrice(values.zipCode)) {
-              setCanDeliver(false);
-              errors.address = ' ';
-              errors.city = ' ';
-              errors.zipCode = ' ';
-            }
-
-            if (values.zipCode?.length > 4 && getDeliveryPrice(values.zipCode)) {
-              setCanDeliver(true);
+            if (values.zipCode?.length > 4) {
+              const price = getDeliveryPrice(values.zipCode);
+              if (price !== null) {
+                setCanDeliver(true);
+                setDeliveryPrice(price);
+              } else {
+                setCanDeliver(false);
+                errors.address = ' ';
+                errors.city = ' ';
+                errors.zipCode = ' ';
+              }
             }
 
             return errors;
@@ -104,7 +154,7 @@ const OrderDeliveryForm = ({handleNextStep}: Props) => {
               </Row>
               {values.zipCode?.length > 4 && canDeliver && (
                 <SingleRow>
-                  <DeliveryPrice>Delivery Price: ${getDeliveryPrice(values.zipCode)}</DeliveryPrice>
+                  <DeliveryPrice>Delivery Price: ${deliveryPrice}</DeliveryPrice>
                 </SingleRow>
               )}
               {values.zipCode?.length > 4 && !canDeliver && (
@@ -113,32 +163,6 @@ const OrderDeliveryForm = ({handleNextStep}: Props) => {
                 </SingleRow>
               )}
               <SubmitButton
-                className="snipcart-add-item"
-                data-item-id="delivery"
-                data-item-price={getDeliveryPrice(values.zipCode).toString()}
-                data-item-url="/order"
-                data-item-name="Local Delivery"
-                data-item-custom1-name="Date"
-                data-item-custom1-type="readonly"
-                data-item-custom1-value={moment(values.date).format('MMMM Do YYYY')}
-                data-item-custom2-name="Time"
-                data-item-custom2-type="readonly"
-                data-item-custom2-value={values.time}
-                data-item-custom3-name="Name"
-                data-item-custom3-type="readonly"
-                data-item-custom3-value={values.name}
-                data-item-custom4-name="Address"
-                data-item-custom4-type="readonly"
-                data-item-custom4-value={values.address}
-                data-item-custom5-name="Apartment"
-                data-item-custom5-type="readonly"
-                data-item-custom5-value={values.addressApt}
-                data-item-custom6-name="City"
-                data-item-custom6-type="readonly"
-                data-item-custom6-value={values.city}
-                data-item-custom7-name="Zip Code"
-                data-item-custom7-type="readonly"
-                data-item-custom7-value={values.zipCode}
                 type="submit"
                 disabled={submitting || hasValidationErrors}>
                 Add Delivery To Order

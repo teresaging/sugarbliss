@@ -11,11 +11,32 @@ import { Container, Title, FormContainer, Row, SubmitButton } from './Styled';
 
 type Props = {
   handleNextStep: Function;
+  addItemToCart: Function;
+  setDayOfWeek: Function;
 }
 
-const OrderPickupForm = ({handleNextStep}: Props) => {
-  const handleSubmit = () => {
-    console.log('hey');
+const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek}: Props) => {
+  const handleSubmit = async (values) => {
+    await addItemToCart({
+      id: 'pickup',
+      name: 'Pickup',
+      price: 0,
+      url: '/order',
+      quantity: 1,
+      customFields: [
+        {
+          name: 'Date',
+          type: 'readonly',
+          value: moment(values.date).format('MMMM Do YYYY'),
+        },
+        {
+          name: 'Time',
+          type: 'readonly',
+          value: values.time,
+        }
+      ],
+    })
+    await setDayOfWeek(moment(values.date).format('dddd'));
     handleNextStep();
   }
 
@@ -66,17 +87,6 @@ const OrderPickupForm = ({handleNextStep}: Props) => {
                 </Select>
               </Row>
               <SubmitButton
-                className="snipcart-add-item"
-                data-item-id="pickup"
-                data-item-price="0.00"
-                data-item-url="/order"
-                data-item-name="Pickup"
-                data-item-custom1-name="Date"
-                data-item-custom1-type="readonly"
-                data-item-custom1-value={moment(values.date).format('MMMM Do YYYY')}
-                data-item-custom2-name="Time"
-                data-item-custom2-type="readonly"
-                data-item-custom2-value={values.time}
                 type="submit"
                 disabled={submitting || hasValidationErrors}>
                 Add Pickup To Order

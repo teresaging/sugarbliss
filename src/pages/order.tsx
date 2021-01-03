@@ -98,10 +98,10 @@ const OrderPage = ({data}: OrderProps) => {
       {step === 2 && (
         <>
           {orderType === 'delivery' ? (
-            <OrderDeliveryForm handleNextStep={goToNextStep} />
+            <OrderDeliveryForm setDayOfWeek={setDayOfWeek} addItemToCart={addItemToCart} handleNextStep={goToNextStep} />
             ) :
             (
-              <OrderPickupForm handleNextStep={goToNextStep} />
+              <OrderPickupForm setDayOfWeek={setDayOfWeek} addItemToCart={addItemToCart} handleNextStep={goToNextStep} />
             )
           }
         </>
