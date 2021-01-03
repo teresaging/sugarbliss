@@ -19,7 +19,7 @@ const OrderDeliveryForm = () => {
   }
 
   const getDeliveryPrice = (zipCode) => {
-    return CityDeliveryZipCodePrices[zipCode] || SuburbDeliveryZipCodePrices[zipCode] || null
+    return CityDeliveryZipCodePrices[zipCode] || SuburbDeliveryZipCodePrices[zipCode] || 0
   }
 
   return (
@@ -111,7 +111,7 @@ const OrderDeliveryForm = () => {
               <SubmitButton
                 className="snipcart-add-item"
                 data-item-id="delivery"
-                data-item-price="0.00"
+                data-item-price={getDeliveryPrice(values.zipCode).toString()}
                 data-item-url="/order"
                 data-item-name="Local Delivery"
                 data-item-custom1-name="Date"
