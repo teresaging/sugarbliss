@@ -12,6 +12,8 @@ import styled from '@emotion/styled';
 import { fonts, Button } from '../design-system';
 import { sizing, colors } from '../utils';
 import { Cupcake } from '../sharedTypes';
+import { SubmitButton } from '../components/order/Styled';
+import moment from 'moment';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
@@ -36,6 +38,11 @@ const OrderPage = ({data}: OrderProps) => {
   //   // cleanse cart
   //   removeAllItemsFromCart();
   // }, [0]);
+
+  useEffect(() => {
+    // cleanse cart
+    console.log(cartItems);
+  });
 
   const removeAllItemsFromCart = () => {
     // ToDo: add removeItem to snipcart plugin
@@ -66,15 +73,6 @@ const OrderPage = ({data}: OrderProps) => {
     setStep(nextStep);
   }
 
-  const handleAddPickupOrDeliveryToCart = (value) => {
-    addItem({
-      id: value === 'pickup' ? 'pickup-from-store' : 'local-delivery',
-      name: value === 'pickup' ? 'Pickup From Store' : 'Local Delivery',
-      price: 0,
-
-    });
-  }
-
   const goBackAStep = () => {
     const previousStep = step - 1;
     setStep(previousStep);
@@ -82,7 +80,6 @@ const OrderPage = ({data}: OrderProps) => {
 
   const goToNextStep = () => {
     const nextStep = step + 1;
-    console.log('helloooo');
     setStep(nextStep);
   }
 
@@ -98,10 +95,18 @@ const OrderPage = ({data}: OrderProps) => {
       {step === 2 && (
         <>
           {orderType === 'delivery' ? (
-            <OrderDeliveryForm setDayOfWeek={setDayOfWeek} addItemToCart={addItemToCart} handleNextStep={goToNextStep} />
+            <OrderDeliveryForm
+              setDayOfWeek={setDayOfWeek}
+              addItemToCart={addItemToCart}
+              handleNextStep={goToNextStep}
+            />
             ) :
             (
-              <OrderPickupForm setDayOfWeek={setDayOfWeek} addItemToCart={addItemToCart} handleNextStep={goToNextStep} />
+              <OrderPickupForm
+                setDayOfWeek={setDayOfWeek}
+                addItemToCart={addItemToCart}
+                handleNextStep={goToNextStep}
+              />
             )
           }
         </>
@@ -121,7 +126,9 @@ const OrderPage = ({data}: OrderProps) => {
           </button>
         )}
         <button onClick={addItemToCart}>hi</button>
-        <button className="snipcart-checkout">Click here to checkout</button>
+        <button className="snipcart-checkout">
+          Click here to checkout
+        </button>
         <button
           hidden
           ref={testingRef}
@@ -151,6 +158,36 @@ const OrderPage = ({data}: OrderProps) => {
         Add Pickup
       </button>
       <button onClick={handleOnClick}>test!!!</button>
+        <button
+          className="snipcart-add-item"
+          data-item-id="pickup"
+          data-item-price="0.00"
+          data-item-url="/order"
+          data-item-name="Pickup">
+          Add Pickup To Order
+        </button>
+        <button
+          className="snipcart-add-item"
+          data-item-id="delivery"
+          data-item-price="25.00"
+          data-item-url="/order"
+          data-item-name="Local Delivery"
+          data-item-custom1-name="Date"
+          data-item-custom1-type="readonly"
+          data-item-custom2-name="Time"
+          data-item-custom2-type="readonly"
+          data-item-custom3-name="Name"
+          data-item-custom3-type="readonly"
+          data-item-custom4-name="Address"
+          data-item-custom4-type="readonly"
+          data-item-custom5-name="Apartment"
+          data-item-custom5-type="readonly"
+          data-item-custom6-name="City"
+          data-item-custom6-type="readonly"
+          data-item-custom7-name="Zip Code"
+          data-item-custom7-type="readonly">
+          Add Delivery To Order
+        </button>
       </Container>
     </Layout>
   )

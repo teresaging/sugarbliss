@@ -15,17 +15,17 @@ const snipCartBillingHTML = `
       <div class="snipcart-item-line__product">
         <div class="snipcart-item-line__header">
           <h2 class="snipcart-item-line__title snipcart__font--xlarge snipcart__font--secondary snipcart__font--black">
-            {{ item.name }} - {{item.customFields[0].displayValue}}
+            {{ item.name }} - {{item.customFields[0]?.displayValue}}
           </h2>
           <div class="snipcart-item-line__actions">
             <div>
               <item-quantity
                   class="snipcart-item-line__quantity"
-                  v-if="item.id !== 'pickup-from-store' && item.id !== 'local-delivery'"
+                  v-if="item.id !== 'pickup' && item.id !== 'delivery'"
               />
             </div>
           </div>
-          <remove-item-action v-if="item.id !== 'pickup-from-store' && item.id !== 'local-delivery'" class="snipcart__button--icon">
+          <remove-item-action v-if="item.id !== 'pickup' && item.id !== 'delivery'" class="snipcart__button--icon">
                 <icon
                     name="trash"
                     class="snipcart__icon--red"
