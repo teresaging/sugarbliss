@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Form } from 'react-final-form';
-import { DatePicker, Select, TextField } from 'mui-rff';
+import { DatePicker, Select } from 'mui-rff';
 import { MenuItem } from '@material-ui/core';
+import DateFnsUtils from '@date-io/date-fns';
+import moment from 'moment';
 
 import { fonts } from '../../design-system';
 import { sizing, colors } from '../../utils';
 
-import { Container, Title, FormContainer, Row, SingleRow, SubmitButton } from './Styled';
-import DateFnsUtils from '@date-io/date-fns';
-import moment from 'moment';
+import { Container, Title, FormContainer, Row, SubmitButton } from './Styled';
 
 const OrderPickupForm = () => {
   const handleSubmit = () => {
@@ -21,6 +21,18 @@ const OrderPickupForm = () => {
       <FormContainer bgColor={colors.solids.BABY_BLUE}>
         <Form
           onSubmit={handleSubmit}
+          validate={values => {
+            // tslint:disable-next-line:no-any
+            const errors: any = {}
+            if (!values.date) {
+              errors.date = 'Required';
+            }
+            if (!values.time) {
+              errors.time = 'Required';
+            }
+
+            return errors;
+          }}
           render={({ handleSubmit, submitting, pristine, values, hasValidationErrors }) => (
             <form onSubmit={handleSubmit}>
               <Row>
