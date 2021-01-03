@@ -10,12 +10,16 @@ import { CityDeliveryZipCodePrices, SuburbDeliveryZipCodePrices, colors } from '
 
 import { Container, Title, SubTitle, FormContainer, Row, SingleRow, SubmitButton, DeliveryPrice, CannotDeliverText } from './Styled';
 
-const OrderDeliveryForm = () => {
+type Props = {
+  handleNextStep: Function;
+}
+
+const OrderDeliveryForm = ({handleNextStep}: Props) => {
 
   const [ canDeliver, setCanDeliver ] = useState(false);
 
   const handleSubmit = () => {
-    console.log('hi');
+    handleNextStep();
   }
 
   const getDeliveryPrice = (zipCode) => {
@@ -64,7 +68,7 @@ const OrderDeliveryForm = () => {
 
             return errors;
           }}
-          render={({ handleSubmit, submitting, pristine, values, hasValidationErrors }) => (
+          render={({ handleSubmit, submitting, values, hasValidationErrors }) => (
             <form onSubmit={handleSubmit}>
               <Row>
                 <DatePicker

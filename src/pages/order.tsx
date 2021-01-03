@@ -80,23 +80,36 @@ const OrderPage = ({data}: OrderProps) => {
     setStep(previousStep);
   }
 
+  const goToNextStep = () => {
+    const nextStep = step + 1;
+    console.log('helloooo');
+    setStep(nextStep);
+  }
+
   return (
     <Layout>
       <Container>
       {step === 1 && (
         <OrderDeliveryPickup onOptionPress={handleOptionPress} />
       )}
+      {step !== 1 && (
+        <Button size="MEDIUM" text="Back" onClick={goBackAStep}/>
+      )}
       {step === 2 && (
         <>
-          <Button size="MEDIUM" text="Back" onClick={goBackAStep}/>
           {orderType === 'delivery' ? (
-            <OrderDeliveryForm />
+            <OrderDeliveryForm handleNextStep={goToNextStep} />
             ) :
             (
-              <OrderPickupForm />
+              <OrderPickupForm handleNextStep={goToNextStep} />
             )
           }
         </>
+      )}
+      {step === 3 && (
+       <>
+         <p>step 3</p>
+       </>
       )}
         {userStatus === 'SignedOut' ? (
           <button className="snipcart-customer-signin">

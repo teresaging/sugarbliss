@@ -5,14 +5,18 @@ import { MenuItem } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import moment from 'moment';
 
-import { fonts } from '../../design-system';
-import { sizing, colors } from '../../utils';
+import { colors } from '../../utils';
 
 import { Container, Title, FormContainer, Row, SubmitButton } from './Styled';
 
-const OrderPickupForm = () => {
+type Props = {
+  handleNextStep: Function;
+}
+
+const OrderPickupForm = ({handleNextStep}: Props) => {
   const handleSubmit = () => {
-    console.log('hey there');
+    console.log('hey');
+    handleNextStep();
   }
 
   return (
@@ -33,7 +37,7 @@ const OrderPickupForm = () => {
 
             return errors;
           }}
-          render={({ handleSubmit, submitting, pristine, values, hasValidationErrors }) => (
+          render={({ handleSubmit, submitting, values, hasValidationErrors }) => (
             <form onSubmit={handleSubmit}>
               <Row>
                 <DatePicker
