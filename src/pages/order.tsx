@@ -159,6 +159,7 @@ const OrderPage = ({data}: OrderProps) => {
       </button>
       <button onClick={handleOnClick}>test!!!</button>
         <button
+          style={{display: 'none'}}
           className="snipcart-add-item"
           data-item-id="pickup"
           data-item-price="0.00"
@@ -167,25 +168,54 @@ const OrderPage = ({data}: OrderProps) => {
           Add Pickup To Order
         </button>
         <button
+          style={{display: 'none'}}
           className="snipcart-add-item"
           data-item-id="delivery"
-          data-item-price="25.00"
+          data-item-price="19.00"
+          data-item-price-2="25.00"
+          data-item-price-3="30.00"
+          data-item-price-4="22.00"
+          data-item-price-5="35.00"
+          data-item-price-6="42.00"
+          data-item-price-7="52.00"
+          data-item-price-8="47.00"
+          data-item-price-9="37.00"
+          data-item-price-10="77.00"
+          data-item-price-11="63.00"
+          data-item-price-12="65.00"
+          data-item-price-13="70.00"
+          data-item-price-14="66.00"
+          data-item-price-15="64.00"
+          data-item-price-16="57.00"
+          data-item-price-17="54.00"
+          data-item-price-18="53.00"
+          data-item-price-19="61.00"
+          data-item-price-20="58.00"
+          data-item-price-21="59.00"
+          data-item-price-22="52.00"
+          data-item-price-23="82.00"
+          data-item-price-24="68.00"
+          data-item-price-25="56.00"
+          data-item-price-26="78.00"
+          data-item-price-27="51.00"
+          data-item-price-28="77.00"
+          data-item-price-29="49.00"
+          data-item-price-30="81.00"
+          data-item-price-31="79.00"
+          data-item-price-32="69.00"
+          data-item-price-33="60.00"
+          data-item-price-34="43.00"
+          data-item-price-35="80.00"
+          data-item-price-36="62.00"
+          data-item-price-37="45.00"
+          data-item-price-38="41.00"
+          data-item-price-39="46.00"
+          data-item-price-40="39.00"
+          data-item-price-41="55.00"
+          data-item-price-42="50.00"
+          data-item-price-43="50.00"
           data-item-url="/order"
-          data-item-name="Local Delivery"
-          data-item-custom1-name="Date"
-          data-item-custom1-type="readonly"
-          data-item-custom2-name="Time"
-          data-item-custom2-type="readonly"
-          data-item-custom3-name="Name"
-          data-item-custom3-type="readonly"
-          data-item-custom4-name="Address"
-          data-item-custom4-type="readonly"
-          data-item-custom5-name="Apartment"
-          data-item-custom5-type="readonly"
-          data-item-custom6-name="City"
-          data-item-custom6-type="readonly"
-          data-item-custom7-name="Zip Code"
-          data-item-custom7-type="readonly">
+          data-item-name="Local Delivery">
           Add Delivery To Order
         </button>
       </Container>
