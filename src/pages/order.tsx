@@ -1,21 +1,43 @@
 import React, { useContext, useRef, useState, useEffect } from 'react';
 import { graphql, PageProps } from 'gatsby';
-import { FluidObject } from 'gatsby-image';
 import { SnipcartContext } from 'gatsby-plugin-snipcart-advanced/context';
 
 import Layout from '../components/layout';
 import OrderDeliveryPickup from '../components/order/OrderDeliveryPickup';
 import OrderDeliveryForm from '../components/order/OrderDeliveryForm';
 import OrderPickupForm from '../components/order/OrderPickupForm';
+import Cart from '../components/order/Cart';
 
 import styled from '@emotion/styled';
-import { fonts, Button } from '../design-system';
+import { fonts, Button, Tabs } from '../design-system';
 import { sizing, colors } from '../utils';
-import { Cupcake } from '../sharedTypes';
-import { SubmitButton } from '../components/order/Styled';
-import moment from 'moment';
 
-type FluidImage = { childImageSharp: {fluid: FluidObject} };
+const TABS_DATA = [
+  {
+    id: 'specialPackages',
+    name: 'Special Packages',
+  },
+  {
+    id: 'cupcakes',
+    name: 'Cupcakes',
+  },
+  {
+    id: 'cakePops',
+    name: 'Cake Pops',
+  },
+  {
+    id: 'macarons',
+    name: 'Macarons',
+  },
+  {
+    id: 'catering',
+    name: 'Catering',
+  },
+  {
+    id: 'apparel',
+    name: 'Apparel',
+  },
+];
 
 type OrderQueryProps = {
   allShopifyProduct: {
@@ -29,8 +51,9 @@ const OrderPage = ({data}: OrderProps) => {
   const { state, addItem, removeItem } = useContext(SnipcartContext);
   const { userStatus, cartQuantity, cartItems } = state;
   const [ orderType, setOrderType ] = useState(null);
-  const [ step, setStep ] = useState(1);
+  const [ step, setStep ] = useState(3);
   const [ dayOfWeek, setDayOfWeek ] = useState(null);
+  const [ activeTabId, setActiveTabId ] = useState(TABS_DATA[0]?.id);
 
   const testingRef = useRef(null);
 
@@ -83,6 +106,10 @@ const OrderPage = ({data}: OrderProps) => {
     setStep(nextStep);
   }
 
+  const handleTabPress = (activeTabId) => {
+    setActiveTabId(activeTabId);
+  }
+
   return (
     <Layout>
       <Container>
@@ -90,7 +117,12 @@ const OrderPage = ({data}: OrderProps) => {
         <OrderDeliveryPickup onOptionPress={handleOptionPress} />
       )}
       {step !== 1 && (
-        <Button size="MEDIUM" text="Back" onClick={goBackAStep}/>
+        <TopSection>
+          <Button size="MEDIUM" text="Back" onClick={goBackAStep}/>
+          {step === 3 && (
+            <Cart cartQuantity={cartQuantity}  />
+            )}
+        </TopSection>
       )}
       {step === 2 && (
         <>
@@ -113,7 +145,7 @@ const OrderPage = ({data}: OrderProps) => {
       )}
       {step === 3 && (
        <>
-         <p>step 3</p>
+         <Tabs activeTabId={activeTabId} tabsInfo={TABS_DATA} onPress={handleTabPress} />
        </>
       )}
         {userStatus === 'SignedOut' ? (
@@ -261,6 +293,12 @@ const Container = styled.div`
   .MuiFormHelperText-root {
     ${fonts.boldText['100']};
   }
+`;
+
+const TopSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export default OrderPage;
