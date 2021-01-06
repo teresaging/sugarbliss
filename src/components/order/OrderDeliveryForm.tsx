@@ -23,7 +23,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek}: Props)
 
   const handleSubmit = async (values) => {
     await addItemToCart({
-      id: 'delivery',
+      id: `delivery-${deliveryPrice}`,
       name: 'Delivery',
       price: deliveryPrice || 0,
       url: '/order',

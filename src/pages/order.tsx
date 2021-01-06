@@ -185,7 +185,7 @@ const OrderPage = ({data}: OrderProps) => {
         <button
           style={{display: 'none'}}
           className="snipcart-add-item"
-          data-item-id="delivery"
+          data-item-id="delivery-30"
           data-item-price="30.00"
           data-item-url="/order"
           data-item-name="Local Delivery">
@@ -194,7 +194,7 @@ const OrderPage = ({data}: OrderProps) => {
         <button
           style={{display: 'none'}}
           className="snipcart-add-item"
-          data-item-id="delivery"
+          data-item-id="delivery-25"
           data-item-price="25.00"
           data-item-url="/order"
           data-item-name="Local Delivery">
