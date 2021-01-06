@@ -6,6 +6,7 @@ import Layout from '../components/layout';
 import OrderDeliveryPickup from '../components/order/OrderDeliveryPickup';
 import OrderDeliveryForm from '../components/order/OrderDeliveryForm';
 import OrderPickupForm from '../components/order/OrderPickupForm';
+import OrderTabSection from '../components/order/OrderTabSection';
 import Cart from '../components/order/Cart';
 
 import styled from '@emotion/styled';
@@ -40,7 +41,7 @@ const TABS_DATA = [
 ];
 
 type OrderQueryProps = {
-  allShopifyProduct: {
+  allContentfulOrderForm: {
     nodes: any;
   };
 };
@@ -48,24 +49,32 @@ type OrderQueryProps = {
 type OrderProps = PageProps<OrderQueryProps>;
 
 const OrderPage = ({data}: OrderProps) => {
+
+  const orderFormData = data?.allContentfulOrderForm?.nodes;
+  const tabsData = orderFormData.map((data) => {
+    return {
+      id: data.tabName,
+      name: data.tabName,
+    }
+  });
+
   const { state, addItem, removeItem } = useContext(SnipcartContext);
   const { userStatus, cartQuantity, cartItems } = state;
   const [ orderType, setOrderType ] = useState(null);
-  const [ step, setStep ] = useState(1);
+  const [ step, setStep ] = useState(3);
   const [ dayOfWeek, setDayOfWeek ] = useState(null);
-  const [ activeTabId, setActiveTabId ] = useState(TABS_DATA[0]?.id);
+  const [ activeTabId, setActiveTabId ] = useState(tabsData[0]?.id);
 
   const testingRef = useRef(null);
-
   // useEffect(() => {
   //   // cleanse cart
   //   removeAllItemsFromCart();
   // }, [0]);
 
-  useEffect(() => {
-    // cleanse cart
-    console.log(cartItems);
-  });
+  // useEffect(() => {
+  //   // cleanse cart
+  //   console.log(cartItems);
+  // });
 
   const removeAllItemsFromCart = () => {
     // ToDo: add removeItem to snipcart plugin
@@ -111,7 +120,6 @@ const OrderPage = ({data}: OrderProps) => {
   }
 
   const handleRenderDeliveryButtons = () => {
-
     return (
       <>
         {
@@ -167,7 +175,10 @@ const OrderPage = ({data}: OrderProps) => {
       )}
       {step === 3 && (
        <>
-         <Tabs activeTabId={activeTabId} tabsInfo={TABS_DATA} onPress={handleTabPress} />
+         <Tabs activeTabId={activeTabId} tabsInfo={tabsData} onPress={handleTabPress} />
+         {orderFormData.map((data, idx) => (
+           <OrderTabSection key={idx} productData={data.categories}/>
+         ))}
        </>
       )}
         {/*{userStatus === 'SignedOut' ? (*/}
@@ -193,7 +204,7 @@ const OrderPage = ({data}: OrderProps) => {
         {/*>*/}
         {/*  Add to cart*/}
         {/*</button>*/}
-      {/*<div><button onClick={removeAllItemsFromCart}>remove all items from cart</button></div>*/}
+      <div><button onClick={removeAllItemsFromCart}>remove all items from cart</button></div>
       <button onClick={handleOnClick}>test!!!</button>
         <button
           style={{display: 'none'}}
@@ -257,3 +268,32 @@ const TopSection = styled.div`
 `;
 
 export default OrderPage;
+
+export const query = graphql`
+  query OrderFormQuery {
+     allContentfulOrderForm(sort: {fields: createdAt}) {
+      nodes {
+        tabName
+        categories {
+          ... on ContentfulOrderCategory {
+            id
+            name
+            products {
+              dozenPrice
+              description
+              name
+              price
+            }
+          }
+          ... on ContentfulOrderProduct {
+            id
+            name
+            price
+            dozenPrice
+            description
+          }
+        }
+      }
+    }
+  }
+`

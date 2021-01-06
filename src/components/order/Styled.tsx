@@ -103,3 +103,7 @@ export const CannotDeliverText = styled.p`
   text-align: center;
   color: ${colors.solids.ERROR};
 `;
+
+export const CategoryTitle = styled.h5`
+  ${fonts.boldText['400']};
+`
