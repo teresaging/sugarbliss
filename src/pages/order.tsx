@@ -10,7 +10,7 @@ import Cart from '../components/order/Cart';
 
 import styled from '@emotion/styled';
 import { fonts, Button, Tabs } from '../design-system';
-import { sizing, colors } from '../utils';
+import { sizing, colors, allDeliveryPrices } from '../utils';
 
 const TABS_DATA = [
   {
@@ -110,6 +110,28 @@ const OrderPage = ({data}: OrderProps) => {
     setActiveTabId(activeTabId);
   }
 
+  const handleRenderDeliveryButtons = () => {
+
+    return (
+      <>
+        {
+          allDeliveryPrices.map((price, idx) => (
+            <button
+              key={idx}
+              style={{display: 'none'}}
+              className="snipcart-add-item"
+              data-item-id={`delivery-${price}`}
+              data-item-price={price}
+              data-item-url="/order"
+              data-item-name="Local Delivery">
+              Add Delivery To Order
+            </button>
+          ))
+        }
+      </>
+    );
+  }
+
   return (
     <Layout>
       <Container>
@@ -182,24 +204,7 @@ const OrderPage = ({data}: OrderProps) => {
           data-item-name="Pickup">
           Add Pickup To Order
         </button>
-        <button
-          style={{display: 'none'}}
-          className="snipcart-add-item"
-          data-item-id="delivery-30"
-          data-item-price="30.00"
-          data-item-url="/order"
-          data-item-name="Local Delivery">
-          Add Delivery To Order
-        </button>
-        <button
-          style={{display: 'none'}}
-          className="snipcart-add-item"
-          data-item-id="delivery-25"
-          data-item-price="25.00"
-          data-item-url="/order"
-          data-item-name="Local Delivery">
-          Add Delivery To Order
-        </button>
+        {handleRenderDeliveryButtons()}
       </Container>
     </Layout>
   )
