@@ -105,5 +105,61 @@ export const CannotDeliverText = styled.p`
 `;
 
 export const CategoryTitle = styled.h5`
+  ${fonts.boldText['600']};
+`;
+
+export const ProductContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: ${sizing(20)};
+  border: solid 6px ${colors.solids.BABY_PINK};
+  border-radius: ${sizing(20)};
+`;
+
+export const CategoriesContainer = styled.div`
+`;
+
+export const CategoryWrapper = styled.div`
+  margin: ${sizing(75)} 0;
+`;
+
+export const ProductsWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: ${sizing(35)};
+  grid-row-gap: ${sizing(20)};
+`;
+
+export const Name = styled.h5`
   ${fonts.boldText['400']};
-`
+  text-align: center;
+`;
+
+export const Description = styled.p`
+  ${fonts.regularText['200']};
+  text-align: center;
+`;
+
+export const Price = styled.p`
+  ${fonts.boldText['300']};
+`;
+
+export const PriceWithDozen = styled.p`
+  ${fonts.regularText['300']}
+`;
+
+export const AddToCartButton = styled.button`
+  ${fonts.boldText['400']};
+  color: ${colors.solids.BROWN};
+  background-color: ${colors.solids.BABY_PINK};
+  cursor: pointer;
+  border-color: transparent;
+  border-radius: ${sizing(40)};
+  padding: ${sizing(10)} ${sizing(18)};
+  margin: 0;
+  &:disabled {
+    opacity: 0.4;
+  }
+`;

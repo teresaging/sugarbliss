@@ -10,6 +10,7 @@ type Props = {
 };
 
 const ProductsList = ({products, title}: Props) => {
+  // ToDo: add quantity input
 
   return (
     <Wrapper>
@@ -55,7 +56,7 @@ const FlavorsContainer = styled.div`
   grid-template-columns: repeat(1, minmax(${sizing(300)}, 1fr));
   grid-column-gap: ${sizing(20)};
   grid-row-gap: ${sizing(20)};
-   @media all and (min-width: 768px) {
+  @media all and (min-width: 768px) {
     grid-template-columns: repeat(2, minmax(${sizing(300)}, 1fr));
   }
   @media all and (min-width: 992px) {

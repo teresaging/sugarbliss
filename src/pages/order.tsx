@@ -177,7 +177,7 @@ const OrderPage = ({data}: OrderProps) => {
        <>
          <Tabs activeTabId={activeTabId} tabsInfo={tabsData} onPress={handleTabPress} />
          {orderFormData.map((data, idx) => (
-           <OrderTabSection key={idx} productData={data.categories}/>
+           <OrderTabSection isHidden={activeTabId !== data.tabName} key={idx} productData={data.categories}/>
          ))}
        </>
       )}
