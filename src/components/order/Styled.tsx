@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { TextField } from 'mui-rff';
+
 import { fonts } from '../../design-system';
 import { colors, sizing } from '../../utils';
 
@@ -162,4 +164,16 @@ export const AddToCartButton = styled.button`
   &:disabled {
     opacity: 0.4;
   }
+`;
+
+export const QuantityInput = styled.input<{marginBottom: number}>`
+  width: ${sizing(40)};
+  border: none;
+  border-bottom: solid 1px ${colors.solids.BROWN};
+  margin-bottom: ${({marginBottom}) => marginBottom ? sizing(marginBottom) : 0};
+`;
+
+export const QuantityInputLabel = styled.p`
+  ${fonts.regularText['300']};
+  margin: 0;
 `;
