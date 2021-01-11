@@ -225,7 +225,7 @@ const Container = styled.div`
   margin: ${sizing(100)} auto ${sizing(75)} auto;
   width: 85%;
   @media all and (min-width: 992px) {
-     width: 60%;
+     width: 90%;
   }
   
   .MuiInputBase-root {

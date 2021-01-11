@@ -10,7 +10,7 @@ type Props = {
 
 const OrderTabSection = ({productData, isHidden}: Props) => {
 
-  const renderProducts = ({products}) => {
+  const renderCategory = ({products}) => {
     return (
       <ProductsWrapper>
         {products?.map((product, idx) => (
@@ -28,10 +28,15 @@ const OrderTabSection = ({productData, isHidden}: Props) => {
 
   return (
     <CategoriesContainer style={{display: isHidden ? 'none' : 'block'}}>
-      {productData?.map((category, idx) => (
+      {productData?.map((data, idx) => (
         <CategoryWrapper key={idx}>
-          <CategoryTitle>{category.name}</CategoryTitle>
-          {category.products && renderProducts({products: category.products})}
+          {data.products ? (
+            <>
+              <CategoryTitle>{data.name}</CategoryTitle>
+              {renderCategory({products: data.products})}
+            </>
+          ) : <OrderProduct name={data.name} price={data.price}/>
+          }
         </CategoryWrapper>
       ))
       }
