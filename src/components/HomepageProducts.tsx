@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Img, { FluidImage } from 'gatsby-image'
+import Img, { FluidObject } from 'gatsby-image'
 import { Button, fonts } from '../design-system';
 import { sizing } from '../utils';
 
@@ -8,7 +8,7 @@ import { colors } from '../utils';
 
 type Products = {
   name: string;
-  fluidImage: FluidImage;
+  fluidImage: FluidObject;
   url: string;
 };
 

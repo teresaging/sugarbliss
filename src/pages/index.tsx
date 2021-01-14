@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql, Link, PageProps } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
 import styled from '@emotion/styled';
 import HomepageHero from '../components/HomepageHero';

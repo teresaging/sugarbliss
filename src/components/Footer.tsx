@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Link } from 'gatsby';
+import React from 'react';
 import styled from '@emotion/styled';
 import Img, { FluidObject } from 'gatsby-image';
 import { fonts } from '../design-system';
