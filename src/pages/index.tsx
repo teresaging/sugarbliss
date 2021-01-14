@@ -26,6 +26,10 @@ type IndexQueryProps = {
   productBreakfastCupcakesImage: FluidImage;
   productFrostingShotImage: FluidImage;
   productPairingsImage: FluidImage;
+  productCookiesImage: FluidImage;
+  productBarsAndBrowniesImage: FluidImage;
+  productCrepesImage: FluidImage;
+  productOtherImage: FluidImage;
   homeOrderImage: FluidImage;
 };
 type IndexProps = PageProps<IndexQueryProps>
@@ -54,9 +58,24 @@ const IndexPage = ({data}: IndexProps) => {
       url: '/cakes',
     },
     {
+      name: 'Cookies',
+      fluidImage: data.productCookiesImage.childImageSharp.fluid,
+      url: '/cookies',
+    },
+    {
+      name: 'Bars & Brownies',
+      fluidImage: data.productBarsAndBrowniesImage.childImageSharp.fluid,
+      url: '/bars-brownies',
+    },
+    {
       name: 'Morning Pastries',
       fluidImage: data.productBreakfastCupcakesImage.childImageSharp.fluid,
       url: '/morning-pastries',
+    },
+    {
+      name: 'Crepes',
+      fluidImage: data.productCrepesImage.childImageSharp.fluid,
+      url: '/crepes',
     },
     {
       name: 'Frosting Shots',
@@ -64,10 +83,10 @@ const IndexPage = ({data}: IndexProps) => {
       url: '/frosting-shots',
     },
     {
-     name: 'Pairings',
-      fluidImage: data.productPairingsImage.childImageSharp.fluid,
-      url: '/',
-    }
+      name: 'Other Goodies',
+      fluidImage: data.productOtherImage.childImageSharp.fluid,
+      url: '/other-goodies',
+    },
   ];
 
     return (
@@ -179,7 +198,7 @@ query HomeQuery {
       }
     }
   }
-  productCupcakeImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_cupcakes\\.jpg/"}) {
+  productCupcakeImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_cupcakes_2\\.jpg/"}) {
     childImageSharp {
       fluid(maxWidth: 800) {
             ...GatsbyImageSharpFluid
@@ -221,7 +240,28 @@ query HomeQuery {
       }
     }
   }
-  productPairingsImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_pairings\\.jpg/"}) {
+  productCookiesImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_cookies\\.jpg/"}) {
+    childImageSharp {
+      fluid(maxWidth: 800) {
+            ...GatsbyImageSharpFluid
+      }
+    }
+  }
+  productBarsAndBrowniesImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_barsandbrownies\\.jpg/"}) {
+    childImageSharp {
+      fluid(maxWidth: 800) {
+            ...GatsbyImageSharpFluid
+      }
+    }
+  }
+  productCrepesImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_crepes\\.jpg/"}) {
+    childImageSharp {
+      fluid(maxWidth: 800) {
+            ...GatsbyImageSharpFluid
+      }
+    }
+  }
+  productOtherImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_other\\.jpg/"}) {
     childImageSharp {
       fluid(maxWidth: 800) {
             ...GatsbyImageSharpFluid

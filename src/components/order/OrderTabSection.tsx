@@ -3,12 +3,15 @@ import React from 'react';
 import OrderProduct from './OrderProduct';
 import { CategoryTitle, ProductsWrapper, CategoryWrapper, CategoriesContainer } from './Styled';
 
+// ToDo: clean up types
+
 type Props = {
   productData: any[];
   isHidden: boolean;
+  addItemToCart: Function;
 }
 
-const OrderTabSection = ({productData, isHidden}: Props) => {
+const OrderTabSection = ({productData, isHidden, addItemToCart}: Props) => {
 
   const renderCategory = ({products}) => {
     return (
@@ -20,6 +23,8 @@ const OrderTabSection = ({productData, isHidden}: Props) => {
             description={product.description}
             price={product.price}
             dozenPrice={product.dozenPrice}
+            customFields={product.customFields}
+            addItemToCart={addItemToCart}
           />
         ))}
       </ProductsWrapper>
@@ -35,7 +40,14 @@ const OrderTabSection = ({productData, isHidden}: Props) => {
               <CategoryTitle>{data.name}</CategoryTitle>
               {renderCategory({products: data.products})}
             </>
-          ) : <OrderProduct name={data.name} price={data.price}/>
+          ) : <OrderProduct
+            name={data.name}
+            price={data.price}
+            description={data.description}
+            dozenPrice={data.dozenPrice}
+            customFields={data.customFields}
+            addItemToCart={addItemToCart}
+          />
           }
         </CategoryWrapper>
       ))

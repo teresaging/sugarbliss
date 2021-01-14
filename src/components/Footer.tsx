@@ -27,8 +27,8 @@ const Footer = ({logo, WBELogo, NMSDCLogo}: Props) => {
         <Address>Chicago, IL 60602</Address>
         <Address>312-845-9669</Address>
         <CertifiedLogosContainer>
-          <CertifiedLogo fluid={WBELogo} />
-          <CertifiedLogo fluid={NMSDCLogo} />
+          <WBELogoImg fluid={WBELogo} />
+          <NMSDCLogoImg fluid={NMSDCLogo} />
         </CertifiedLogosContainer>
       </Column>
     </FooterWrapper>
@@ -59,11 +59,19 @@ const CertifiedLogosContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: ${sizing(20)};
 `;
 
-const CertifiedLogo = styled(Img)`
-  width: 100%;
+const WBELogoImg = styled(Img)`
+  width:  ${sizing(100)};
   height: ${sizing(50)};
-`
+  margin: 0 ${sizing(15)};
+`;
+
+const NMSDCLogoImg = styled(Img)`
+  width:  ${sizing(83)};
+  height: ${sizing(50)};
+  margin: 0 ${sizing(15)};
+`;
 
 export default Footer;

@@ -13,32 +13,7 @@ import styled from '@emotion/styled';
 import { fonts, Button, Tabs } from '../design-system';
 import { sizing, colors, allDeliveryPrices } from '../utils';
 
-const TABS_DATA = [
-  {
-    id: 'specialPackages',
-    name: 'Special Packages',
-  },
-  {
-    id: 'cupcakes',
-    name: 'Cupcakes',
-  },
-  {
-    id: 'cakePops',
-    name: 'Cake Pops',
-  },
-  {
-    id: 'macarons',
-    name: 'Macarons',
-  },
-  {
-    id: 'catering',
-    name: 'Catering',
-  },
-  {
-    id: 'apparel',
-    name: 'Apparel',
-  },
-];
+// ToDo: clean up types
 
 type OrderQueryProps = {
   allContentfulOrderForm: {
@@ -177,7 +152,11 @@ const OrderPage = ({data}: OrderProps) => {
        <>
          <Tabs activeTabId={activeTabId} tabsInfo={tabsData} onPress={handleTabPress} />
          {orderFormData.map((data, idx) => (
-           <OrderTabSection isHidden={activeTabId !== data.tabName} key={idx} productData={data.categories}/>
+           <OrderTabSection
+             isHidden={activeTabId !== data.tabName}
+             key={idx} productData={data.categories}
+             addItemToCart={addItemToCart}
+           />
          ))}
        </>
       )}
@@ -276,21 +255,29 @@ export const query = graphql`
         tabName
         categories {
           ... on ContentfulOrderCategory {
-            id
             name
             products {
               dozenPrice
               description
               name
               price
+              customFields {
+                name
+                type
+                choices
+              }
             }
           }
           ... on ContentfulOrderProduct {
-            id
             name
             price
             dozenPrice
             description
+            customFields {
+              name
+              type
+              choices
+            }
           }
         }
       }
