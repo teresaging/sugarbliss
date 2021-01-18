@@ -18,7 +18,7 @@ type CupcakeQueryProps = {
   underlineImage: FluidImage;
   cupcakesFooterImage: FluidImage;
   allContentfulCupcake: {
-    nodes: Cupcake[]; // Todo: add shared cupcake type here
+    nodes: Cupcake[];
   };
 };
 

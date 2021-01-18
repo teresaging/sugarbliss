@@ -13,9 +13,10 @@ type Props = {
   handleNextStep: Function;
   addItemToCart: Function;
   setDayOfWeek: Function;
+  setOrderDate: Function;
 }
 
-const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek}: Props) => {
+const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderDate}: Props) => {
   const handleSubmit = async (values) => {
     await addItemToCart({
       id: 'pickup',
@@ -37,6 +38,7 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek}: Props) =
       ],
     })
     await setDayOfWeek(moment(values.date).format('dddd'));
+    await setOrderDate(moment(values.date));
     handleNextStep();
   }
 

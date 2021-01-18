@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState, useEffect } from 'react';
 import { graphql, PageProps } from 'gatsby';
 import { SnipcartContext } from 'gatsby-plugin-snipcart-advanced/context';
+import moment from 'moment';
 
 import Layout from '../components/layout';
 import OrderDeliveryPickup from '../components/order/OrderDeliveryPickup';
@@ -12,11 +13,19 @@ import Cart from '../components/order/Cart';
 import styled from '@emotion/styled';
 import { fonts, Button, Tabs } from '../design-system';
 import { sizing, colors, allDeliveryPrices } from '../utils';
-import { OrderForm } from '../sharedTypes';
+import { OrderForm, Cupcake, Macaron } from '../sharedTypes';
+
+const CURRENT_YEAR = moment().year();
 
 type OrderQueryProps = {
   allContentfulOrderForm: {
     nodes: OrderForm[];
+  };
+  allContentfulCupcake: {
+    nodes: Cupcake[];
+  };
+  allContentfulMacaron: {
+    nodes: Macaron[];
   };
 };
 
@@ -31,13 +40,48 @@ const OrderPage = ({data}: OrderProps) => {
       name: data.tabName,
     }
   });
+  const cupcakeData = data?.allContentfulCupcake?.nodes;
+  const macaronData = data?.allContentfulMacaron?.nodes;
 
   const { state, addItem, removeItem } = useContext(SnipcartContext);
   const { userStatus, cartQuantity, cartItems } = state;
   const [ orderType, setOrderType ] = useState(null);
   const [ step, setStep ] = useState(3);
   const [ dayOfWeek, setDayOfWeek ] = useState(null);
+  const [ orderDate, setOrderDate ] = useState(null);
   const [ activeTabId, setActiveTabId ] = useState(tabsData[0]?.id);
+  const [ availableCupcakeFlavors, setAvailableCupcakeFlavors ] = useState([]);
+  const [ availableMacaronFlavors, setAvailableMacaronFlavors ] = useState([]);
+
+  useEffect(() => {
+    // testing
+    const cupcakeFlavors = cupcakeData.filter((cupcake) => {
+      if (cupcake.isEverydayFlavor) {
+        return true;
+      }
+      if (cupcake.isSeasonal && moment(cupcake.seasonalStartDate).set('year', CURRENT_YEAR) <= moment(orderDate) && moment(cupcake.seasonalEndDate).set('year', CURRENT_YEAR) >= moment(orderDate)) {
+        return true;
+      }
+      if (cupcake.isDaily && cupcake.dayAvailable === dayOfWeek) { // ToDo: this will change
+        return true;
+      }
+
+      return false;
+    });
+
+    const macaronFlavors = macaronData.filter((macaron) => {
+      const isAvailable = macaron.isSeasonalFlavor && moment(macaron.seasonalStartDate).set('year', CURRENT_YEAR) <= moment(orderDate) && moment(macaron.seasonalEndDate).set('year', CURRENT_YEAR) >= moment(orderDate);
+      if (macaron.isSeasonalFlavor && !isAvailable) {
+        return false;
+      }
+
+      return true;
+    });
+
+    setAvailableCupcakeFlavors(cupcakeFlavors);
+    setAvailableMacaronFlavors(macaronFlavors);
+
+  }, [dayOfWeek, orderDate]);
 
   const testingRef = useRef(null);
   // useEffect(() => {
@@ -133,6 +177,7 @@ const OrderPage = ({data}: OrderProps) => {
           {orderType === 'delivery' ? (
             <OrderDeliveryForm
               setDayOfWeek={setDayOfWeek}
+              setOrderDate={setOrderDate}
               addItemToCart={addItemToCart}
               handleNextStep={goToNextStep}
             />
@@ -140,6 +185,7 @@ const OrderPage = ({data}: OrderProps) => {
             (
               <OrderPickupForm
                 setDayOfWeek={setDayOfWeek}
+                setOrderDate={setOrderDate}
                 addItemToCart={addItemToCart}
                 handleNextStep={goToNextStep}
               />
@@ -155,6 +201,8 @@ const OrderPage = ({data}: OrderProps) => {
              isHidden={activeTabId !== data.tabName}
              key={idx} productData={data.categories}
              addItemToCart={addItemToCart}
+             availableCupcakeFlavors={availableCupcakeFlavors}
+             availableMacaronFlavors={availableMacaronFlavors}
            />
          ))}
        </>
@@ -279,6 +327,26 @@ export const query = graphql`
             }
           }
         }
+      }
+    }
+    allContentfulCupcake {
+      nodes {
+        name
+        isEverydayFlavor
+        seasonalStartDate
+        seasonalEndDate
+        isSeasonal
+        isDaily
+        dayAvailable
+        isEverydayFlavor
+      }
+    }
+    allContentfulMacaron {
+      nodes {
+        name
+        isSeasonalFlavor
+        seasonalStartDate
+        seasonalEndDate
       }
     }
   }

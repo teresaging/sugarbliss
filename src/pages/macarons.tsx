@@ -18,7 +18,7 @@ type MacaronsQueryProps = {
   underlineImage: FluidImage;
   macaronsFooterImage: FluidImage;
   allContentfulMacaron: {
-    nodes: Macaron[]; // Todo: add shared macaron type here
+    nodes: Macaron[];
   };
 };
 

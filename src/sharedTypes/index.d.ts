@@ -8,6 +8,8 @@ export type Cupcake = {
   }
   isEverydayFlavor: boolean;
   isSeasonal: boolean;
+  seasonalStartDate?: Date;
+  seasonalEndDate?: Date;
   monthAvailable?: string | string[];
   isDaily: boolean;
   dayAvailable?: string;
@@ -23,6 +25,8 @@ export type Macaron = {
     }
   }
   isSeasonalFlavor: boolean;
+  seasonalStartDate?: Date;
+  seasonalEndDate?: Date;
   monthAvailable?: string | string[];
   seasonalDaysAvailable?: string;
 }
