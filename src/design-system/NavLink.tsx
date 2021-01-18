@@ -25,10 +25,10 @@ const NavLink = ({link, idx}: Props) => {
   if (Boolean(link.children)) {
     return (
       <LinkWithChildren onMouseEnter={() => setDropdownVisibility(true)} onMouseLeave={() => setDropdownVisibility(false)}>
-        <LinkContainer number={idx} key={link.name} to={link.url}>
+        <DropdownContainer number={idx} key={link.name}>
           {link.name}
           <DownArrow isOpened={dropdownVisibility} size={16}/>
-        </LinkContainer>
+        </DropdownContainer>
         <Dropdown isVisible={dropdownVisibility}>
           {link.children.map((child) => {
             return <ChildNavLink key={child.name} to={child.url}>{child.name}</ChildNavLink>
@@ -50,6 +50,35 @@ const LinkWithChildren = styled.div`
     display: flex;
     align-items: center;
     top: -${sizing(1)};
+`;
+
+const DropdownContainer = styled.div<{number: number}>`
+    text-transform: uppercase;
+    text-decoration: none;
+    position: relative;
+    margin-right: ${sizing(15)};
+    margin-left: ${sizing(15)};
+    font-size: ${sizing(16)};
+    padding-bottom: 3px;
+    border-bottom: solid 2px transparent;
+    cursor: default;
+    
+    &:after {
+        content: "";
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        right: -18px;
+        top: 19%;
+        border-radius: 10px;
+        background-color: ${({number}) => number % 2 === 0 ? 'var(--main-light-blue)' : 'var(--main-med-blue)'};
+    }
+    
+    &:hover {
+        border-bottom: solid 2px var(--main-text-color);
+    }
 `;
 
 const LinkContainer = styled(Link)<{number: number}>`
@@ -83,6 +112,7 @@ const LinkContainer = styled(Link)<{number: number}>`
 const DownArrow = styled(ChevronDown)<{isOpened: boolean}>`
     position: relative;
     top: ${sizing(2)};
+    margin-left: ${sizing(2)};
     transform: ${({isOpened}) => isOpened ? 'rotate(180deg)' : 'rotate(0deg)'}
 `;
 

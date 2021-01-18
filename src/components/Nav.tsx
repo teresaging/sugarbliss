@@ -44,10 +44,6 @@ const NavData = [
                 url: '/frosting-shots',
             },
             {
-                name: 'Pairings',
-                url: '/',
-            },
-            {
                 name: 'Sweet Crepes',
                 url: '/sweet-crepes',
             },
@@ -75,10 +71,6 @@ const NavData = [
             },
             {
                 name: 'Sweets Cart',
-                url: '/',
-            },
-            {
-                name: 'Events',
                 url: '/',
             },
         ],

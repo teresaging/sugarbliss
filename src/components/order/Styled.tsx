@@ -177,3 +177,22 @@ export const QuantityInputLabel = styled.p`
   ${fonts.regularText['300']};
   margin: 0;
 `;
+
+export const CustomFieldInput = styled.input`
+  width: 100%;
+  max-width: 200px;
+  border: solid 1px ${colors.solids.BROWN};
+`;
+
+export const CustomFieldLabel = styled.p`
+  ${fonts.regularText['300']};
+  margin: 0 ${sizing(10)} 0 0};
+`;
+
+export const CustomFieldContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: ${sizing(15)};
+`;

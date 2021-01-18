@@ -12,12 +12,11 @@ import Cart from '../components/order/Cart';
 import styled from '@emotion/styled';
 import { fonts, Button, Tabs } from '../design-system';
 import { sizing, colors, allDeliveryPrices } from '../utils';
-
-// ToDo: clean up types
+import { OrderForm } from '../sharedTypes';
 
 type OrderQueryProps = {
   allContentfulOrderForm: {
-    nodes: any;
+    nodes: OrderForm[];
   };
 };
 

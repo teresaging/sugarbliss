@@ -145,3 +145,27 @@ export type ContentfulAsset = {
   };
   title?: string;
 }
+
+export type OrderForm = {
+  tabName: string;
+  categories: OrderCategory[];
+}
+
+export type OrderCategory = {
+  name: string;
+  products?: OrderProduct[];
+}
+
+export type OrderProduct = {
+  name: string;
+  description?: string;
+  price?: number;
+  dozenPrice?: number;
+  customFields?: OrderCustomFields[];
+}
+
+export type OrderCustomFields = {
+  name: string;
+  type: string;
+  choices?: string[];
+}

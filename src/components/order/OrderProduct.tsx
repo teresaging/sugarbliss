@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { Form } from 'react-final-form';
+import { Form, Field } from 'react-final-form';
 import { TextField, DatePicker, Select } from 'mui-rff';
-import { MenuItem } from '@material-ui/core'
+import { MenuItem } from '@material-ui/core';
 
 import {
   ProductContainer,
@@ -11,7 +11,10 @@ import {
   PriceWithDozen,
   AddToCartButton,
   QuantityInput,
-  QuantityInputLabel
+  QuantityInputLabel,
+  CustomFieldInput,
+  CustomFieldLabel,
+  CustomFieldContainer
 } from './Styled';
 
 type Props = {
@@ -23,15 +26,39 @@ type Props = {
   addItemToCart: Function;
 }
 
-const OrderProduct = ({name, description, price, dozenPrice, customFields}: Props) => {
-  const addToCartButton = useRef(null);
+const OrderProduct = ({name, description, price, dozenPrice, customFields, addItemToCart}: Props) => {
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = async (values) => {
-
+    console.log(values);
+    const id = name.replace(/\s+/g, '-').toLowerCase();
+    const product = {
+      id,
+      name,
+      price: price,
+      url: 'order',
+      quantity: values.quantity,
+    }
+    addItemToCart(product);
   }
 
-  // ToDo: change to use form
+  const handleRenderField = (field) => {
+    switch (field.type) {
+      default: {
+        return (
+          <CustomFieldContainer>
+            <CustomFieldLabel>{field.name}:</CustomFieldLabel>
+            <CustomFieldInput
+              type="text"
+              name={field.name}
+            />
+          </CustomFieldContainer>
+        );
+      }
+    }
+  }
+
+  // ToDo: fix form
   return (
     <Form
       onSubmit={handleAddToCart}
@@ -45,16 +72,15 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields}: Prop
             ) : (
               <Price>${price}</Price>
             )}
-            <QuantityInputLabel>Quantity:</QuantityInputLabel>
-            <QuantityInput
-              onChange={(event) => setQuantity(event.target.valueAsNumber || 1)}
-              marginBottom={20}
-              placeholder="0"
-              type="number"
-              name="quantity"
-              min={1}
-              value={quantity}
-            />
+            {customFields?.map(handleRenderField)}
+            <Field name="quantity" type="number" initialValue={1}>
+              {props => (
+                <>
+                  <QuantityInputLabel>Quantity:</QuantityInputLabel>
+                  <QuantityInput marginBottom={20} min={1} {...props.input}/>
+                </>
+              )}
+            </Field>
             {/*button for snipcart verification*/}
             <button
               style={{display: 'none'}}
