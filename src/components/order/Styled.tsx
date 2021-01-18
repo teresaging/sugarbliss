@@ -129,9 +129,15 @@ export const CategoryWrapper = styled.div`
 
 export const ProductsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-column-gap: ${sizing(35)};
   grid-row-gap: ${sizing(20)};
+  @media all and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media all and (min-width: 992px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;
 
 export const Name = styled.h5`

@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { Form, Field } from 'react-final-form';
-import { TextField, DatePicker, Select } from 'mui-rff';
+import { Select } from 'mui-rff';
 import { MenuItem, Checkbox } from '@material-ui/core';
 
 import { Cupcake, Macaron, OrderCustomFields } from '../../sharedTypes';
@@ -31,11 +31,6 @@ type Props = {
 }
 
 const OrderProduct = ({name, description, price, dozenPrice, customFields, addItemToCart, availableCupcakeFlavors, availableMacaronFlavors}: Props) => {
-
-  const seasonalCupcakes = availableCupcakeFlavors.filter((cupcake) => cupcake.isSeasonal);
-  const dailyCupcakes = availableCupcakeFlavors.filter((cupcake) => !cupcake.isSeasonal);
-  const seasonalMacarons = availableMacaronFlavors.filter((macaron) => macaron.isSeasonalFlavor);
-  const dailyMacarons = availableMacaronFlavors.filter((macaron) => !macaron.isSeasonalFlavor);
 
   const handleAddToCart = async (values) => {
     const id = name.replace(/\s+/g, '-').toLowerCase();
@@ -70,45 +65,13 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
 
   const handleRenderField = (field) => {
     switch (field.type) {
-      case 'Seasonal Macaron Flavors': {
-        return (
-          <Field name={field.name}>
-            {props => (
-              <CustomFieldContainer>
-                <Select label="Pick a Flavor" {...props.input}>
-                  {seasonalMacarons.map((flavor, idx) => (
-                    <MenuItem key={idx} value={flavor.name}>{flavor.name}</MenuItem>
-                  ))}
-                </Select>
-              </CustomFieldContainer>
-            )}
-          </Field>
-        )
-        break;
-      }
       case 'Macaron Flavors': {
         return (
           <Field name={field.name}>
             {props => (
               <CustomFieldContainer>
                 <Select label="Pick a Flavor" {...props.input}>
-                  {dailyMacarons.map((flavor, idx) => (
-                    <MenuItem key={idx} value={flavor.name}>{flavor.name}</MenuItem>
-                  ))}
-                </Select>
-              </CustomFieldContainer>
-            )}
-          </Field>
-        )
-        break;
-      }
-      case 'Seasonal Cupcake Flavors': {
-        return (
-          <Field name={field.name}>
-            {props => (
-              <CustomFieldContainer>
-                <Select label="Pick a Flavor" {...props.input}>
-                  {seasonalCupcakes.map((flavor, idx) => (
+                  {availableMacaronFlavors?.map((flavor, idx) => (
                     <MenuItem key={idx} value={flavor.name}>{flavor.name}</MenuItem>
                   ))}
                 </Select>
@@ -124,7 +87,7 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
             {props => (
               <CustomFieldContainer>
                 <Select label="Pick a Flavor" {...props.input}>
-                  {dailyCupcakes.map((flavor, idx) => (
+                  {availableCupcakeFlavors?.map((flavor, idx) => (
                     <MenuItem key={idx} value={flavor.name}>{flavor.name}</MenuItem>
                   ))}
                 </Select>
