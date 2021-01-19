@@ -46,7 +46,7 @@ const OrderPage = ({data}: OrderProps) => {
   const { state, addItem, removeItem } = useContext(SnipcartContext);
   const { userStatus, cartQuantity, cartItems } = state;
   const [ orderType, setOrderType ] = useState(null);
-  const [ step, setStep ] = useState(3);
+  const [ step, setStep ] = useState(1);
   const [ dayOfWeek, setDayOfWeek ] = useState(null);
   const [ orderDate, setOrderDate ] = useState(null);
   const [ activeTabId, setActiveTabId ] = useState(tabsData[0]?.id);
