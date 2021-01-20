@@ -10,12 +10,13 @@ const contentfulConfig = {
 
 const snipCartBillingHTML = `
 <item-line>
+<div class="root">
   <li class="{'snipcart-item-line': true, 'snipcart-item-line--cart-edit': editingCart}">
     <div class="snipcart-item-line__container">
       <div class="snipcart-item-line__product">
         <div class="snipcart-item-line__header">
           <h2 class="snipcart-item-line__title snipcart__font--xlarge snipcart__font--secondary snipcart__font--black">
-            {{ item.name }} - {{item.customFields[0]?.displayValue}}
+            {{ item.name }}
           </h2>
           <div class="snipcart-item-line__actions">
             <div>
@@ -25,7 +26,7 @@ const snipCartBillingHTML = `
               />
             </div>
           </div>
-          <remove-item-action v-if="item.id !== 'pickup' && item.id !== 'delivery'" class="snipcart__button--icon">
+          <remove-item-action v-if="item.id !== 'pickup' && item.id !== 'local delivery'" class="snipcart__button--icon">
                 <icon
                     name="trash"
                     class="snipcart__icon--red"
@@ -34,8 +35,18 @@ const snipCartBillingHTML = `
             </remove-item-action>
         </div>
       </div>
+      <div class="snipcart-item-line__content">
+        <div class="snipcart-item-line__body">
+          <div class="snipcart-item-line__variants">
+            <div>
+              <item-custom-fields v-if="!adding"></item-custom-fields>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </li>
+  </div>
 </item-line>
 
 <cart-summary-item>
