@@ -32,8 +32,9 @@ type Props = {
 
 const OrderProduct = ({name, description, price, dozenPrice, customFields, addItemToCart, availableCupcakeFlavors, availableMacaronFlavors}: Props) => {
 
+  const id = name.replace(/\s+/g, '-').toLowerCase();
+
   const handleAddToCart = async (values) => {
-    const id = name.replace(/\s+/g, '-').toLowerCase();
     const product = {
       id,
       name,
@@ -169,7 +170,7 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
               style={{display: 'none'}}
               className="snipcart-add-item"
               data-item-url="/order"
-              data-item-id={name}
+              data-item-id={id}
               data-item-name={name}
               data-item-price={price}
             />
