@@ -193,8 +193,7 @@ const OrderPage = ({data}: OrderProps) => {
           }
         </>
       )}
-      {step === 3 && (
-       <>
+       <div style={{display: step === 3 ? 'block' : 'none'}}>
          <Tabs activeTabId={activeTabId} tabsInfo={tabsData} onPress={handleTabPress} />
          {orderFormData.map((data, idx) => (
            <OrderTabSection
@@ -205,8 +204,7 @@ const OrderPage = ({data}: OrderProps) => {
              availableMacaronFlavors={availableMacaronFlavors}
            />
          ))}
-       </>
-      )}
+       </div>
         {/*{userStatus === 'SignedOut' ? (*/}
         {/*  <button className="snipcart-customer-signin">*/}
         {/*    <span>Login</span>*/}
