@@ -38,8 +38,8 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
     const product = {
       id,
       name,
-      price: price,
-      url: 'order',
+      price,
+      url: '/order',
       quantity: values.quantity,
     }
     if (customFields) {
@@ -141,8 +141,7 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
       }
     }
   }
-
-  // ToDo: fix form
+  
   return (
     <Form
       onSubmit={handleAddToCart}
@@ -173,6 +172,7 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
               data-item-id={id}
               data-item-name={name}
               data-item-price={price}
+              {...dozenPrice && {'dozen-item-price-dozen': dozenPrice / 12} }
             />
             <AddToCartButton
               type="submit"

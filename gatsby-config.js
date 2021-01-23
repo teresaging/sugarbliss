@@ -22,7 +22,7 @@ const snipCartBillingHTML = `
             <div>
               <item-quantity
                   class="snipcart-item-line__quantity"
-                  v-if="item.id !== 'pickup' && item.id !== 'delivery'"
+                  v-if="item.id !== 'pickup' && item.id !== 'local delivery'"
               />
             </div>
           </div>
@@ -34,12 +34,12 @@ const snipCartBillingHTML = `
                 />
             </remove-item-action>
         </div>
-      </div>
-      <div class="snipcart-item-line__content">
-        <div class="snipcart-item-line__body">
-          <div class="snipcart-item-line__variants">
-            <div>
-              <item-custom-fields v-if="!adding"></item-custom-fields>
+        <div class="snipcart-item-line__content">
+          <div class="snipcart-item-line__body">
+            <div class="snipcart-item-line__variants">
+              <div>
+                <item-custom-fields v-if="!adding"></item-custom-fields>
+              </div>
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-snipcart-advanced`,
       options: {
-        version: '3.0.19',
+        version: '3.0.27',
         publicApiKey: process.env.GATSBY_SNIPCART_API_KEY, // use public api key here or in environment variable
         openCartOnAdd: false,
         innerHTML: snipCartBillingHTML,
