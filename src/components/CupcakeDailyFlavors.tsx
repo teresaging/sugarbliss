@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import _ from 'lodash';
 import styled from '@emotion/styled';
 import { fonts, Tabs, ProductDisplay } from '../design-system';
 import { sizing } from '../utils';
@@ -42,10 +43,13 @@ const CupcakeDailyFlavors = ({cupcakes}: Props) => {
     setActiveTabId(activeTabId);
   }
 
+
   const renderCupcakesByDay = (day) => {
+    const availableCupcakes = cupcakes.filter((cupcake) => cupcake.weekDaysAvailable.includes(day));
+
     return (
       <>
-        {cupcakes.filter((cupcake) => cupcake.isDaily && cupcake.dayAvailable === day).map((cupcake) => {
+        {availableCupcakes.map((cupcake) => {
           return (
             <ProductDisplay
               name={cupcake.name}

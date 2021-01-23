@@ -1,3 +1,9 @@
+export type SeasonalDate = {
+  name: string;
+  startDate: Date;
+  endDate: Date;
+}
+
 export type Cupcake = {
   name: string;
   description: string;
@@ -12,8 +18,9 @@ export type Cupcake = {
   seasonalEndDate?: Date;
   monthAvailable?: string | string[];
   isDaily: boolean;
-  dayAvailable?: string;
+  weekDaysAvailable?: string[];
   seasonalDaysAvailable?: string;
+  seasonalDatesAvailable?: SeasonalDate[];
 };
 
 export type Macaron = {

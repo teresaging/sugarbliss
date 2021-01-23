@@ -105,8 +105,13 @@ query CupcakesQuery {
       isSeasonal
       monthAvailable
       isDaily
-      dayAvailable
+      weekDaysAvailable
       seasonalDaysAvailable
+      seasonalDatesAvailable {
+        name
+        startDate
+        endDate
+      }
     }
   }
   cupcakesHeaderImage: file(absolutePath: {regex: "/\\/images\\/cupcakes\\/cupcakesHeaderImage\\.jpg/"}) {
