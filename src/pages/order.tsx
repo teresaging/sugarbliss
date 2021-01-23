@@ -54,7 +54,6 @@ const OrderPage = ({data}: OrderProps) => {
   const [ availableMacaronFlavors, setAvailableMacaronFlavors ] = useState([]);
 
   useEffect(() => {
-    // testing
     const cupcakeFlavors = cupcakeData.filter((cupcake) => {
       if (cupcake.isEverydayFlavor) {
         return true;
@@ -62,7 +61,7 @@ const OrderPage = ({data}: OrderProps) => {
       if (cupcake.isSeasonal && moment(cupcake.seasonalStartDate).set('year', CURRENT_YEAR) <= moment(orderDate) && moment(cupcake.seasonalEndDate).set('year', CURRENT_YEAR) >= moment(orderDate)) {
         return true;
       }
-      if (cupcake.isDaily && cupcake.dayAvailable === dayOfWeek) { // ToDo: this will change
+      if (cupcake.isDaily && cupcake.weekDaysAvailable.includes(dayOfWeek)) {
         return true;
       }
 
@@ -333,9 +332,14 @@ export const query = graphql`
         isEverydayFlavor
         seasonalStartDate
         seasonalEndDate
+        seasonalDatesAvailable {
+          name
+          startDate
+          endDate
+        }
         isSeasonal
         isDaily
-        dayAvailable
+        weekDaysAvailable
         isEverydayFlavor
       }
     }

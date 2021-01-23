@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import _ from 'lodash';
 import styled from '@emotion/styled';
 import { fonts, Tabs, ProductDisplay } from '../design-system';
 import { sizing } from '../utils';
@@ -42,7 +41,6 @@ const CupcakeDailyFlavors = ({cupcakes}: Props) => {
   const handleTabPress = (activeTabId) => {
     setActiveTabId(activeTabId);
   }
-
 
   const renderCupcakesByDay = (day) => {
     const availableCupcakes = cupcakes.filter((cupcake) => cupcake.weekDaysAvailable.includes(day));
