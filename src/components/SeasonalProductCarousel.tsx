@@ -1,11 +1,13 @@
 import React from 'react';
+import moment from 'moment';
+import { sortBy } from 'lodash';
 import styled from '@emotion/styled';
 import { fonts, SeasonalCarousel } from '../design-system';
 import { sizing, months } from '../utils';
+import { Cupcake } from '../sharedTypes';
 
 type Props = {
-  // tslint:disable-next-line:no-any
-  products: any;
+  products: Cupcake[];
 };
 
 const getCurrentMonths = () => {
@@ -20,33 +22,37 @@ const getCurrentMonths = () => {
 
 const groomProductDataForCarousel = (products) => {
   const groomedData = products.map((product) => {
+    const seasonalObject = product.seasonalDatesAvailable.filter((seasonalDate) => seasonalDate.active)[0];
+
     return {
       name: product.name,
       imageUrl: product.image.file.url,
-      datesAvailable: product.seasonalDaysAvailable,
+      datesAvailable: seasonalObject?.name,
       description: product.description,
+      startDate: moment(seasonalObject?.startDate),
     }
   });
 
-  return groomedData;
+  return groomedData.sort((a , b) => a.startDate - b.startDate);
 };
 
 const SeasonalProductCarousel = ({products}: Props) => {
 
-  const currentSeasonalProducts = products.filter((product) => {
-    const monthAvailable = product.monthAvailable;
-    const currentMonths = getCurrentMonths();
-    if (Boolean(monthAvailable.length)) {
-      for (let i = 0; i < monthAvailable.length; i++) {
-        if (monthAvailable[i] ===  currentMonths.currentMonth || monthAvailable[i] ===  currentMonths.nextMonth) {
-          return true;
-        }
-      }
+  const currentDate = moment();
 
-      return false;
-    } else {
-      return product.monthAvailable === currentMonths.currentMonth || product.monthAvailable === currentMonths.nextMonth;
+  const currentSeasonalProducts = products.filter((product) => {
+
+    let isCurrentProduct = false;
+
+    for (let i = 0; i < product.seasonalDatesAvailable.length; i++) {
+      const startDateMonth = moment(product.seasonalDatesAvailable[i].startDate).month();
+      if (startDateMonth === currentDate.month() || startDateMonth === currentDate.month() + 1 ) {
+        product.seasonalDatesAvailable[i].active = true;
+        isCurrentProduct = true;
+      }
     }
+
+    return isCurrentProduct;
   });
 
   if (currentSeasonalProducts.length === 0) {

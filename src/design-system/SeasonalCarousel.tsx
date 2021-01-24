@@ -42,11 +42,11 @@ const SeasonalCarousel = ({seasonalProducts = []}: Props) => {
                   <Image src={product.imageUrl} />
                 </LeftImageContainer>
               )}
-              <div>
+              <ProductInfoContainer>
                 <Name>{product.name}</Name>
                 {product.datesAvailable && (<DatesAvailable>{product.datesAvailable}</DatesAvailable>)}
                 {product.description && (<Description>{product.description}</Description>)}
-              </div>
+              </ProductInfoContainer>
               {idx % 2 !== 0 && (
                 <RightImageContainer>
                   <Image src={product.imageUrl} />
@@ -123,7 +123,8 @@ const DatesAvailable = styled.p`
 `;
 
 const Description = styled.p`
-  ${fonts.regularText['700']};
+  ${fonts.regularText['400']};
+  margin-top: ${sizing(20)};
 `;
 
 const LeftImageContainer = styled.div`
@@ -132,6 +133,10 @@ const LeftImageContainer = styled.div`
 
 const RightImageContainer = styled.div`
   margin-left: ${sizing(20)};
+`;
+
+const ProductInfoContainer = styled.div`
+  max-width: ${sizing(480)};
 `;
 
 export default SeasonalCarousel;

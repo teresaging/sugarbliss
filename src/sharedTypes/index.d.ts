@@ -2,6 +2,7 @@ export type SeasonalDate = {
   name: string;
   startDate: Date;
   endDate: Date;
+  active?: boolean;
 }
 
 export type Cupcake = {
