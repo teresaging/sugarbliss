@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import { Select } from 'mui-rff';
 import { MenuItem, Checkbox } from '@material-ui/core';
+import { fonts, Button, Tabs } from '../../design-system';
 
 import { Cupcake, Macaron, OrderCustomFields } from '../../sharedTypes';
 
@@ -16,7 +17,9 @@ import {
   QuantityInputLabel,
   CustomFieldInput,
   CustomFieldLabel,
-  CustomFieldContainer
+  CustomFieldContainer,
+  MakeYourOwnFlavor,
+  Plus
 } from './Styled';
 
 type Props = {
@@ -32,6 +35,8 @@ type Props = {
 
 const OrderProduct = ({name, description, price, dozenPrice, customFields, addItemToCart, availableCupcakeFlavors, availableMacaronFlavors}: Props) => {
 
+  const [ makeYourOwnFieldsQuantity, setMakeYourOwnFieldsQuantity ] = useState(2);
+
   const id = name.replace(/\s+/g, '-').toLowerCase();
 
   const handleAddToCart = async (values) => {
@@ -41,6 +46,7 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
       price,
       url: '/order',
       quantity: values.quantity,
+      alternatePrices: dozenPrice ? {dozen: dozenPrice / 12} : {},
     }
     if (customFields) {
      const snipCartCustomFields = customFields.map((customField) => {
@@ -141,7 +147,42 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
       }
     }
   }
-  
+
+  const handleRenderDozenFlavors = () => {
+    const flavorFields = [];
+    for (let i = 0; i < makeYourOwnFieldsQuantity; i++) {
+      flavorFields.push(
+        <MakeYourOwnFlavor>
+          <Field name={`Flavor-${i + 1}`}>
+            {props => (
+              <CustomFieldContainer>
+                <Select label="Pick a Flavor" {...props.input}>
+                  {availableCupcakeFlavors?.map((flavor, idx) => (
+                    <MenuItem key={idx} value={flavor.name}>{flavor.name}</MenuItem>
+                  ))}
+                </Select>
+              </CustomFieldContainer>
+            )}
+          </Field>
+          <Field name={`Flavor-${i + 1}-quantity`} type="number" initialValue={1}>
+            {props => (
+              <>
+                <QuantityInput marginBottom={20} {...props.input}/>
+              </>
+            )}
+          </Field>
+        </MakeYourOwnFlavor>
+      );
+    }
+
+    return (
+      <>
+        {flavorFields}
+        <Plus onClick={() => setMakeYourOwnFieldsQuantity(makeYourOwnFieldsQuantity + 1)}>+</Plus>
+      </>
+    );
+  }
+
   return (
     <Form
       onSubmit={handleAddToCart}
@@ -155,15 +196,19 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
             ) : (
               <Price>${price}</Price>
             )}
-            {customFields?.map(handleRenderField)}
-            <Field name="quantity" type="number" initialValue={1}>
-              {props => (
-                <>
-                  <QuantityInputLabel>Quantity:</QuantityInputLabel>
-                  <QuantityInput marginBottom={20} min={1} {...props.input}/>
-                </>
-              )}
-            </Field>
+            {name === 'Make Your Own Dozen Cupcakes' && handleRenderDozenFlavors()}
+            {name !== 'Make Your Own Dozen Cupcakes' && customFields?.map(handleRenderField)}
+            {name !== 'Make Your Own Dozen Cupcakes' && (
+              <Field name="quantity" type="number" initialValue={1}>
+                {props => (
+                  <>
+                    <QuantityInputLabel>Quantity:</QuantityInputLabel>
+                    <QuantityInput marginBottom={20} min={1} {...props.input}/>
+                  </>
+                )}
+              </Field>
+              )
+            }
             {/*button for snipcart verification*/}
             <button
               style={{display: 'none'}}

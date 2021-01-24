@@ -203,3 +203,16 @@ export const CustomFieldContainer = styled.div`
   align-items: center;
   margin-bottom: ${sizing(15)};
 `;
+
+export const MakeYourOwnFlavor = styled.div`
+  width :100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Plus = styled.p`
+  ${fonts.boldText['400']};
+  color: ${colors.solids.BROWN};
+  cursor: pointer;
+`;
