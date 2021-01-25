@@ -58,9 +58,20 @@ const OrderPage = ({data}: OrderProps) => {
       if (cupcake.isEverydayFlavor) {
         return true;
       }
-      if (cupcake.isSeasonal && moment(cupcake.seasonalStartDate).set('year', CURRENT_YEAR) <= moment(orderDate) && moment(cupcake.seasonalEndDate).set('year', CURRENT_YEAR) >= moment(orderDate)) {
-        return true;
+
+      if (cupcake.isSeasonal && cupcake.seasonalDatesAvailable?.length > 0) {
+        let isProductAvailable = false;
+        for (let i = 0; i < cupcake.seasonalDatesAvailable.length; i++) {
+          const startDate = moment(cupcake.seasonalDatesAvailable[i].startDate).set('year', CURRENT_YEAR);
+          const endDate = moment(cupcake.seasonalDatesAvailable[i].endDate).set('year', CURRENT_YEAR);
+          if (moment(orderDate) >= startDate && moment(orderDate) <= endDate) {
+            isProductAvailable = true;
+          }
+        }
+
+        return isProductAvailable;
       }
+
       if (cupcake.isDaily && cupcake.weekDaysAvailable.includes(dayOfWeek)) {
         return true;
       }
@@ -69,9 +80,19 @@ const OrderPage = ({data}: OrderProps) => {
     });
 
     const macaronFlavors = macaronData.filter((macaron) => {
-      const isAvailable = macaron.isSeasonalFlavor && moment(macaron.seasonalStartDate).set('year', CURRENT_YEAR) <= moment(orderDate) && moment(macaron.seasonalEndDate).set('year', CURRENT_YEAR) >= moment(orderDate);
-      if (macaron.isSeasonalFlavor && !isAvailable) {
-        return false;
+      // ToDo: put this duplicated code inside it's own function
+      if (macaron.isSeasonalFlavor && macaron.seasonalDatesAvailable?.length > 0) {
+        let isProductAvailable = false;
+
+        for (let i = 0; i < macaron.seasonalDatesAvailable.length; i++) {
+          const startDate = moment(macaron.seasonalDatesAvailable[i].startDate).set('year', CURRENT_YEAR);
+          const endDate = moment(macaron.seasonalDatesAvailable[i].endDate).set('year', CURRENT_YEAR);
+          if (moment(orderDate) >= startDate && moment(orderDate) <= endDate) {
+            isProductAvailable = true;
+          }
+        }
+
+        return isProductAvailable;
       }
 
       return true;
@@ -94,8 +115,7 @@ const OrderPage = ({data}: OrderProps) => {
   // });
 
   const removeAllItemsFromCart = () => {
-    // ToDo: add removeItem to snipcart plugin
-    if (cartItems && cartItems.length !== 0) {
+    if (cartItems && cartItems.length > 0) {
       cartItems.forEach(async (item) => {
         await removeItem(item.uniqueId);
       });
@@ -330,8 +350,6 @@ export const query = graphql`
       nodes {
         name
         isEverydayFlavor
-        seasonalStartDate
-        seasonalEndDate
         seasonalDatesAvailable {
           name
           startDate
@@ -347,8 +365,11 @@ export const query = graphql`
       nodes {
         name
         isSeasonalFlavor
-        seasonalStartDate
-        seasonalEndDate
+        seasonalDatesAvailable {
+          name
+          startDate
+          endDate
+        }
       }
     }
   }

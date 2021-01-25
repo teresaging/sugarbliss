@@ -1,23 +1,12 @@
 import React from 'react';
 import moment from 'moment';
-import { sortBy } from 'lodash';
 import styled from '@emotion/styled';
 import { fonts, SeasonalCarousel } from '../design-system';
-import { sizing, months } from '../utils';
-import { Cupcake } from '../sharedTypes';
+import { sizing } from '../utils';
+import { Cupcake, Macaron, CakePop } from '../sharedTypes';
 
 type Props = {
-  products: Cupcake[];
-};
-
-const getCurrentMonths = () => {
-  const currentDate = new Date();
-  const currentMonthNumber = currentDate.getMonth() + 1;
-
-  return {
-    currentMonth: months[currentMonthNumber],
-    nextMonth: months[currentMonthNumber + 1],
-  };
+  products: any; // ToDo: add type here
 };
 
 const groomProductDataForCarousel = (products) => {
@@ -44,7 +33,11 @@ const SeasonalProductCarousel = ({products}: Props) => {
 
     let isCurrentProduct = false;
 
-    for (let i = 0; i < product.seasonalDatesAvailable.length; i++) {
+    if (!product.seasonalDatesAvailable) {
+      return isCurrentProduct;
+    }
+
+    for (let i = 0; i < product.seasonalDatesAvailable?.length; i++) {
       const startDateMonth = moment(product.seasonalDatesAvailable[i].startDate).month();
       if (startDateMonth === currentDate.month() || startDateMonth === currentDate.month() + 1 ) {
         product.seasonalDatesAvailable[i].active = true;

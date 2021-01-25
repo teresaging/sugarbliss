@@ -73,8 +73,11 @@ query MacaronsQuery {
         }
       }
       isSeasonalFlavor
-      monthAvailable
-      seasonalDaysAvailable
+      seasonalDatesAvailable {
+        name
+        startDate
+        endDate
+      }
     }
   }
   macaronsHeaderImage: file(absolutePath: {regex: "/\\/images\\/macarons\\/macaronsHeaderImage\\.jpg/"}) {

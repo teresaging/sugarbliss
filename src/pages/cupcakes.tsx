@@ -103,10 +103,8 @@ query CupcakesQuery {
       }
       isEverydayFlavor
       isSeasonal
-      monthAvailable
       isDaily
       weekDaysAvailable
-      seasonalDaysAvailable
       seasonalDatesAvailable {
         name
         startDate

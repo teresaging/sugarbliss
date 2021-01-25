@@ -18,7 +18,7 @@ type CakePopsQueryProps = {
   underlineImage: FluidImage;
   cakePopsFooterImage: FluidImage;
   allContentfulCakePops: {
-    nodes: CakePop[]; // Todo: add shared macaron type here
+    nodes: CakePop[];
   };
 };
 
@@ -28,7 +28,7 @@ const CakePopsPage = ({data}: CakePopsProps) => {
 
   const seasonalFlavors = data.allContentfulCakePops.nodes.filter((cakePop) => cakePop.isSeasonal);
   const classicCollectionFlavors = data.allContentfulCakePops.nodes.filter((cakePop) => cakePop.isClassicCollection);
-  const everyDayFlavors = data.allContentfulCakePops.nodes.filter((cakePop) => cakePop.isSeasonal === false);
+  const everyDayFlavors = data.allContentfulCakePops.nodes.filter((cakePop) => !cakePop.isSeasonal && !cakePop.isClassicCollection);
 
   return (
     <Layout>
@@ -76,8 +76,11 @@ allContentfulCakePops {
       }
       isClassicCollection
       isSeasonal
-      monthAvailable
-      seasonalDaysAvailable
+      seasonalDatesAvailable {
+        name
+        startDate
+        endDate
+      }
     }
   }
   cakePopsHeaderImage: file(absolutePath: {regex: "/\\/images\\/cakePops\\/cakePopsHeaderImage\\.jpg/"}) {
