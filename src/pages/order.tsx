@@ -13,7 +13,7 @@ import Cart from '../components/order/Cart';
 import styled from '@emotion/styled';
 import { fonts, Button, Tabs } from '../design-system';
 import { sizing, colors, allDeliveryPrices } from '../utils';
-import { OrderForm, Cupcake, Macaron } from '../sharedTypes';
+import { OrderForm, Cupcake, Macaron, CakePop } from '../sharedTypes';
 
 const CURRENT_YEAR = moment().year();
 
@@ -26,6 +26,9 @@ type OrderQueryProps = {
   };
   allContentfulMacaron: {
     nodes: Macaron[];
+  };
+  allContentfulCakePops: {
+    nodes: CakePop[];
   };
 };
 
@@ -42,6 +45,7 @@ const OrderPage = ({data}: OrderProps) => {
   });
   const cupcakeData = data?.allContentfulCupcake?.nodes;
   const macaronData = data?.allContentfulMacaron?.nodes;
+  const cakePopData = data?.allContentfulCakePops?.nodes;
 
   const { state, addItem, removeItem } = useContext(SnipcartContext);
   const { userStatus, cartQuantity, cartItems } = state;
@@ -52,6 +56,7 @@ const OrderPage = ({data}: OrderProps) => {
   const [ activeTabId, setActiveTabId ] = useState(tabsData[0]?.id);
   const [ availableCupcakeFlavors, setAvailableCupcakeFlavors ] = useState([]);
   const [ availableMacaronFlavors, setAvailableMacaronFlavors ] = useState([]);
+  const [ availableCakePopFlavors, setAvailableCakePopFlavors ] = useState([]);
 
   useEffect(() => {
     const cupcakeFlavors = cupcakeData.filter((cupcake) => {
@@ -98,9 +103,27 @@ const OrderPage = ({data}: OrderProps) => {
       return true;
     });
 
+    const cakePopFlavors = cakePopData.filter((cakePop) => {
+      if (cakePop.isSeasonal && cakePop.seasonalDatesAvailable?.length > 0) {
+        let isProductAvailable = false;
+
+        for (let i = 0; i < cakePop.seasonalDatesAvailable.length; i++) {
+          const startDate = moment(cakePop.seasonalDatesAvailable[i].startDate).set('year', CURRENT_YEAR);
+          const endDate = moment(cakePop.seasonalDatesAvailable[i].endDate).set('year', CURRENT_YEAR);
+          if (moment(orderDate) >= startDate && moment(orderDate) <= endDate) {
+            isProductAvailable = true;
+          }
+        }
+
+        return isProductAvailable;
+      }
+
+      return true;
+    });
+
     setAvailableCupcakeFlavors(cupcakeFlavors);
     setAvailableMacaronFlavors(macaronFlavors);
-
+    setAvailableCakePopFlavors(cakePopFlavors);
   }, [dayOfWeek, orderDate]);
 
   const testingRef = useRef(null);
@@ -221,6 +244,7 @@ const OrderPage = ({data}: OrderProps) => {
              addItemToCart={addItemToCart}
              availableCupcakeFlavors={availableCupcakeFlavors}
              availableMacaronFlavors={availableMacaronFlavors}
+             availableCakePopFlavors={availableCakePopFlavors}
            />
          ))}
        </div>
@@ -369,6 +393,17 @@ export const query = graphql`
       nodes {
         name
         isSeasonalFlavor
+        seasonalDatesAvailable {
+          name
+          startDate
+          endDate
+        }
+      }
+    }
+    allContentfulCakePops {
+      nodes {
+        name
+        isSeasonal
         seasonalDatesAvailable {
           name
           startDate

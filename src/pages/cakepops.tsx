@@ -65,7 +65,7 @@ const Price = styled.p`
 
 export const query = graphql`
 query CakePopsQuery {
-allContentfulCakePops {
+  allContentfulCakePops {
     nodes {
       name
       description

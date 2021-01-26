@@ -2,7 +2,7 @@ import React from 'react';
 
 import OrderProduct from './OrderProduct';
 import { CategoryTitle, ProductsWrapper, CategoryWrapper, CategoriesContainer } from './Styled';
-import { OrderCategory, OrderProduct as OrderProductType, Cupcake, Macaron } from '../../sharedTypes';
+import { OrderCategory, OrderProduct as OrderProductType, Cupcake, Macaron, CakePop } from '../../sharedTypes';
 
 type ProductDataType = OrderCategory & OrderProductType;
 
@@ -12,9 +12,10 @@ type Props = {
   addItemToCart: Function;
   availableCupcakeFlavors: Cupcake[];
   availableMacaronFlavors: Macaron[];
+  availableCakePopFlavors: CakePop[];
 }
 
-const OrderTabSection = ({productData, isHidden, addItemToCart, availableCupcakeFlavors, availableMacaronFlavors}: Props) => {
+const OrderTabSection = ({productData, isHidden, addItemToCart, availableCupcakeFlavors, availableMacaronFlavors, availableCakePopFlavors}: Props) => {
 
   const renderCategory = ({products}) => {
     return (
@@ -30,6 +31,7 @@ const OrderTabSection = ({productData, isHidden, addItemToCart, availableCupcake
             addItemToCart={addItemToCart}
             availableCupcakeFlavors={availableCupcakeFlavors}
             availableMacaronFlavors={availableMacaronFlavors}
+            availableCakePopFlavors={availableCakePopFlavors}
           />
         ))}
       </ProductsWrapper>
@@ -57,6 +59,7 @@ const OrderTabSection = ({productData, isHidden, addItemToCart, availableCupcake
                 addItemToCart={addItemToCart}
                 availableCupcakeFlavors={availableCupcakeFlavors}
                 availableMacaronFlavors={availableMacaronFlavors}
+                availableCakePopFlavors={availableCakePopFlavors}
               />
             </ProductsWrapper>
             )

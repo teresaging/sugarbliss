@@ -5,7 +5,7 @@ import { MenuItem, Checkbox } from '@material-ui/core';
 import { PlusCircle, MinusCircle } from 'react-feather';
 import { FORM_ERROR } from 'final-form'
 
-import { Cupcake, Macaron, OrderCustomFields } from '../../sharedTypes';
+import { Cupcake, Macaron, OrderCustomFields, CakePop } from '../../sharedTypes';
 
 import {
   ProductContainer,
@@ -36,9 +36,10 @@ type Props = {
   addItemToCart: Function;
   availableCupcakeFlavors: Cupcake[];
   availableMacaronFlavors: Macaron[];
+  availableCakePopFlavors: CakePop[];
 }
 
-const OrderProduct = ({name, description = '', price, dozenPrice = 0, customFields = [], addItemToCart, availableCupcakeFlavors, availableMacaronFlavors}: Props) => {
+const OrderProduct = ({name, description = '', price, dozenPrice = 0, customFields = [], addItemToCart, availableCupcakeFlavors, availableMacaronFlavors, availableCakePopFlavors}: Props) => {
 
   let isMakeYourOwnFlavorsProduct = false;
   let makeYourOwnFlavorsQuantity = 0;
@@ -132,6 +133,22 @@ const OrderProduct = ({name, description = '', price, dozenPrice = 0, customFiel
         )
         break;
       }
+      case 'Cake Pop Flavors': {
+        return (
+          <Field name={field.name}>
+            {props => (
+              <CustomFieldContainer>
+                <Select label="Pick a Flavor" {...props.input}>
+                  {availableCakePopFlavors?.map((flavor, idx) => (
+                    <MenuItem key={idx} value={flavor.name}>{flavor.name}</MenuItem>
+                  ))}
+                </Select>
+              </CustomFieldContainer>
+            )}
+          </Field>
+        )
+        break;
+      }
       case 'Select Input': {
         return (
           <Field name={field.name}>
@@ -183,6 +200,9 @@ const OrderProduct = ({name, description = '', price, dozenPrice = 0, customFiel
     }
     if (field.type === 'Macaron Flavors') {
       flavors = availableMacaronFlavors;
+    }
+    if (field.type === 'Cake Pop Flavors') {
+      flavors = availableCakePopFlavors;
     }
     if (field.type === 'Select Input') {
       flavors = field.choices;

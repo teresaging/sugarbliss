@@ -198,7 +198,7 @@ export const CustomFieldLabel = styled.p`
 
 export const CustomFieldContainer = styled.div`
   width: 100%;
-  max-width: ${sizing(210)};
+  max-width: ${sizing(230)};
   display: flex;
   justify-content: center;
   align-items: center;
