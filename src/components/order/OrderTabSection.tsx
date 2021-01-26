@@ -47,16 +47,18 @@ const OrderTabSection = ({productData, isHidden, addItemToCart, availableCupcake
             </>
           )
           : (
-            <OrderProduct
-              name={data.name}
-              price={data.price}
-              description={data.description}
-              dozenPrice={data.dozenPrice}
-              customFields={data.customFields}
-              addItemToCart={addItemToCart}
-              availableCupcakeFlavors={availableCupcakeFlavors}
-              availableMacaronFlavors={availableMacaronFlavors}
-            />
+            <ProductsWrapper>
+              <OrderProduct
+                name={data.name}
+                price={data.price}
+                description={data.description}
+                dozenPrice={data.dozenPrice}
+                customFields={data.customFields}
+                addItemToCart={addItemToCart}
+                availableCupcakeFlavors={availableCupcakeFlavors}
+                availableMacaronFlavors={availableMacaronFlavors}
+              />
+            </ProductsWrapper>
             )
           }
         </CategoryWrapper>

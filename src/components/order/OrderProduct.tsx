@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import { Select } from 'mui-rff';
 import { MenuItem, Checkbox } from '@material-ui/core';
-import { fonts, Button, Tabs } from '../../design-system';
+import { PlusCircle, MinusCircle } from 'react-feather';
+import { FORM_ERROR } from 'final-form'
 
 import { Cupcake, Macaron, OrderCustomFields } from '../../sharedTypes';
 
@@ -19,7 +20,11 @@ import {
   CustomFieldLabel,
   CustomFieldContainer,
   MakeYourOwnFlavor,
-  Plus
+  PlusMinusButton,
+  MakeYourOwnMinusPlusContainer,
+  MakeYourOwnTopContainer,
+  MakeYourOwnContainer,
+  ErrorText,
 } from './Styled';
 
 type Props = {
@@ -33,23 +38,40 @@ type Props = {
   availableMacaronFlavors: Macaron[];
 }
 
-const OrderProduct = ({name, description, price, dozenPrice, customFields, addItemToCart, availableCupcakeFlavors, availableMacaronFlavors}: Props) => {
+const OrderProduct = ({name, description = '', price, dozenPrice = 0, customFields = [], addItemToCart, availableCupcakeFlavors, availableMacaronFlavors}: Props) => {
+
+  let isMakeYourOwnFlavorsProduct = false;
+  let makeYourOwnFlavorsQuantity = 0;
 
   const [ makeYourOwnFieldsQuantity, setMakeYourOwnFieldsQuantity ] = useState(2);
 
   const id = name.replace(/\s+/g, '-').toLowerCase();
 
   const handleAddToCart = async (values) => {
+    const makeYourOwnCustomFields = [];
+    if (isMakeYourOwnFlavorsProduct) {
+      let quantity = 0;
+      for (let i = 0; i < makeYourOwnFieldsQuantity; i++) {
+        quantity += parseInt(values[`Flavor-${i + 1}-quantity`], 10);
+        makeYourOwnCustomFields.push({
+          name: `Flavor ${i + 1}`,
+          type: 'readonly',
+          value: `${values[`Flavor-${i + 1}`]} - ${values[`Flavor-${i + 1}-quantity`]}`,
+        });
+      }
+      if (quantity !== makeYourOwnFlavorsQuantity) {
+        return { [FORM_ERROR]: `Quantity needs to equal ${makeYourOwnFlavorsQuantity}` };
+      }
+    }
     const product = {
       id,
       name,
       price,
       url: '/order',
       quantity: values.quantity,
-      alternatePrices: dozenPrice ? {dozen: dozenPrice / 12} : {},
     }
     if (customFields) {
-     const snipCartCustomFields = customFields.map((customField) => {
+     const snipCartCustomFields = customFields.filter((customField) => !customField.isMakeYourOwnFlavor).map((customField) => {
        if (values[customField.name]) {
          return {
            name: customField.name,
@@ -63,7 +85,7 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
 
      return addItemToCart({
        ...product,
-       customFields: snipCartCustomFields,
+       customFields: snipCartCustomFields.concat(makeYourOwnCustomFields),
      })
     }
 
@@ -71,6 +93,12 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
   }
 
   const handleRenderField = (field) => {
+    if (field.isMakeYourOwnFlavor) {
+      isMakeYourOwnFlavorsProduct = true;
+      makeYourOwnFlavorsQuantity = field.makeYourOwnFlavorsQuantity;
+
+      return handleRenderMakeYourOwnFlavors(field);
+    }
     switch (field.type) {
       case 'Macaron Flavors': {
         return (
@@ -148,45 +176,65 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
     }
   }
 
-  const handleRenderDozenFlavors = () => {
+  const handleRenderMakeYourOwnFlavors = (field) => {
+    let flavors = [];
+    if (field.type === 'Cupcake Flavors') {
+      flavors = availableCupcakeFlavors;
+    }
+    if (field.type === 'Macaron Flavors') {
+      flavors = availableMacaronFlavors;
+    }
+    if (field.type === 'Select Input') {
+      flavors = field.choices;
+    }
     const flavorFields = [];
-    for (let i = 0; i < makeYourOwnFieldsQuantity; i++) {
-      flavorFields.push(
-        <MakeYourOwnFlavor>
-          <Field name={`Flavor-${i + 1}`}>
-            {props => (
-              <CustomFieldContainer>
-                <Select label="Pick a Flavor" {...props.input}>
-                  {availableCupcakeFlavors?.map((flavor, idx) => (
-                    <MenuItem key={idx} value={flavor.name}>{flavor.name}</MenuItem>
-                  ))}
-                </Select>
-              </CustomFieldContainer>
-            )}
-          </Field>
-          <Field name={`Flavor-${i + 1}-quantity`} type="number" initialValue={1}>
-            {props => (
-              <>
-                <QuantityInput marginBottom={20} {...props.input}/>
-              </>
-            )}
-          </Field>
-        </MakeYourOwnFlavor>
-      );
+    if (flavors.length > 0) {
+      for (let i = 0; i < makeYourOwnFieldsQuantity; i++) {
+        flavorFields.push(
+          <MakeYourOwnFlavor>
+            <Field name={`Flavor-${i + 1}`}>
+              {props => (
+                <CustomFieldContainer>
+                  <Select label="Pick a Flavor" {...props.input}>
+                    {/*@ts-ignore*/}
+                    {flavors.length > 0 && flavors.map((flavor, idx) => (
+                      <MenuItem key={idx} value={field.type === 'Select Input' ? flavor : flavor.name}>{field.type === 'Select Input' ? flavor : flavor.name}</MenuItem>
+                    ))}
+                  </Select>
+                </CustomFieldContainer>
+              )}
+            </Field>
+            <Field name={`Flavor-${i + 1}-quantity`} type="number" initialValue={1}>
+              {props => (
+                <>
+                  <QuantityInput marginBottom={15} {...props.input}/>
+                </>
+              )}
+            </Field>
+          </MakeYourOwnFlavor>
+        );
+      }
     }
 
     return (
-      <>
+      <MakeYourOwnContainer>
+        <MakeYourOwnTopContainer>
+          <p>Flavor</p>
+          <p>Quantity</p>
+        </MakeYourOwnTopContainer>
         {flavorFields}
-        <Plus onClick={() => setMakeYourOwnFieldsQuantity(makeYourOwnFieldsQuantity + 1)}>+</Plus>
-      </>
+        <MakeYourOwnMinusPlusContainer>
+          <PlusMinusButton onClick={() => setMakeYourOwnFieldsQuantity(makeYourOwnFieldsQuantity + 1)}><PlusCircle size={20} /></PlusMinusButton>
+          <PlusMinusButton onClick={() => makeYourOwnFieldsQuantity > 1 && setMakeYourOwnFieldsQuantity(makeYourOwnFieldsQuantity - 1)}><MinusCircle size={20} /></PlusMinusButton>
+        </MakeYourOwnMinusPlusContainer>
+      </MakeYourOwnContainer>
     );
   }
 
   return (
     <Form
       onSubmit={handleAddToCart}
-      render={({handleSubmit, submitting, values, hasValidationErrors}) => (
+      render={({handleSubmit, submitting, values, hasValidationErrors, submitError}) => (
         <form onSubmit={handleSubmit}>
           <ProductContainer>
             <Name>{name}</Name>
@@ -196,9 +244,8 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
             ) : (
               <Price>${price}</Price>
             )}
-            {name === 'Make Your Own Dozen Cupcakes' && handleRenderDozenFlavors()}
-            {name !== 'Make Your Own Dozen Cupcakes' && customFields?.map(handleRenderField)}
-            {name !== 'Make Your Own Dozen Cupcakes' && (
+            {customFields?.map(handleRenderField)}
+            {!isMakeYourOwnFlavorsProduct && (
               <Field name="quantity" type="number" initialValue={1}>
                 {props => (
                   <>
@@ -207,8 +254,8 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
                   </>
                 )}
               </Field>
-              )
-            }
+            )}
+            {submitError && <ErrorText>{submitError}</ErrorText>}
             {/*button for snipcart verification*/}
             <button
               style={{display: 'none'}}
@@ -217,7 +264,6 @@ const OrderProduct = ({name, description, price, dozenPrice, customFields, addIt
               data-item-id={id}
               data-item-name={name}
               data-item-price={price}
-              {...dozenPrice && {'dozen-item-price-dozen': dozenPrice / 12} }
             />
             <AddToCartButton
               type="submit"

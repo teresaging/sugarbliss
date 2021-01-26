@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { TextField } from 'mui-rff';
 
 import { fonts } from '../../design-system';
 import { colors, sizing } from '../../utils';
@@ -44,7 +43,6 @@ export const OptionText = styled.p`
   ${fonts.boldText['600']};
   margin-bottom: 0;
 `;
-
 
 export const Container = styled.div`
   display: flex;
@@ -133,10 +131,13 @@ export const ProductsWrapper = styled.div`
   grid-column-gap: ${sizing(35)};
   grid-row-gap: ${sizing(20)};
   @media all and (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2 , minmax(0, 1fr));
   }
-  @media all and (min-width: 992px) {
-    grid-template-columns: 1fr 1fr 1fr;
+  @media all and (min-width: 850px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  @media all and (min-width: 1042px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 `;
 
@@ -159,7 +160,7 @@ export const PriceWithDozen = styled.p`
 `;
 
 export const AddToCartButton = styled.button`
-  ${fonts.boldText['400']};
+  ${fonts.boldText['300']};
   color: ${colors.solids.BROWN};
   background-color: ${colors.solids.BABY_PINK};
   cursor: pointer;
@@ -197,22 +198,62 @@ export const CustomFieldLabel = styled.p`
 
 export const CustomFieldContainer = styled.div`
   width: 100%;
-  max-width: ${sizing(300)};
+  max-width: ${sizing(210)};
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: ${sizing(15)};
+
+  .MuiInputLabel-formControl {
+    transform: translate(0, 33px) scale(1);
+  }
+  .MuiInputLabel-shrink {
+    transform: translate(0, 11px) scale(0.75);
+    transform-origin: top left;
+  }
+  
+  .MuiSelect-icon {
+    top: calc(62% - 9px);
+  }
 `;
 
 export const MakeYourOwnFlavor = styled.div`
-  width :100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+`;
+
+export const PlusMinusButton = styled.div`
+  ${fonts.boldText['400']};
+  cursor: pointer;
+  margin: 0 ${sizing(3)};
+`;
+
+export const MakeYourOwnMinusPlusContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export const Plus = styled.p`
-  ${fonts.boldText['400']};
-  color: ${colors.solids.BROWN};
-  cursor: pointer;
+export const MakeYourOwnTopContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  
+  p {
+    ${fonts.regularText['200']};
+    margin: 0;
+  }
+`;
+
+export const MakeYourOwnContainer = styled.div`
+  width: 100%;
+  margin-bottom: ${sizing(20)};
+`;
+
+export const ErrorText = styled.p`
+  ${fonts.boldText['200']};
+  color: red;
 `;

@@ -107,7 +107,7 @@ const boldText = {
     'font-family': FONT_FAMILIES.MULI,
     'font-size': sizing(17),
     'font-weight': '700',
-    'line-height': sizing(22),
+    'line-height': sizing(27),
   },
   500: {
     'font-family': FONT_FAMILIES.MULI,

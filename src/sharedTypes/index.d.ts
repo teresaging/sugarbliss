@@ -37,6 +37,7 @@ export type Macaron = {
   seasonalEndDate?: Date;
   monthAvailable?: string | string[];
   seasonalDaysAvailable?: string;
+  seasonalDatesAvailable?: SeasonalDate[];
 }
 
 export type CakePop = {
@@ -49,8 +50,7 @@ export type CakePop = {
   }
   isClassicCollection: boolean;
   isSeasonal: boolean;
-  monthAvailable?: string | string[];
-  seasonalDaysAvailable?: string;
+  seasonalDatesAvailable?: SeasonalDate[];
 }
 
 export type MorningPastry = {
@@ -180,4 +180,6 @@ export type OrderCustomFields = {
   name: string;
   type: string;
   choices?: string[];
+  isMakeYourOwnFlavor?: boolean;
+  makeYourOwnFlavorsQuantity?: number;
 }

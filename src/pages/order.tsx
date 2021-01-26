@@ -329,6 +329,8 @@ export const query = graphql`
                 name
                 type
                 choices
+                isMakeYourOwnFlavor
+                makeYourOwnFlavorsQuantity
               }
             }
           }
@@ -341,6 +343,8 @@ export const query = graphql`
               name
               type
               choices
+              isMakeYourOwnFlavor
+              makeYourOwnFlavorsQuantity
             }
           }
         }
