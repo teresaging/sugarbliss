@@ -5,7 +5,7 @@ import { MenuItem, Checkbox } from '@material-ui/core';
 import { PlusCircle, MinusCircle } from 'react-feather';
 import { FORM_ERROR } from 'final-form'
 
-import { Cupcake, Macaron, OrderCustomFields, CakePop } from '../../sharedTypes';
+import { Cupcake, Macaron, OrderCustomFields, CakePop, Cookies, MorningPastry } from '../../sharedTypes';
 
 import {
   ProductContainer,
@@ -37,9 +37,25 @@ type Props = {
   availableCupcakeFlavors: Cupcake[];
   availableMacaronFlavors: Macaron[];
   availableCakePopFlavors: CakePop[];
+  availableCookiesFlavors: Cookies[];
+  availableMuffinsFlavors: string[];
+  availableSconesFlavors: string[];
 }
 
-const OrderProduct = ({name, description = '', price, dozenPrice = 0, customFields = [], addItemToCart, availableCupcakeFlavors, availableMacaronFlavors, availableCakePopFlavors}: Props) => {
+const OrderProduct = ({
+  name,
+  description = '',
+  price,
+  dozenPrice = 0,
+  customFields = [],
+  addItemToCart,
+  availableCupcakeFlavors,
+  availableMacaronFlavors,
+  availableCakePopFlavors,
+  availableCookiesFlavors,
+  availableMuffinsFlavors,
+  availableSconesFlavors
+}: Props) => {
 
   let isMakeYourOwnFlavorsProduct = false;
   let makeYourOwnFlavorsQuantity = 0;
@@ -149,6 +165,54 @@ const OrderProduct = ({name, description = '', price, dozenPrice = 0, customFiel
         )
         break;
       }
+      case 'Cookies Flavors': {
+        return (
+          <Field name={field.name}>
+            {props => (
+              <CustomFieldContainer>
+                <Select label="Pick a Flavor" {...props.input}>
+                  {availableCookiesFlavors?.map((flavor, idx) => (
+                    <MenuItem key={idx} value={flavor.name}>{flavor.name}</MenuItem>
+                  ))}
+                </Select>
+              </CustomFieldContainer>
+            )}
+          </Field>
+        )
+        break;
+      }
+      case 'Muffins Flavors': {
+        return (
+          <Field name={field.name}>
+            {props => (
+              <CustomFieldContainer>
+                <Select label="Pick a Flavor" {...props.input}>
+                  {availableMuffinsFlavors?.map((flavor, idx) => (
+                    <MenuItem key={idx} value={flavor}>{flavor}</MenuItem>
+                  ))}
+                </Select>
+              </CustomFieldContainer>
+            )}
+          </Field>
+        )
+        break;
+      }
+      case 'Scones Flavors': {
+        return (
+          <Field name={field.name}>
+            {props => (
+              <CustomFieldContainer>
+                <Select label="Pick a Flavor" {...props.input}>
+                  {availableSconesFlavors?.map((flavor, idx) => (
+                    <MenuItem key={idx} value={flavor}>{flavor}</MenuItem>
+                  ))}
+                </Select>
+              </CustomFieldContainer>
+            )}
+          </Field>
+        )
+        break;
+      }
       case 'Select Input': {
         return (
           <Field name={field.name}>
@@ -204,6 +268,15 @@ const OrderProduct = ({name, description = '', price, dozenPrice = 0, customFiel
     if (field.type === 'Cake Pop Flavors') {
       flavors = availableCakePopFlavors;
     }
+    if (field.type === 'Cookies Flavors') {
+      flavors = availableCookiesFlavors;
+    }
+    if (field.type === 'Muffins Flavors') {
+      flavors = availableMuffinsFlavors;
+    }
+    if (field.type === 'Scones Flavors') {
+      flavors = availableSconesFlavors;
+    }
     if (field.type === 'Select Input') {
       flavors = field.choices;
     }
@@ -218,7 +291,11 @@ const OrderProduct = ({name, description = '', price, dozenPrice = 0, customFiel
                   <Select label="Pick a Flavor" {...props.input}>
                     {/*@ts-ignore*/}
                     {flavors.length > 0 && flavors.map((flavor, idx) => (
-                      <MenuItem key={idx} value={field.type === 'Select Input' ? flavor : flavor.name}>{field.type === 'Select Input' ? flavor : flavor.name}</MenuItem>
+                      <MenuItem
+                        key={idx}
+                        value={flavor.name || flavor}>
+                        {flavor.name || flavor}
+                      </MenuItem>
                     ))}
                   </Select>
                 </CustomFieldContainer>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import OrderProduct from './OrderProduct';
 import { CategoryTitle, ProductsWrapper, CategoryWrapper, CategoriesContainer } from './Styled';
-import { OrderCategory, OrderProduct as OrderProductType, Cupcake, Macaron, CakePop } from '../../sharedTypes';
+import { OrderCategory, OrderProduct as OrderProductType, Cupcake, Macaron, CakePop, Cookies } from '../../sharedTypes';
 
 type ProductDataType = OrderCategory & OrderProductType;
 
@@ -13,9 +13,22 @@ type Props = {
   availableCupcakeFlavors: Cupcake[];
   availableMacaronFlavors: Macaron[];
   availableCakePopFlavors: CakePop[];
+  availableCookiesFlavors: Cookies[];
+  availableMuffinsFlavors: string[];
+  availableSconesFlavors: string[];
 }
 
-const OrderTabSection = ({productData, isHidden, addItemToCart, availableCupcakeFlavors, availableMacaronFlavors, availableCakePopFlavors}: Props) => {
+const OrderTabSection = ({
+   productData,
+   isHidden,
+   addItemToCart,
+   availableCupcakeFlavors = [],
+   availableMacaronFlavors = [],
+   availableCakePopFlavors = [],
+   availableCookiesFlavors = [],
+   availableMuffinsFlavors = [],
+   availableSconesFlavors = []
+}: Props) => {
 
   const renderCategory = ({products}) => {
     return (
@@ -32,6 +45,9 @@ const OrderTabSection = ({productData, isHidden, addItemToCart, availableCupcake
             availableCupcakeFlavors={availableCupcakeFlavors}
             availableMacaronFlavors={availableMacaronFlavors}
             availableCakePopFlavors={availableCakePopFlavors}
+            availableCookiesFlavors={availableCookiesFlavors}
+            availableMuffinsFlavors={availableMuffinsFlavors}
+            availableSconesFlavors={availableSconesFlavors}
           />
         ))}
       </ProductsWrapper>
@@ -60,6 +76,9 @@ const OrderTabSection = ({productData, isHidden, addItemToCart, availableCupcake
                 availableCupcakeFlavors={availableCupcakeFlavors}
                 availableMacaronFlavors={availableMacaronFlavors}
                 availableCakePopFlavors={availableCakePopFlavors}
+                availableCookiesFlavors={availableCookiesFlavors}
+                availableMuffinsFlavors={availableMuffinsFlavors}
+                availableSconesFlavors={availableSconesFlavors}
               />
             </ProductsWrapper>
             )

@@ -13,7 +13,7 @@ import Cart from '../components/order/Cart';
 import styled from '@emotion/styled';
 import { fonts, Button, Tabs } from '../design-system';
 import { sizing, colors, allDeliveryPrices } from '../utils';
-import { OrderForm, Cupcake, Macaron, CakePop } from '../sharedTypes';
+import { OrderForm, Cupcake, Macaron, CakePop, Cookies, MorningPastry } from '../sharedTypes';
 
 const CURRENT_YEAR = moment().year();
 
@@ -29,6 +29,12 @@ type OrderQueryProps = {
   };
   allContentfulCakePops: {
     nodes: CakePop[];
+  };
+  allContentfulCookies: {
+    nodes: Cookies[];
+  };
+  allContentfulMorningPastries: {
+    nodes: MorningPastry[];
   };
 };
 
@@ -46,6 +52,9 @@ const OrderPage = ({data}: OrderProps) => {
   const cupcakeData = data?.allContentfulCupcake?.nodes;
   const macaronData = data?.allContentfulMacaron?.nodes;
   const cakePopData = data?.allContentfulCakePops?.nodes;
+  const cookiesData = data?.allContentfulCookies?.nodes;
+  const muffinsData = data?.allContentfulMorningPastries?.nodes.filter((pastry) => pastry.name === 'Muffins')[0];
+  const sconesData = data?.allContentfulMorningPastries?.nodes.filter((pastry) => pastry.name === 'Scones')[0];
 
   const { state, addItem, removeItem } = useContext(SnipcartContext);
   const { userStatus, cartQuantity, cartItems } = state;
@@ -245,6 +254,9 @@ const OrderPage = ({data}: OrderProps) => {
              availableCupcakeFlavors={availableCupcakeFlavors}
              availableMacaronFlavors={availableMacaronFlavors}
              availableCakePopFlavors={availableCakePopFlavors}
+             availableCookiesFlavors={cookiesData}
+             availableMuffinsFlavors={muffinsData?.flavors}
+             availableSconesFlavors={sconesData?.flavors}
            />
          ))}
        </div>
@@ -409,6 +421,18 @@ export const query = graphql`
           startDate
           endDate
         }
+      }
+    }
+    allContentfulCookies(filter: {type: {eq: "everyday"}}) {
+      nodes {
+        name
+        type
+      }
+    }
+    allContentfulMorningPastries {
+      nodes {
+        name
+        flavors
       }
     }
   }
