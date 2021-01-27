@@ -100,13 +100,21 @@ const OrderProduct = ({
        return null;
       }).filter((field) => field !== null);
 
-     return addItemToCart({
-       ...product,
-       customFields: snipCartCustomFields.concat(makeYourOwnCustomFields),
-     })
+     try {
+       return addItemToCart({
+         ...product,
+         customFields: snipCartCustomFields.concat(makeYourOwnCustomFields),
+       })
+     } catch(error) {
+       console.log('error adding to cart', error);
+     }
     }
 
-    return addItemToCart(product);
+    try {
+      return addItemToCart(product);
+    } catch(error) {
+      console.log('error adding to cart', error);
+    }
   }
 
   const handleRenderField = (field) => {
@@ -284,7 +292,7 @@ const OrderProduct = ({
     if (flavors.length > 0) {
       for (let i = 0; i < makeYourOwnFieldsQuantity; i++) {
         flavorFields.push(
-          <MakeYourOwnFlavor>
+          <MakeYourOwnFlavor key={i}>
             <Field name={`Flavor-${i + 1}`}>
               {props => (
                 <CustomFieldContainer>
@@ -341,7 +349,11 @@ const OrderProduct = ({
             ) : (
               <Price>${price}</Price>
             )}
-            {customFields?.map(handleRenderField)}
+            {customFields?.map((field, idx) => (
+              <div style={{width: '100%'}} key={idx}>
+                {handleRenderField(field)}
+              </div>
+            ))}
             {!isMakeYourOwnFlavorsProduct && (
               <Field name="quantity" type="number" initialValue={1}>
                 {props => (

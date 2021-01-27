@@ -38,26 +38,30 @@ type OrderQueryProps = {
   };
 };
 
+interface OrderFormDataType {
+  orderProductsData: OrderForm[];
+  tabsData: object[];
+  cupcakeData: Cupcake[];
+  macaronData: Macaron[];
+  cakePopData: CakePop[];
+  cookiesData: Cookies[];
+  muffinsData: MorningPastry;
+  sconesData: MorningPastry;
+}
+
 type OrderProps = PageProps<OrderQueryProps>;
 
 const OrderPage = ({data}: OrderProps) => {
 
-  const orderFormData = data?.allContentfulOrderForm?.nodes;
-  const tabsData = orderFormData.map((data) => {
+  const tabsData = data?.allContentfulOrderForm?.nodes.map((data) => {
     return {
       id: data.tabName,
       name: data.tabName,
     }
   });
-  const cupcakeData = data?.allContentfulCupcake?.nodes;
-  const macaronData = data?.allContentfulMacaron?.nodes;
-  const cakePopData = data?.allContentfulCakePops?.nodes;
-  const cookiesData = data?.allContentfulCookies?.nodes;
-  const muffinsData = data?.allContentfulMorningPastries?.nodes.filter((pastry) => pastry.name === 'Muffins')[0];
-  const sconesData = data?.allContentfulMorningPastries?.nodes.filter((pastry) => pastry.name === 'Scones')[0];
 
   const { state, addItem, removeItem } = useContext(SnipcartContext);
-  const { userStatus, cartQuantity, cartItems } = state;
+  const { cartQuantity, cartItems } = state;
   const [ orderType, setOrderType ] = useState(null);
   const [ step, setStep ] = useState(1);
   const [ dayOfWeek, setDayOfWeek ] = useState(null);
@@ -66,14 +70,47 @@ const OrderPage = ({data}: OrderProps) => {
   const [ availableCupcakeFlavors, setAvailableCupcakeFlavors ] = useState([]);
   const [ availableMacaronFlavors, setAvailableMacaronFlavors ] = useState([]);
   const [ availableCakePopFlavors, setAvailableCakePopFlavors ] = useState([]);
+  const [ orderFormData, setOrderFormData ] = useState<OrderFormDataType | undefined>(undefined);
 
   useEffect(() => {
-    const cupcakeFlavors = cupcakeData.filter((cupcake) => {
+    const orderProductsData = data?.allContentfulOrderForm?.nodes;
+    const tabsData = orderProductsData.map((data) => {
+      return {
+        id: data.tabName,
+        name: data.tabName,
+      }
+    });
+    const cupcakeData = data?.allContentfulCupcake?.nodes;
+    const macaronData = data?.allContentfulMacaron?.nodes;
+    const cakePopData = data?.allContentfulCakePops?.nodes;
+    const cookiesData = data?.allContentfulCookies?.nodes;
+    const muffinsData = data?.allContentfulMorningPastries?.nodes.filter((pastry) => pastry.name === 'Muffins')[0];
+    const sconesData = data?.allContentfulMorningPastries?.nodes.filter((pastry) => pastry.name === 'Scones')[0];
+    setOrderFormData({
+      orderProductsData,
+      tabsData,
+      cupcakeData,
+      macaronData,
+      cakePopData,
+      cookiesData,
+      muffinsData,
+      sconesData,
+    })
+  }, []);
+
+  useEffect(() => {
+    if (step === 2) {
+      removePickupOrDeliveryFromCart()
+    }
+  }, [step])
+
+  useEffect(() => {
+    const cupcakeFlavors = orderFormData?.cupcakeData?.filter((cupcake) => {
       if (cupcake.isEverydayFlavor) {
         return true;
       }
 
-      if (cupcake.isSeasonal && cupcake.seasonalDatesAvailable?.length > 0) {
+      if (cupcake.isSeasonal && cupcake?.seasonalDatesAvailable?.length > 0) {
         let isProductAvailable = false;
         for (let i = 0; i < cupcake.seasonalDatesAvailable.length; i++) {
           const startDate = moment(cupcake.seasonalDatesAvailable[i].startDate).set('year', CURRENT_YEAR);
@@ -93,7 +130,7 @@ const OrderPage = ({data}: OrderProps) => {
       return false;
     });
 
-    const macaronFlavors = macaronData.filter((macaron) => {
+    const macaronFlavors = orderFormData?.macaronData?.filter((macaron) => {
       // ToDo: put this duplicated code inside it's own function
       if (macaron.isSeasonalFlavor && macaron.seasonalDatesAvailable?.length > 0) {
         let isProductAvailable = false;
@@ -112,7 +149,7 @@ const OrderPage = ({data}: OrderProps) => {
       return true;
     });
 
-    const cakePopFlavors = cakePopData.filter((cakePop) => {
+    const cakePopFlavors = orderFormData?.cakePopData?.filter((cakePop) => {
       if (cakePop.isSeasonal && cakePop.seasonalDatesAvailable?.length > 0) {
         let isProductAvailable = false;
 
@@ -160,6 +197,17 @@ const OrderPage = ({data}: OrderProps) => {
 
   const applyDiscount = (productId) => {
     // client.checkout.addDiscount(checkoutId, discountCode);
+  }
+
+  const removePickupOrDeliveryFromCart = () => {
+    const PickupOrDeliveryItem = cartItems.filter((item) => item.name === 'Pickup' || item.name === 'Delivery');
+    try {
+      PickupOrDeliveryItem.map(async (item) => {
+        return removeItem(item.uniqueId);
+      });
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   const handleOnClick = () => {
@@ -246,17 +294,18 @@ const OrderPage = ({data}: OrderProps) => {
       )}
        <div style={{display: step === 3 ? 'block' : 'none'}}>
          <Tabs activeTabId={activeTabId} tabsInfo={tabsData} onPress={handleTabPress} />
-         {orderFormData.map((data, idx) => (
+         {orderFormData?.orderProductsData?.map((data, idx) => (
            <OrderTabSection
              isHidden={activeTabId !== data.tabName}
-             key={idx} productData={data.categories}
+             key={idx}
+             productData={data.categories}
              addItemToCart={addItemToCart}
              availableCupcakeFlavors={availableCupcakeFlavors}
              availableMacaronFlavors={availableMacaronFlavors}
              availableCakePopFlavors={availableCakePopFlavors}
-             availableCookiesFlavors={cookiesData}
-             availableMuffinsFlavors={muffinsData?.flavors}
-             availableSconesFlavors={sconesData?.flavors}
+             availableCookiesFlavors={orderFormData?.cookiesData}
+             availableMuffinsFlavors={orderFormData?.muffinsData?.flavors}
+             availableSconesFlavors={orderFormData?.sconesData?.flavors}
            />
          ))}
        </div>
@@ -283,8 +332,8 @@ const OrderPage = ({data}: OrderProps) => {
         {/*>*/}
         {/*  Add to cart*/}
         {/*</button>*/}
-      <div><button onClick={removeAllItemsFromCart}>remove all items from cart</button></div>
-      <button onClick={handleOnClick}>test!!!</button>
+      {/*<div><button onClick={removeAllItemsFromCart}>remove all items from cart</button></div>*/}
+      {/*<button onClick={handleOnClick}>test!!!</button>*/}
         <button
           style={{display: 'none'}}
           className="snipcart-add-item"
