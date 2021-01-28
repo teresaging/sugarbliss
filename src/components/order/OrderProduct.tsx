@@ -373,7 +373,9 @@ const OrderProduct = ({
               data-item-id={id}
               data-item-name={name}
               data-item-price={price}
-            />
+            >
+              Add To Cart
+            </button>
             <AddToCartButton
               type="submit"
               disabled={submitting || hasValidationErrors}
