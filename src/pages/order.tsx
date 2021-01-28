@@ -210,12 +210,6 @@ const OrderPage = ({data}: OrderProps) => {
     }
   }
 
-  const handleOnClick = () => {
-    if (testingRef !== null) {
-      testingRef.current.click();
-    }
-  }
-
   const handleOptionPress = (value) => {
     setOrderType(value);
     const nextStep = 2; // this will always be step 2
@@ -333,7 +327,6 @@ const OrderPage = ({data}: OrderProps) => {
         {/*  Add to cart*/}
         {/*</button>*/}
       {/*<div><button onClick={removeAllItemsFromCart}>remove all items from cart</button></div>*/}
-      {/*<button onClick={handleOnClick}>test!!!</button>*/}
         <button
           style={{display: 'none'}}
           className="snipcart-add-item"

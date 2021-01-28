@@ -10,6 +10,8 @@ import { CityDeliveryZipCodePrices, SuburbDeliveryZipCodePrices, colors } from '
 
 import { Container, Title, SubTitle, FormContainer, Row, SingleRow, SubmitButton, DeliveryPrice, CannotDeliverText } from './Styled';
 
+const LATE_AFTERNOON_TIME = '12pm-4pm';
+
 type Props = {
   handleNextStep: Function;
   addItemToCart: Function;
@@ -72,8 +74,16 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
     handleNextStep();
   }
 
-  const getDeliveryPrice = (zipCode) => {
-    return CityDeliveryZipCodePrices[zipCode] || SuburbDeliveryZipCodePrices[zipCode] || null
+  const getDeliveryPrice = ({zipCode, time}) => {
+    if (CityDeliveryZipCodePrices[zipCode]) {
+      return CityDeliveryZipCodePrices[zipCode];
+    }
+
+    if (SuburbDeliveryZipCodePrices[zipCode] && time === LATE_AFTERNOON_TIME) {
+      return SuburbDeliveryZipCodePrices[zipCode].lateAfternoon;
+    }
+
+    return SuburbDeliveryZipCodePrices[zipCode]?.day || null;
   }
 
   return (
@@ -105,8 +115,8 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
               errors.zipCode = 'Required';
             }
 
-            if (values.zipCode?.length > 4) {
-              const price = getDeliveryPrice(values.zipCode);
+            if (values.zipCode?.length > 4 && values.time) {
+              const price = getDeliveryPrice({zipCode: values.zipCode, time: values.time});
               if (price !== null) {
                 setCanDeliver(true);
                 setDeliveryPrice(price);
@@ -140,7 +150,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                   <MenuItem value="9am-1pm">9am - 1pm</MenuItem>
                   <MenuItem value="10am-2pm">10am - 2pm</MenuItem>
                   <MenuItem value="11am-3pm">11am - 3pm</MenuItem>
-                  <MenuItem value="12pm-4pm">12pm - 4pm</MenuItem>
+                  <MenuItem value={LATE_AFTERNOON_TIME}>12pm - 4pm</MenuItem>
                 </Select>
               </Row>
               <SingleRow>
@@ -154,7 +164,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                 <TextField label="City" name="city"/>
                 <TextField label="Zip/Postal Code" name="zipCode"/>
               </Row>
-              {values.zipCode?.length > 4 && canDeliver && (
+              {values.zipCode?.length > 4 && values.time && canDeliver && (
                 <SingleRow>
                   <DeliveryPrice>Delivery Price: ${deliveryPrice}</DeliveryPrice>
                 </SingleRow>
