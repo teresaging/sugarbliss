@@ -72,6 +72,8 @@ const OrderPage = ({data}: OrderProps) => {
   const [ availableCakePopFlavors, setAvailableCakePopFlavors ] = useState([]);
   const [ orderFormData, setOrderFormData ] = useState<OrderFormDataType | undefined>(undefined);
 
+  console.log(cartItems);
+
   useEffect(() => {
     const orderProductsData = data?.allContentfulOrderForm?.nodes;
     const tabsData = orderProductsData.map((data) => {
@@ -335,6 +337,15 @@ const OrderPage = ({data}: OrderProps) => {
           data-item-url="/order"
           data-item-name="Pickup">
           Add Pickup To Order
+        </button>
+        <button
+          style={{display: 'none'}}
+          className="snipcart-add-item"
+          data-item-id="testing-2"
+          data-item-price="0.00"
+          data-item-url="/order"
+          data-item-name="Testing 2">
+          Add To Order
         </button>
         {handleRenderDeliveryButtons()}
       </Container>
