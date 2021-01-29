@@ -337,55 +337,57 @@ const OrderProduct = ({
   }
 
   return (
-    <Form
-      onSubmit={handleAddToCart}
-      render={({handleSubmit, submitting, values, hasValidationErrors, submitError}) => (
-        <form onSubmit={handleSubmit}>
-          <ProductContainer>
-            <Name>{name}</Name>
-            {description && <Description>{description}</Description>}
-            {dozenPrice ? (
-              <PriceWithDozen>Single price: ${price} | Dozen price: ${dozenPrice} </PriceWithDozen>
-            ) : (
-              <Price>${price}</Price>
-            )}
-            {customFields?.map((field, idx) => (
-              <div style={{width: '100%'}} key={idx}>
-                {handleRenderField(field)}
-              </div>
-            ))}
-            {!isMakeYourOwnFlavorsProduct && (
-              <Field name="quantity" type="number" initialValue={1}>
-                {props => (
-                  <>
-                    <QuantityInputLabel>Quantity:</QuantityInputLabel>
-                    <QuantityInput marginBottom={20} min={1} {...props.input}/>
-                  </>
-                )}
-              </Field>
-            )}
-            {submitError && <ErrorText>{submitError}</ErrorText>}
-            {/*button for snipcart verification*/}
-            <button
-              style={{display: 'none'}}
-              className="snipcart-add-item"
-              data-item-url="/order"
-              data-item-id={id}
-              data-item-name={name}
-              data-item-price={price}
-            >
-              Add To Cart
-            </button>
-            <AddToCartButton
-              type="submit"
-              disabled={submitting || hasValidationErrors}
-            >
-              Add To Cart
-            </AddToCartButton>
-          </ProductContainer>
-        </form>
-      )}
-    />
+    <>
+      <Form
+        onSubmit={handleAddToCart}
+        render={({handleSubmit, submitting, values, hasValidationErrors, submitError}) => (
+          <form onSubmit={handleSubmit}>
+            <ProductContainer>
+              <Name>{name}</Name>
+              {description && <Description>{description}</Description>}
+              {dozenPrice ? (
+                <PriceWithDozen>Single price: ${price} | Dozen price: ${dozenPrice} </PriceWithDozen>
+              ) : (
+                <Price>${price}</Price>
+              )}
+              {customFields?.map((field, idx) => (
+                <div style={{width: '100%'}} key={idx}>
+                  {handleRenderField(field)}
+                </div>
+              ))}
+              {!isMakeYourOwnFlavorsProduct && (
+                <Field name="quantity" type="number" initialValue={1}>
+                  {props => (
+                    <>
+                      <QuantityInputLabel>Quantity:</QuantityInputLabel>
+                      <QuantityInput marginBottom={20} min={1} {...props.input}/>
+                    </>
+                  )}
+                </Field>
+              )}
+              {submitError && <ErrorText>{submitError}</ErrorText>}
+              <AddToCartButton
+                type="submit"
+                disabled={submitting || hasValidationErrors}
+              >
+                Add To Cart
+              </AddToCartButton>
+            </ProductContainer>
+          </form>
+        )}
+      />
+      {/*button for snipcart verification*/}
+      <button
+        style={{display: 'none'}}
+        className="snipcart-add-item"
+        data-item-url="/order"
+        data-item-id={id}
+        data-item-name={name}
+        data-item-price={price}
+      >
+        Add To Cart
+      </button>
+    </>
   );
 }
 
