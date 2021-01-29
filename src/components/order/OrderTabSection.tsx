@@ -86,6 +86,15 @@ const OrderTabSection = ({
         </CategoryWrapper>
       ))
       }
+      <button
+        style={{display: 'none'}}
+        className="snipcart-add-item"
+        data-item-id="testing-1"
+        data-item-price="0.00"
+        data-item-url="/order"
+        data-item-name="Testing 1">
+        Add To Order
+      </button>
     </CategoriesContainer>
   );
 }
