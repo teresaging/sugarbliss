@@ -44,8 +44,8 @@ interface OrderFormDataType {
   macaronData: Macaron[];
   cakePopData: CakePop[];
   cookiesData: Cookies[];
-  muffinsData: MorningPastry | {};
-  sconesData: MorningPastry | {};
+  muffinsData: MorningPastry;
+  sconesData: MorningPastry;
 }
 
 type OrderProps = PageProps<OrderQueryProps>;
@@ -77,8 +77,14 @@ const OrderPage = ({data}: OrderProps) => {
     macaronData: [],
     cakePopData: [],
     cookiesData: [],
-    muffinsData: {},
-    sconesData: {},
+    muffinsData: {
+      name: '',
+      flavors: [],
+    },
+    sconesData: {
+      name: '',
+      flavors: [],
+    },
   });
 
   useEffect(() => {
@@ -173,16 +179,10 @@ const OrderPage = ({data}: OrderProps) => {
     setAvailableCakePopFlavors(cakePopFlavors);
   }, [dayOfWeek, orderDate]);
 
-  const testingRef = useRef(null);
   // useEffect(() => {
   //   // cleanse cart
   //   removeAllItemsFromCart();
   // }, [0]);
-
-  // useEffect(() => {
-  //   // cleanse cart
-  //   console.log(cartItems);
-  // });
 
   const removeAllItemsFromCart = () => {
     if (cartItems && cartItems.length > 0) {
@@ -194,10 +194,6 @@ const OrderPage = ({data}: OrderProps) => {
 
   const addItemToCart = (item) => {
       addItem(item);
-  }
-
-  const applyDiscount = (productId) => {
-    // client.checkout.addDiscount(checkoutId, discountCode);
   }
 
   const removePickupOrDeliveryFromCart = () => {
