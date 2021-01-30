@@ -10,9 +10,10 @@ import Nav from './Nav';
 type Props = {
   siteTitle: string;
   logo: FluidObject;
+  handleToggleMobileNav: Function;
 }
 
-const Header = ({ siteTitle, logo }: Props) => (
+const Header = ({ siteTitle, logo, handleToggleMobileNav }: Props) => (
   <HeaderWrapper>
       <LogoContainer>
           <StyledLink to="/">
@@ -20,7 +21,9 @@ const Header = ({ siteTitle, logo }: Props) => (
           </StyledLink>
       </LogoContainer>
       <NavContainer>
-          <Nav />
+          <Nav
+            handleToggleMobileNav={handleToggleMobileNav}
+          />
       </NavContainer>
   </HeaderWrapper>
 )

@@ -5,7 +5,7 @@ import { MenuItem, Checkbox } from '@material-ui/core';
 import { PlusCircle, MinusCircle } from 'react-feather';
 import { FORM_ERROR } from 'final-form'
 
-import { Cupcake, Macaron, OrderCustomFields, CakePop, Cookies, MorningPastry } from '../../sharedTypes';
+import { Cupcake, Macaron, OrderCustomFields, CakePop, Cookies } from '../../sharedTypes';
 
 import {
   ProductContainer,

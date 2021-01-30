@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { Menu } from 'react-feather';
+
 import { NavLink } from '../design-system';
 
-const NavData = [
+export const NavData = [
     {
         name: 'Home',
         url: '/',
@@ -97,7 +99,41 @@ const NavData = [
     }
 ]
 
-const Header = () => {
+type Props = {
+    handleToggleMobileNav: Function;
+}
+
+const Header = ({handleToggleMobileNav}: Props) => {
+
+    const [width, setWidth] = useState<number>(window.innerWidth);
+
+    const handleWindowSizeChange = () => {
+        setWidth(window.innerWidth);
+    }
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        }
+    }, []);
+
+    const shouldRenderMobileNav: boolean = (width <= 1000);
+
+    const toggleNav = () => {
+        handleToggleMobileNav();
+    }
+
+    if (shouldRenderMobileNav) {
+        return (
+          <MobileNavWrapper>
+              <div onClick={toggleNav}>
+                  <Menu size={40} />
+              </div>
+          </MobileNavWrapper>
+        );
+    }
+
     return (
       <NavWrapper>
           {NavData.map((link, idx) => {
@@ -112,5 +148,12 @@ const NavWrapper = styled.div`
     align-items: center;
     flex-wrap: wrap;
 `
+
+const MobileNavWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+`;
 
 export default Header;

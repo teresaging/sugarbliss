@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import styled from '@emotion/styled';
 
+import { fonts } from '../design-system';
 import { sizing } from '../utils';
 import { ChevronDown } from 'react-feather';
 
@@ -16,11 +17,38 @@ interface LinkDataWithChildren extends LinkData {
 
 type Props = {
   link: LinkDataWithChildren;
-  idx: number;
+  idx?: number;
+  isMobile?: boolean;
 }
 
-const NavLink = ({link, idx}: Props) => {
+const NavLink = ({link, idx, isMobile}: Props) => {
   const [dropdownVisibility, setDropdownVisibility] = useState(false);
+
+  if (isMobile) {
+    if (link.children) {
+      return (
+        <>
+          <MobileCategoryContainer onClick={() => setDropdownVisibility(!dropdownVisibility)}>
+            <MobileLinkText>{link.name}</MobileLinkText>
+            <DownArrow isOpened={dropdownVisibility} size={24}/>
+          </MobileCategoryContainer>
+          <MobileChildrenContainer>
+            {dropdownVisibility && link.children.map((child, idx) => (
+              <MobileChildLink key={idx} to={child.url}>
+                {child.name}
+              </MobileChildLink>
+            ))}
+          </MobileChildrenContainer>
+        </>
+      )
+    }
+
+    return (
+      <MobileLinkContainer to={link.url}>
+        {link.name}
+      </MobileLinkContainer>
+    )
+  }
 
   if (Boolean(link.children)) {
     return (
@@ -135,6 +163,35 @@ const ChildNavLink = styled(Link)`
         background-color: var(--main-text-color);
         transition: 0.3s;
     }
+`;
+
+const MobileLinkContainer = styled(Link)`
+  ${fonts.boldText['600']};
+  margin: ${sizing(10)} 0;
+`;
+
+const MobileChildLink = styled(Link)`
+  ${fonts.boldText['400']};
+  margin: ${sizing(5)} 0;
+`;
+
+const MobileCategoryContainer = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: ${sizing(10)} 0;
+`;
+
+const MobileLinkText = styled.p`
+  ${fonts.boldText['600']};
+  margin-bottom: 0;
+`;
+
+const MobileChildrenContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 export default NavLink;
