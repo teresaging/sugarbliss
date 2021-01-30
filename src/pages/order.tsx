@@ -40,19 +40,20 @@ type OrderQueryProps = {
 
 interface OrderFormDataType {
   orderProductsData: OrderForm[];
-  tabsData: object[];
   cupcakeData: Cupcake[];
   macaronData: Macaron[];
   cakePopData: CakePop[];
   cookiesData: Cookies[];
-  muffinsData: MorningPastry;
-  sconesData: MorningPastry;
+  muffinsData: MorningPastry | {};
+  sconesData: MorningPastry | {};
 }
 
 type OrderProps = PageProps<OrderQueryProps>;
 
 const OrderPage = ({data}: OrderProps) => {
 
+  // need to get order form products on first render
+  const orderProductsData = data?.allContentfulOrderForm?.nodes;
   const tabsData = data?.allContentfulOrderForm?.nodes.map((data) => {
     return {
       id: data.tabName,
@@ -70,18 +71,17 @@ const OrderPage = ({data}: OrderProps) => {
   const [ availableCupcakeFlavors, setAvailableCupcakeFlavors ] = useState([]);
   const [ availableMacaronFlavors, setAvailableMacaronFlavors ] = useState([]);
   const [ availableCakePopFlavors, setAvailableCakePopFlavors ] = useState([]);
-  const [ orderFormData, setOrderFormData ] = useState<OrderFormDataType | undefined>(undefined);
-
-  console.log(cartItems);
+  const [ orderFormData, setOrderFormData ] = useState<OrderFormDataType>({
+    orderProductsData,
+    cupcakeData: [],
+    macaronData: [],
+    cakePopData: [],
+    cookiesData: [],
+    muffinsData: {},
+    sconesData: {},
+  });
 
   useEffect(() => {
-    const orderProductsData = data?.allContentfulOrderForm?.nodes;
-    const tabsData = orderProductsData.map((data) => {
-      return {
-        id: data.tabName,
-        name: data.tabName,
-      }
-    });
     const cupcakeData = data?.allContentfulCupcake?.nodes;
     const macaronData = data?.allContentfulMacaron?.nodes;
     const cakePopData = data?.allContentfulCakePops?.nodes;
@@ -90,7 +90,6 @@ const OrderPage = ({data}: OrderProps) => {
     const sconesData = data?.allContentfulMorningPastries?.nodes.filter((pastry) => pastry.name === 'Scones')[0];
     setOrderFormData({
       orderProductsData,
-      tabsData,
       cupcakeData,
       macaronData,
       cakePopData,
@@ -256,55 +255,55 @@ const OrderPage = ({data}: OrderProps) => {
   return (
     <Layout>
       <Container>
-      {step === 1 && (
-        <OrderDeliveryPickup onOptionPress={handleOptionPress} />
-      )}
-      {step !== 1 && (
-        <TopSection>
-          <Button size="MEDIUM" text="Back" onClick={goBackAStep}/>
-          {step === 3 && (
-            <Cart cartQuantity={cartQuantity}  />
-            )}
-        </TopSection>
-      )}
-      {step === 2 && (
-        <>
-          {orderType === 'delivery' ? (
-            <OrderDeliveryForm
-              setDayOfWeek={setDayOfWeek}
-              setOrderDate={setOrderDate}
-              addItemToCart={addItemToCart}
-              handleNextStep={goToNextStep}
-            />
-            ) :
-            (
-              <OrderPickupForm
+        {step === 1 && (
+          <OrderDeliveryPickup onOptionPress={handleOptionPress} />
+        )}
+        {step !== 1 && (
+          <TopSection>
+            <Button size="MEDIUM" text="Back" onClick={goBackAStep}/>
+            {step === 3 && (
+              <Cart cartQuantity={cartQuantity}  />
+              )}
+          </TopSection>
+        )}
+        {step === 2 && (
+          <>
+            {orderType === 'delivery' ? (
+              <OrderDeliveryForm
                 setDayOfWeek={setDayOfWeek}
                 setOrderDate={setOrderDate}
                 addItemToCart={addItemToCart}
                 handleNextStep={goToNextStep}
               />
-            )
-          }
-        </>
-      )}
-       <div style={{display: step === 3 ? 'block' : 'none'}}>
-         <Tabs activeTabId={activeTabId} tabsInfo={tabsData} onPress={handleTabPress} />
-         {orderFormData?.orderProductsData?.map((data, idx) => (
-           <OrderTabSection
-             isHidden={activeTabId !== data.tabName}
-             key={idx}
-             productData={data.categories}
-             addItemToCart={addItemToCart}
-             availableCupcakeFlavors={availableCupcakeFlavors}
-             availableMacaronFlavors={availableMacaronFlavors}
-             availableCakePopFlavors={availableCakePopFlavors}
-             availableCookiesFlavors={orderFormData?.cookiesData}
-             availableMuffinsFlavors={orderFormData?.muffinsData?.flavors}
-             availableSconesFlavors={orderFormData?.sconesData?.flavors}
-           />
-         ))}
-       </div>
+              ) :
+              (
+                <OrderPickupForm
+                  setDayOfWeek={setDayOfWeek}
+                  setOrderDate={setOrderDate}
+                  addItemToCart={addItemToCart}
+                  handleNextStep={goToNextStep}
+                />
+              )
+            }
+          </>
+        )}
+         <div style={{display: step === 3 ? 'block' : 'none'}}>
+           <Tabs activeTabId={activeTabId} tabsInfo={tabsData} onPress={handleTabPress} />
+           {orderFormData?.orderProductsData?.map((data, idx) => (
+             <OrderTabSection
+               isHidden={activeTabId !== data.tabName}
+               key={idx}
+               productData={data.categories}
+               addItemToCart={addItemToCart}
+               availableCupcakeFlavors={availableCupcakeFlavors}
+               availableMacaronFlavors={availableMacaronFlavors}
+               availableCakePopFlavors={availableCakePopFlavors}
+               availableCookiesFlavors={orderFormData?.cookiesData}
+               availableMuffinsFlavors={orderFormData?.muffinsData?.flavors}
+               availableSconesFlavors={orderFormData?.sconesData?.flavors}
+             />
+           ))}
+         </div>
         {/*{userStatus === 'SignedOut' ? (*/}
         {/*  <button className="snipcart-customer-signin">*/}
         {/*    <span>Login</span>*/}
