@@ -95,6 +95,7 @@ const IndexPage = ({data}: IndexProps) => {
     setWidth(window?.innerWidth);
   }
   useEffect(() => {
+    handleWindowSizeChange();
     window.addEventListener('resize', handleWindowSizeChange);
 
     return () => {

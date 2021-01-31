@@ -111,6 +111,7 @@ const Header = ({handleToggleMobileNav}: Props) => {
         setWidth(window?.innerWidth);
     }
     useEffect(() => {
+        handleWindowSizeChange();
         window.addEventListener('resize', handleWindowSizeChange);
 
         return () => {
