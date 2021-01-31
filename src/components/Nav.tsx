@@ -105,7 +105,7 @@ type Props = {
 
 const Header = ({handleToggleMobileNav}: Props) => {
 
-    const [width, setWidth] = useState<number>(window?.innerWidth);
+    const [width, setWidth] = useState<number>(2000);
 
     const handleWindowSizeChange = () => {
         setWidth(window?.innerWidth);
