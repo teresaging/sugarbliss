@@ -89,10 +89,10 @@ const IndexPage = ({data}: IndexProps) => {
     },
   ];
 
-  const [width, setWidth] = useState<number>(window.innerWidth);
+  const [width, setWidth] = useState<number>(window?.innerWidth);
 
   const handleWindowSizeChange = () => {
-    setWidth(window.innerWidth);
+    setWidth(window?.innerWidth);
   }
   useEffect(() => {
     window.addEventListener('resize', handleWindowSizeChange);
