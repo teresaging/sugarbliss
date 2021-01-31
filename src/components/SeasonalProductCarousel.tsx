@@ -75,7 +75,10 @@ const Wrapper = styled.div`
 const Title = styled.p`
   ${fonts.cursiveText['1000']};
   text-align: center;
-  margin-bottom: ${sizing(50)};
+  margin-bottom: ${sizing(15)};
+  @media all and (min-width: 768px) {
+    margin-bottom: ${sizing(50)};
+  }
 `;
 
 export default SeasonalProductCarousel;

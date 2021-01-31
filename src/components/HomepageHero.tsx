@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'gatsby';
 import Slider from 'react-slick';
 import styled from '@emotion/styled';
@@ -49,12 +49,18 @@ export type SlideTypes = {
         url: string;
       };
     },
+    pdf?: {
+      file: {
+        url: string;
+      }
+    }
     backgroundImagePosition: BACKGROUND_IMAGE_POSITIONS;
   }
 }
 
 type Props = {
   slideData: SlideTypes[];
+  isMobile: boolean;
 }
 
 const SLIDER_SETTINGS = {
@@ -82,25 +88,30 @@ const options = {
   },
 }
 
-const HomepageHero = ({slideData}: Props) => {
+const HomepageHero = ({slideData, isMobile}: Props) => {
 
   return (
     <HomepageHeroWrapper>
       <Slider {...SLIDER_SETTINGS}>
-        {slideData.map((slide) => {
-          return <Slide contentPosition={slide.node.textPosition} backgroundImage={slide.node.backgroundImage.file.url} backgroundImagePosition={slide.node.backgroundImagePosition} key={slide.node.position}>
+        {slideData.map((slide) => (
+          <Slide
+            contentPosition={slide.node.textPosition}
+            backgroundImage={slide.node.backgroundImage.file.url}
+            backgroundImagePosition={slide.node.backgroundImagePosition}
+            key={slide.node.position}>
             {slide.node.textPosition === CONTENT_POSITIONS.CENTER ? (
               <ContentCenteredContainer>
                 {slide.node.childContentfulHomepageHeroTextRichTextNode && documentToReactComponents(slide.node.childContentfulHomepageHeroTextRichTextNode.json, options)}
-                <Button url={slide.node.buttonLink} size="LARGE" text={slide.node.buttonText} />
+                <Button url={slide.node?.pdf?.file?.url || slide.node?.buttonLink} size={isMobile ? 'SMALL' : 'LARGE'} text={slide.node.buttonText} />
               </ContentCenteredContainer>
             ) : (
               <ContentContainer>
                 {slide.node.childContentfulHomepageHeroTextRichTextNode && documentToReactComponents(slide.node.childContentfulHomepageHeroTextRichTextNode.json, options)}
-                <Button url={slide.node.buttonLink} size="LARGE" text={slide.node.buttonText} />
+                <Button url={slide.node?.pdf?.file?.url || slide.node?.buttonLink} size={isMobile ? 'SMALL' : 'LARGE'} text={slide.node.buttonText} />
               </ContentContainer>
-            )}</Slide>
-        })}
+            )}
+          </Slide>
+        ))}
       </Slider>
     </HomepageHeroWrapper>
   )
@@ -201,12 +212,17 @@ const Slide = styled.div<{backgroundImage: string, backgroundImagePosition: stri
   background-image: ${({backgroundImage}) => `url(${backgroundImage})`};
   background-position: ${({backgroundImagePosition}) => Boolean(backgroundImagePosition) ? backgroundImagePosition : 'center'};
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   width: 100%;
-  height: 425px;
+  height: 250px;
   display: flex !important;
-  padding: ${sizing(25)} ${sizing(75)};
+  padding: ${sizing(0)} ${sizing(0)};
   ${({ contentPosition }) => getSlideLayoutStyles(contentPosition)};
+  @media all and (min-width: 1265px) {
+    background-size: 100%;
+    height: 425px;
+    padding: ${sizing(25)} ${sizing(75)};
+  }
 `;
 
 const ContentCenteredContainer = styled.div`
@@ -218,8 +234,12 @@ const ContentCenteredContainer = styled.div`
     background-color: rgba(255,255,255,.7);
     padding: ${sizing(20)};
     border: solid 4px white;
+    max-width: 486px;
     p {
-      ${fonts.regularText['600']};
+      ${fonts.regularText['100']};
+      @media all and (min-width: 1265px) {
+        ${fonts.regularText['600']};
+      }
     }
 `;
 

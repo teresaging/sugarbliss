@@ -38,13 +38,19 @@ const Image = styled.img`
     margin-bottom: ${sizing(35)};
 `
 const Name = styled.p`
-    ${fonts.cursiveText['800']};
+    ${fonts.cursiveText['600']};
     text-align: center;
     margin-bototm: ${sizing(20)};
+    @media all and (min-width: 768px) {
+      ${fonts.cursiveText['800']};
+    }
 `
 const Description = styled.p`
-    ${fonts.regularText['300']};
+    ${fonts.regularText['200']};
     text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['300']};  
+  }
 `
 
 export default ProductDisplay;

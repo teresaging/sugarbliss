@@ -14,9 +14,10 @@ type Products = {
 
 type Props = {
   products: Products[];
+  isMobile: boolean;
 };
 
-const HomepageProducts = ({products}: Props) => {
+const HomepageProducts = ({products, isMobile}: Props) => {
 
   return (
     <HomepageProductsWrapper>
@@ -26,7 +27,7 @@ const HomepageProducts = ({products}: Props) => {
           return (
           <Product key={product.name}>
             <Image fluid={product.fluidImage} />
-            <Button url={product.url} text={product.name} size="XLARGE"/>
+            <Button url={product.url} text={product.name} size={isMobile ? 'SMALL' : 'XLARGE'} />
           </Product>)
         })}
       </ProductsContainer>
@@ -58,8 +59,8 @@ const ProductsContainer = styled.div`
   justify-content: center;
 `
 const Product = styled.div`
-  width: ${sizing(250)};
-  height: ${sizing(250)};
+  width: ${sizing(150)};
+  height: ${sizing(150)};
   border-radius: 50%;
   overflow: hidden;
   position: relative;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Img, { FluidObject } from 'gatsby-image';
 import styled from '@emotion/styled';
@@ -89,16 +89,31 @@ const IndexPage = ({data}: IndexProps) => {
     },
   ];
 
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  const handleWindowSizeChange = () => {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    }
+  }, []);
+
+  const isMobile: boolean = (width <= 1000);
+
     return (
       <Layout>
-        <HomepageHero slideData={data.allContentfulHomepageHero.edges} />
+        <HomepageHero isMobile={isMobile} slideData={data.allContentfulHomepageHero.edges} />
         <Intro backgroundImage={data.aboutBackgroundImage.childImageSharp.fluid.src}>
           <p>Sugar Bliss Cake Boutique bakes all cupcakes, cake pops, French macarons from scratch using only the highest quality, natural ingredients, such as European Cocoa, Nielsen Massey pure Madagascar Bourbon vanilla, and real fruits. Come visit our retail location in the Downtown Loop or call us to cater or deliver for your next business meeting, office party, birthday, wedding, or special event.</p>
         </Intro>
-        <HomepageProducts products={productSectionData} />
+        <HomepageProducts isMobile={isMobile} products={productSectionData} />
         <OrderOnline>
           <OrderOnlineImage fluid={data.homeOrderImage.childImageSharp.fluid}/>
-          <Button url="/" text="Order Online" size="XLARGE"/>
+          <Button url="/order" text="Order Online" size={isMobile ? 'SMALL' : 'XLARGE'} />
         </OrderOnline>
       </Layout>
     )
@@ -107,13 +122,16 @@ export default IndexPage;
 
 const Intro = styled.div<{backgroundImage: string}>`
   background-color: ${colors.solids.BABY_PINK};
-  background-image: ${({backgroundImage}) => `url('${backgroundImage}')`};
   background-size: 200%;
   background-position-x: center;
   background-repeat: no-repeat;
-  height: ${sizing(400)};
   text-align: center;
-  padding: ${sizing(40)} ${sizing(20)} 0 ${sizing(20)};
+  padding: ${sizing(18)} ${sizing(10)};
+  @media all and (min-width: 992px) {
+    padding: ${sizing(40)} ${sizing(20)} 0 ${sizing(20)};
+    height: ${sizing(400)};
+    background-image: ${({backgroundImage}) => `url('${backgroundImage}')`};
+  }
   @media all and (min-width: 475px) {
     background-size: 140%;
   }
@@ -138,8 +156,11 @@ const Intro = styled.div<{backgroundImage: string}>`
     background-position-y: -440px;
   }
   p {
-     ${fonts.regularText['500']};
+     ${fonts.regularText['200']};
      text-align: center;
+    @media all and (min-width: 992px) {
+      ${fonts.regularText['500']};
+    }
   }
 `;
 
@@ -162,6 +183,7 @@ const OrderOnline = styled.div`
 
 const OrderOnlineImage = styled(Img)`
   width: 100%;
+  min-height: 100%;
   height: auto;
 `;
 

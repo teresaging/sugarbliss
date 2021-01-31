@@ -96,8 +96,11 @@ const Layout = ({ children }: Props) => {
               logo={data.logo.childImageSharp.fluid}
             />
             <Container>{children}</Container>
-            <Footer logo={data.logo.childImageSharp.fluid} WBELogo={data.WBELogo.childImageSharp.fluid}
-                    NMSDCLogo={data.NMSDCLogo.childImageSharp.fluid}/>
+            <Footer
+              logo={data.logo.childImageSharp.fluid}
+              WBELogo={data.WBELogo.childImageSharp.fluid}
+              NMSDCLogo={data.NMSDCLogo.childImageSharp.fluid}
+            />
           </>
         )
       }}

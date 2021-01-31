@@ -35,6 +35,9 @@ const HeaderWrapper = styled.div`
   grid-template-columns: 168px 1fr;
   padding: 15px;
   width: 100%;
+  @media all and (min-width: 1024px) {
+    grid-template-columns: 250px 1fr;
+  }
 `
 
 const LogoContainer = styled.div`
@@ -50,5 +53,7 @@ const NavContainer = styled.div`
 `
 
 const LogoImg = styled(Img)`
-  width: ${sizing(275)};
+  //width: ${sizing(275)};
+  width: 100%;
+  height: auto;
 `;

@@ -64,9 +64,13 @@ const Intro = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding: ${sizing(75)} ${sizing(50)} ${sizing(75)} ${sizing(50)};
   &> div{
     margin: 0 ${sizing(50)};
+  }
+  @media all and (min-width: 768px) {
+    flex-direction: row;
   }
 `;
 

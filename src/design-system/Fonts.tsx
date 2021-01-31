@@ -15,7 +15,7 @@ const FONT_FAMILIES = {
 const regularText = {
   100: {
     'font-family': FONT_FAMILIES.MULI,
-    'font-size': sizing(13),
+    'font-size': sizing(12),
     'font-weight': '400',
     'line-height': sizing(15),
   },

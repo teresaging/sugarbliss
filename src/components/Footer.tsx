@@ -16,10 +16,10 @@ const Footer = ({logo, WBELogo, NMSDCLogo}: Props) => {
   return (
     <FooterWrapper>
       <Column textAlign="left">
-        <LogoContainer>
-          <Img fluid={logo} />
-          <div>Join our mailing list</div>
-        </LogoContainer>
+        {/*<LogoContainer>*/}
+        {/*  <Img fluid={logo} />*/}
+        {/*  <div>Join our mailing list</div>*/}
+        {/*</LogoContainer>*/}
       </Column>
       <Column textAlign="center">
         <Address>115 N. Wabash</Address>
@@ -38,8 +38,11 @@ const FooterWrapper = styled.div`
  background-color: ${colors.solids.BROWN};
  color: ${colors.solids.WHITE};
  display: grid;
- grid-template-columns: repeat(3, 1fr);
+ grid-template-columns: 1fr;
  padding: ${sizing(40)} ${sizing(20)};
+  @media all and (min-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `
 
 const Column = styled.div<{textAlign: string}>`

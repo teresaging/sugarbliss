@@ -100,31 +100,44 @@ const Container = styled.div`
 
 const Slide = styled.div`
    width: 100%;
-   height: ${sizing(500)};
+   height: ${sizing(300)};
    display: flex !important;
    justify-content: center;
    align-items: center;
+  @media all and (min-width: 768px) {
+    height: ${sizing(500)};
+  }
 `;
 
 const Image = styled.img`
   border-radius: 50%;
-  width: 300px;
+  width: ${sizing(300)};
+  min-width: ${sizing(150)};
   height: auto;
 `;
 
 const Name = styled.p`
-  ${fonts.cursiveText['900']};
+  ${fonts.cursiveText['600']};
   margin-bottom: ${sizing(10)};
+  @media all and (min-width: 768px) {
+    ${fonts.cursiveText['900']};
+  }
 `;
 
 const DatesAvailable = styled.p`
-  ${fonts.boldText['500']};
+  ${fonts.boldText['200']};
    margin-bottom: ${sizing(10)};
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['500']};
+  }
 `;
 
 const Description = styled.p`
-  ${fonts.regularText['400']};
+  ${fonts.regularText['200']};
   margin-top: ${sizing(20)};
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['400']};
+  }
 `;
 
 const LeftImageContainer = styled.div`
