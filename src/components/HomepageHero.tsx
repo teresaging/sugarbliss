@@ -122,31 +122,41 @@ const HomepageHeroWrapper = styled.div`
     position: relative;
     
     .slick-next {
-      right: 15px;
+      right: ${sizing(4)};
     }
     
     .slick-prev {
-      left: 4px;
+      left: ${sizing(3)};
       z-index: 1;
     }
     
     .slick-prev:before, .slick-next:before {
       color: ${colors.solids.BROWN};
-      font-size: ${sizing(32)};
-    }
+      font-size: ${sizing(12)};
+        @media all and (min-width: 768px) {
+          font-size: ${sizing(32)};
+        }
+      }
     
     .slick-dots {
       bottom: 0;
     }
     
     .slick-arrow {
-      width: ${sizing(32)};
-      height: ${sizing(32)};
+      width: ${sizing(15)};
+      height: ${sizing(15)};
+      @media all and (min-width: 768px) {
+        width: ${sizing(32)};
+        height: ${sizing(32)};
+      }
     }
     
     .slick-dots li button:before {
-      font-size: ${sizing(12)};
+      font-size: ${sizing(5)};
       color: ${colors.solids.BROWN};
+      @media all and (min-width: 768px) {
+        font-size: ${sizing(12)};
+      }
     }
     
     .slick-dots li.slick-active button:before {
@@ -159,36 +169,42 @@ export const getSlideLayoutStyles = (position: string) => {
   switch (position) {
     case CONTENT_POSITIONS.TOP_CENTER: {
       return `
+        padding: ${sizing(15)} ${sizing(15)}!important;
         justify-content: center;
         align-items: flex-start;
       `;
     }
     case CONTENT_POSITIONS.BOTTOM_CENTER: {
       return `
+        padding: ${sizing(15)} ${sizing(15)}!important;
         justify-content: center;
         align-items: flex-end;
       `;
     }
     case CONTENT_POSITIONS.TOP_LEFT: {
       return `
+        padding: ${sizing(15)} ${sizing(15)}!important;
         justify-content: flex-start;
         align-items: flex-start;
       `;
     }
     case CONTENT_POSITIONS.TOP_RIGHT: {
       return `
+        padding: ${sizing(15)} ${sizing(15)}!important;
         justify-content: flex-end;
         align-items: flex-start;
       `;
     }
     case CONTENT_POSITIONS.BOTTOM_LEFT: {
       return `
+        padding: ${sizing(15)} ${sizing(15)}!important;
         justify-content: flex-start;
         align-items: flex-end;
       `;
     }
     case CONTENT_POSITIONS.BOTTOM_RIGHT: {
       return `
+        padding: ${sizing(15)} ${sizing(15)}!important;
         justify-content: flex-end;
         align-items: flex-end;
       `;
@@ -216,12 +232,10 @@ const Slide = styled.div<{backgroundImage: string, backgroundImagePosition: stri
   width: 100%;
   height: 250px;
   display: flex !important;
-  padding: ${sizing(0)} ${sizing(0)};
   ${({ contentPosition }) => getSlideLayoutStyles(contentPosition)};
   @media all and (min-width: 1265px) {
     background-size: 100%;
     height: 425px;
-    padding: ${sizing(25)} ${sizing(75)};
   }
 `;
 
@@ -239,6 +253,13 @@ const ContentCenteredContainer = styled.div`
       ${fonts.regularText['100']};
       @media all and (min-width: 1265px) {
         ${fonts.regularText['600']};
+      }
+    }
+    img {
+      min-width: ${sizing(50)};
+      height: auto;
+      @media all and (max-width: 767px) {
+        margin-bottom: 0;
       }
     }
 `;

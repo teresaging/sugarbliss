@@ -122,6 +122,7 @@ const MobileMenu = styled.div`
   height: 100vh;
   background-color: ${colors.solids.WHITE};
   z-index: 99;
+  overflow: scroll;
   
   > div {
     position: relative;

@@ -166,12 +166,12 @@ const ChildNavLink = styled(Link)`
 `;
 
 const MobileLinkContainer = styled(Link)`
-  ${fonts.boldText['600']};
+  ${fonts.boldText['400']};
   margin: ${sizing(10)} 0;
 `;
 
 const MobileChildLink = styled(Link)`
-  ${fonts.boldText['400']};
+  ${fonts.boldText['200']};
   margin: ${sizing(5)} 0;
 `;
 
@@ -183,7 +183,7 @@ const MobileCategoryContainer = styled.p`
 `;
 
 const MobileLinkText = styled.p`
-  ${fonts.boldText['600']};
+  ${fonts.boldText['400']};
   margin-bottom: 0;
 `;
 
