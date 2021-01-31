@@ -48,11 +48,17 @@ const TabsContainer = styled.div`
 `
 
 const Tab = styled.div<{isActive: boolean}>`
-    ${fonts.mediumText['500']};
-    padding: ${sizing(10)} ${sizing(20)};
+    ${fonts.mediumText['200']};
+    padding: ${sizing(5)} ${sizing(10)};
     border-bottom: ${({isActive}) => isActive ? 'black solid 1px' : 'transparent solid 1px'};
     color: ${({isActive}) => isActive ? colors.solids.BROWN : colors.solids.MAIN_MED_BLUE};
     cursor: pointer;
+  @media all and (min-width: 768px) {
+    ${fonts.mediumText['500']};
+    padding: ${sizing(10)} ${sizing(20)};
+
+  }
+
 `
 
 export default Tabs;

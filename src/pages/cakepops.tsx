@@ -52,15 +52,22 @@ const PricesContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${colors.solids.BABY_BLUE};
-  padding: ${sizing(40)} 0;
-  margin: ${sizing(50)} 0;
+  padding: ${sizing(20)} 0;
+  margin: ${sizing(20)} 0;
+  @media all and (min-width: 768px) {
+    padding: ${sizing(40)} 0;
+    margin: ${sizing(50)} 0;
+  }
 `;
 
 const Price = styled.p`
-  ${fonts.mediumText['500']};
+  ${fonts.mediumText['100']};
   color: ${colors.solids.BROWN};
   margin-bottom: 0;
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.mediumText['500']};
+  }
 `;
 
 export const query = graphql`

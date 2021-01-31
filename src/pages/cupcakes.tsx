@@ -47,9 +47,9 @@ const CupcakesPage = ({data}: CupcakeProps) => {
           <IntroText>Vegan, Dozen: $28</IntroText>
         </div>
       </Intro>
-      <DailyMenuSection>
-        <Button url="" text="View Daily Menu" size="XLARGE"/>
-      </DailyMenuSection>
+      {/*<DailyMenuSection>*/}
+      {/*  <Button url="" text="View Daily Menu" size="XLARGE"/>*/}
+      {/*</DailyMenuSection>*/}
       <SeasonalProductCarousel products={seasonalCupcakes} />
       <ProductsList products={everyDayCupcakes} />
       <CupcakeDailyFlavors cupcakes={dailyCupcakes}/>
@@ -65,21 +65,28 @@ const Intro = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: ${sizing(75)} ${sizing(50)} ${sizing(75)} ${sizing(50)};
-  &> div{
-    margin: 0 ${sizing(50)};
-  }
+  padding: ${sizing(10)} ${sizing(10)};
   @media all and (min-width: 768px) {
+    &> div{
+      margin: 0 ${sizing(50)};
+    }
     flex-direction: row;
+    padding: ${sizing(75)} ${sizing(50)} ${sizing(75)} ${sizing(50)};
   }
 `;
 
 const IntroTitle = styled.p`
-  ${fonts.boldText['400']};
+  ${fonts.boldText['200']};
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['400']};
+  }
 `;
 
 const IntroText = styled.p`
-  ${fonts.regularText['400']};
+  ${fonts.regularText['100']};
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['400']};
+  }
 `;
 
 const DailyMenuSection = styled.div`
@@ -88,8 +95,12 @@ const DailyMenuSection = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${colors.solids.BABY_BLUE};
-  padding: ${sizing(40)} 0;
-  margin: ${sizing(50)} 0;
+  padding: ${sizing(20)} 0;
+  margin: ${sizing(10)} 0;
+  @media all and (min-width: 768px) {
+    padding: ${sizing(40)} 0;
+    margin: ${sizing(50)} 0;
+  }
 `;
 
 export default CupcakesPage;

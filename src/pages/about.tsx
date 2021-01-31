@@ -50,12 +50,15 @@ const Content = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  margin: ${sizing(35)} 0 ${sizing(50)} 0;
+  margin: ${sizing(10)} 0 ${sizing(20)} 0;
   width: 60%;
   height: auto;
   border-radius: 50%;
   overflow: hidden;
-  @media all and (min-width: 992px) {
+  @media all and (min-width: 768px) {
+    margin: ${sizing(35)} 0 ${sizing(50)} 0;
+  }
+    @media all and (min-width: 992px) {
      width: 100%;
      max-width: ${sizing(500)};
     max-height: ${sizing(500)};
@@ -65,10 +68,15 @@ const ImageContainer = styled.div`
 const Image = styled.img`
   width: 100%;
   height: auto;
+  margin-bottom: 0;
 `;
 
 const Name = styled.p`
-  ${fonts.cursiveText['1200']};
+  ${fonts.cursiveText['800']};
+  text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.cursiveText['1200']};
+  }
 `;
 
 const TopContainer = styled.div`
@@ -79,15 +87,23 @@ const TopContainer = styled.div`
 `;
 
 const BioContainer = styled.div`
-  margin-top: ${sizing(50)};
+  margin-top: ${sizing(20)};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media all and (min-width: 768px) {
+    margin-top: ${sizing(50)};
+  }
 `;
 
 const Bio = styled.p`
-  ${fonts.regularText['500']};
+  ${fonts.regularText['200']};
+  text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['500']};
+    tex-talign: left;
+  }
 `;
 
 export default AboutPage;

@@ -62,14 +62,22 @@ const Section = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-bottom: ${sizing(80)}
+  margin-bottom: ${sizing(20)};
+  @media all and (min-width: 768px) {
+    margin-bottom: ${sizing(80)};
+  }
 `;
 
 const ToppingsSection = styled.div`
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  margin-bottom: ${sizing(80)}
+  align-items: center;
+  flex-direction: column;
+  @media all and (min-width: 768px) {
+    margin-bottom: ${sizing(80)};
+    flex-direction: row;
+    align-items: flex-start;
+  }
 `;
 
 const Topping = styled.div`
@@ -81,13 +89,19 @@ const Topping = styled.div`
 `;
 
 const Name = styled.p`
-  ${fonts.boldText['400']};
+  ${fonts.boldText['200']};
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['400']};
+  }
 `;
 
 const ToppingList = styled.p`
-  ${fonts.regularText['300']};
+  ${fonts.regularText['100']};
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['300']};
+  }
 `;
 
 export default SweetCrepesPage;

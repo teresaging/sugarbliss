@@ -89,26 +89,36 @@ const MorningPastriesPage = ({data}: MorningPastriesProps) => {
 export default MorningPastriesPage;
 
 const HighlightedProduct = styled.div`
-  margin: ${sizing(75)} auto ${sizing(75)} auto;
+  margin: ${sizing(30)} auto ${sizing(20)} auto;
   width: 85%;
+  @media all and (min-width: 768px) {
+    margin: ${sizing(100)} auto ${sizing(75)} auto;
+  }
   @media all and (min-width: 992px) {
      width: 50%;
   }
 `;
 
 const Title = styled.p`
-  ${fonts.cursiveText['900']};
+  ${fonts.cursiveText['600']};
   text-align: center;
-  margin-bottom: ${sizing(50)};
-`;
+  @media all and (min-width: 768px) {
+    margin-bottom: ${sizing(50)};
+    ${fonts.cursiveText['900']};
+  }
+`
 
 const OtherTreatsContainer = styled.div`
-  margin: ${sizing(75)} auto ${sizing(75)} auto;
+  margin: ${sizing(20)} auto;
   width: 85%;
   dispay: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  @media all and (min-width: 768px) {
+    margin: ${sizing(75)} auto ${sizing(75)} auto;
+  }
   @media all and (min-width: 992px) {
      width: 50%;
   }
@@ -124,15 +134,24 @@ const OtherTreat = styled.div`
 `;
 
 const OtherTreatName = styled.p`
-  ${fonts.boldText['400']};
+  ${fonts.boldText['300']};
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['400']};
+  }
 `;
 
 const OtherTreatDescription = styled.p`
-  ${fonts.regularText['300']};
+  ${fonts.regularText['100']};
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['300']};
+  }
 `;
 
 const OtherTreatsPrice = styled.p`
-  ${fonts.regularText['300']};
+  ${fonts.regularText['100']};
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['300']};
+  }
 `
 
 export const query = graphql`

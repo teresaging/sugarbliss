@@ -62,10 +62,9 @@ const SeasonalProductCarousel = ({products}: Props) => {
 const Wrapper = styled.div`
   width: 100%;
   position: relative;
-  padding: ${sizing(20)};
   margin-top: ${sizing(50)};
   @media all and (min-width: 992px) {
-    padding: ${sizing(20)} ${sizing(20)};
+    padding: ${sizing(20)};
   }
   @media all and (min-width: 1250px) {
     padding: ${sizing(20)} ${sizing(100)};
@@ -73,10 +72,11 @@ const Wrapper = styled.div`
 `
 
 const Title = styled.p`
-  ${fonts.cursiveText['1000']};
+  ${fonts.cursiveText['600']};
   text-align: center;
   margin-bottom: ${sizing(15)};
   @media all and (min-width: 768px) {
+    ${fonts.cursiveText['1000']};
     margin-bottom: ${sizing(50)};
   }
 `;

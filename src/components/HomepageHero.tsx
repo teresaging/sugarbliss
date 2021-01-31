@@ -72,8 +72,8 @@ const SLIDER_SETTINGS = {
   slidesToScroll: 1
 };
 
-const Bold = ({ children }) => <span className="bold">{children}</span>;
-const Text = ({ children }) => <p>{children}</p>;
+const Bold = ({ children }) => <BoldCarouselText>{children}</BoldCarouselText>;
+const Text = ({ children }) => <CarouselText>{children}</CarouselText>;
 
 const options = {
   renderMark: {
@@ -137,9 +137,15 @@ const HomepageHeroWrapper = styled.div`
           font-size: ${sizing(32)};
         }
       }
-    
+
     .slick-dots {
       bottom: 0;
+      li {
+        margin: 0;
+        @media all and (min-width: 768px) {
+          margin: 0 ${sizing(5)};
+        }
+      }
     }
     
     .slick-arrow {
@@ -269,6 +275,20 @@ const ContentContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+`;
+
+const CarouselText = styled.p`
+  ${fonts.regularText['100']};
+  @media all and (min-width: 1265px) {
+    ${fonts.regularText['600']};
+  }
+`;
+
+const BoldCarouselText = styled.p`
+  ${fonts.boldText['100']};
+  @media all and (min-width: 1265px) {
+    ${fonts.boldText['600']};
+  }
 `;
 
 export default HomepageHero;

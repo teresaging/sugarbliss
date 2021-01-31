@@ -19,7 +19,7 @@ const OrderFooter = ({backgroundImage}: Props) => {
     <Container>
       <Image fluid={backgroundImage.childImageSharp.fluid} />
       <OrderButtonContainer>
-        <Button url="/order" text="Order Online" size="XLARGE" />
+        <Button url="/order" text="Order Online" size="XLARGE" mobileSize="SMALL" />
       </OrderButtonContainer>
     </Container>
   )
@@ -29,16 +29,23 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: ${sizing(330)};
+  height: ${sizing(150)};
   background-repeat: no-repeat;
   width: 100%;
   position: relative;
   overflow: hidden;
+  @media all and (min-width: 768px) {
+    height: ${sizing(330)};
+  }
 `;
 
 const Image = styled(Img)`
   width: 100%;
-  height: auto;
+  height: 100%;
+  @media all and (min-width: 768px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 const OrderButtonContainer = styled.div`

@@ -36,10 +36,13 @@ const BarsBrowniesPage = ({data}: BarsBrowniesPageProps) => {
 };
 
 const Content = styled.div`
-  margin: ${sizing(100)} auto ${sizing(75)} auto;
+  margin: ${sizing(30)} auto ${sizing(20)} auto;
   width: 85%;
+  @media all and (min-width: 768px) {
+    margin: ${sizing(100)} auto ${sizing(75)} auto;
+  }
   @media all and (min-width: 992px) {
-     width: 50%;
+    width: 50%;
   }
 `;
 

@@ -85,18 +85,27 @@ const ItemContainer = styled.div`
 `;
 
 const ItemTitle = styled.p`
-  ${fonts.cursiveText['800']};
+  ${fonts.cursiveText['600']};
   text-align: center;
+  @media all and (min-width: 992px) {
+    ${fonts.cursiveText['800']};
+  }
 `;
 
 const Price = styled.p`
-  ${fonts.boldText['600']};
+  ${fonts.boldText['200']};
   text-align: center;
+  @media all and (min-width: 992px) {
+    ${fonts.cursiveText['600']};
+  }
 `;
 
 const Description = styled.p`
-  ${fonts.regularText['400']};
+  ${fonts.regularText['100']};
   text-align: center;
+  @media all and (min-width: 992px) {
+    ${fonts.regularText['400']};
+  }
 `;
 
 export const query = graphql`

@@ -116,9 +116,12 @@ const WeddingsPage = ({data}: WeddingsPageProps) => {
 };
 
 const Content = styled.div`
-  margin: ${sizing(100)} auto ${sizing(75)} auto;
+  margin: ${sizing(20)} auto ${sizing(30)} auto;
   width: 85%;
-  @media all and (min-width: 992px) {
+  @media all and (min-width: 768px) {
+    margin: ${sizing(100)} auto ${sizing(75)} auto;
+  }
+    @media all and (min-width: 992px) {
      width: 50%;
   }
 `;
@@ -128,16 +131,24 @@ const Section = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: ${sizing(120)}
+  margin-bottom: ${sizing(40)};
+  @media all and (min-width: 768px) {
+    margin-bottom: ${sizing(120)};
+  }
 `;
 
 const CupcakeImageContainer = styled.div`
-  margin: ${sizing(35)} auto ${sizing(100)} auto;
-  width: ${sizing(350)};
-  height: ${sizing(350)};
+  margin: ${sizing(10)} auto ${sizing(30)} auto;
+  width: 100%;
+  height: auto;
   border-radius: 50%;
   overflow: hidden;
   display: block;
+  @media all and (min-width: 768px) {
+    margin: ${sizing(35)} auto ${sizing(100)} auto;
+    width: ${sizing(350)};
+    height: ${sizing(350)};
+  }
 `;
 
 const CupcakeImage = styled(Img)`
@@ -152,40 +163,65 @@ const PriceSection = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: ${colors.solids.BABY_PINK};
-  padding: ${sizing(40)} 0;
-  margin: ${sizing(50)} 0;
+  padding: ${sizing(20)} 0;
+  margin: ${sizing(20)} 0;
+  @media all and (min-width: 768px) {
+    padding: ${sizing(40)} 0;
+    margin: ${sizing(50)} 0;
+  }
 `;
 
 const SectionTitle = styled.p`
-  ${fonts.cursiveText['1200']};
-  margin-bottom: ${sizing(40)};
+  ${fonts.cursiveText['700']};
+  margin-bottom: ${sizing(20)};
   text-transform: capitalize;
+  text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.cursiveText['1200']};
+    margin-bottom: ${sizing(40)};
+  }
 `;
 
 const MultiplePriceWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   column-gap: ${sizing(100)};
+  @media all and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+
+  }
 `;
 
 const MultiplePriceType = styled.p`
-  ${fonts.boldText['600']};
+  ${fonts.boldText['200']};
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['600']};
+  }
 `;
 
 const MultiplePrice = styled.p`
-   ${fonts.regularText['400']};
+   ${fonts.regularText['100']};
    text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['400']};
+  }
 `;
 
 const Price = styled.p`
- ${fonts.boldText['600']};
+ ${fonts.boldText['200']};
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['600']};
+  }
 `;
 
 const FlavorList = styled.p`
-  ${fonts.regularText['200']};
+  ${fonts.regularText['100']};
   text-align: center;
   margin-top: ${sizing(20)};
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['200']};
+  }
 `;
 
 const Flavor = styled.span`
@@ -193,8 +229,11 @@ const Flavor = styled.span`
 `;
 
 const ProductInfo = styled.p`
- ${fonts.regularText['300']};
+ ${fonts.regularText['100']};
  text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['300']};
+  }
 `;
 
 export default WeddingsPage;

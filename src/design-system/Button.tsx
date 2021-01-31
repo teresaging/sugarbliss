@@ -23,6 +23,7 @@ type Props = {
   url?: string;
   text: string;
   onClick?: Function;
+  mobileSize?: keyof typeof Sizes;
 }
 
 export const getFont = (size: keyof typeof Sizes) => {
@@ -83,7 +84,7 @@ export const getSize = (size: keyof typeof Sizes) => {
   }
 };
 
-const Button = ({url, size = Sizes.MEDIUM, isFullWidth = false, text, backgroundColor = colors.solids.BROWN, textColor = colors.solids.WHITE, onClick = null}: Props) => {
+const Button = ({url, size = Sizes.MEDIUM, mobileSize = Sizes.SMALL, isFullWidth = false, text, backgroundColor = colors.solids.BROWN, textColor = colors.solids.WHITE, onClick = null}: Props) => {
 
   const handleOnClick = () => {
     onClick();
@@ -92,12 +93,26 @@ const Button = ({url, size = Sizes.MEDIUM, isFullWidth = false, text, background
   return (
     <>
       {url && (
-        <StyledLink to={url} size={size} isFullWidth={isFullWidth} backgroundColor={backgroundColor} textColor={textColor} >
+        <StyledLink
+          to={url}
+          size={size}
+          mobileSize={mobileSize}
+          isFullWidth={isFullWidth}
+          backgroundColor={backgroundColor}
+          textColor={textColor}
+        >
           {text}
         </StyledLink>
       )}
       {onClick && (
-        <StyledButton onClick={handleOnClick} size={size} isFullWidth={isFullWidth} backgroundColor={backgroundColor} textColor={textColor} >
+        <StyledButton
+          onClick={handleOnClick}
+          size={size}
+          mobileSize={mobileSize}
+          isFullWidth={isFullWidth}
+          backgroundColor={backgroundColor}
+          textColor={textColor}
+        >
           {text}
         </StyledButton>
       )}
@@ -105,7 +120,7 @@ const Button = ({url, size = Sizes.MEDIUM, isFullWidth = false, text, background
   )
 };
 
-const StyledLink = styled(Link)<{size: keyof typeof Sizes, isFullWidth: boolean, backgroundColor: string, textColor: string}>`
+const StyledLink = styled(Link)<{size: keyof typeof Sizes, mobileSize: keyof typeof Sizes, isFullWidth: boolean, backgroundColor: string, textColor: string}>`
     border-radius: ${sizing(40)};
     color: ${({textColor}) => textColor};
     cursor: pointer;
@@ -117,7 +132,12 @@ const StyledLink = styled(Link)<{size: keyof typeof Sizes, isFullWidth: boolean,
     text-decoration: none;
     width: ${({isFullWidth}) => isFullWidth ? '100%' : 'auto'};
     ${({ size }) => getFont(size)};
-    ${({ size }) => getSize(size)}; 
+    ${({ size }) => getSize(size)};
+
+    @media all and (max-width: 768px) {
+      ${({ mobileSize }) => getFont(mobileSize)};
+      ${({ mobileSize }) => getSize(mobileSize)};
+    }
     
     &:hover, &:focus {
       color: ${({textColor}) => textColor};
@@ -125,7 +145,7 @@ const StyledLink = styled(Link)<{size: keyof typeof Sizes, isFullWidth: boolean,
     }
 `
 
-const StyledButton = styled.a<{size: keyof typeof Sizes, isFullWidth: boolean, backgroundColor: string, textColor: string}>`
+const StyledButton = styled.a<{size: keyof typeof Sizes, mobileSize: keyof typeof Sizes, isFullWidth: boolean, backgroundColor: string, textColor: string}>`
     border-radius: ${sizing(40)};
     color: ${({textColor}) => textColor};
     cursor: pointer;
@@ -138,6 +158,11 @@ const StyledButton = styled.a<{size: keyof typeof Sizes, isFullWidth: boolean, b
     width: ${({isFullWidth}) => isFullWidth ? '100%' : 'auto'};
     ${({ size }) => getFont(size)};
     ${({ size }) => getSize(size)}; 
+  
+    @media all and (max-width: 768px) {
+      ${({ mobileSize }) => getFont(mobileSize)};
+      ${({ mobileSize }) => getSize(mobileSize)};
+    }
     
     &:hover, &:focus {
       color: ${({textColor}) => textColor};

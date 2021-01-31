@@ -164,12 +164,20 @@ const MenuSection = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: ${colors.solids.BABY_PINK};
-  padding: ${sizing(40)} 0;
-  margin: ${sizing(50)} 0;
+  padding: ${sizing(20)} 0;
+  margin: ${sizing(20)} 0;
+  @media all and (min-width: 768px) {
+    padding: ${sizing(40)} 0;
+    margin: ${sizing(50)} 0;
+  }
 `;
 
 const MenuTitle = styled.p`
+  ${fonts.boldText['300']};
+  text-align: center;
+  @media all and (min-width: 768px) {
   ${fonts.boldText['800']};
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -177,8 +185,11 @@ const ButtonContainer = styled.div`
 `;
 
 const Content = styled.div`
-  margin: ${sizing(100)} auto ${sizing(75)} auto;
+  margin: ${sizing(20)} auto ${sizing(15)} auto;
   width: 85%;
+  @media all and (min-width: 768px) {
+    margin: ${sizing(100)} auto ${sizing(75)} auto;
+  }
   @media all and (min-width: 992px) {
      width: 60%;
   }
@@ -190,18 +201,28 @@ const OrderingDetails = styled.div`
 `;
 
 const SectionTitle = styled.p`
-  ${fonts.cursiveText['1000']};
+  ${fonts.cursiveText['700']};
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.cursiveText['1000']};
+  }
 `;
 
 const Text = styled.p`
-  ${fonts.regularText['500']};
+  ${fonts.regularText['100']};
+  @media all and (min-width: 768px) {
+   ${fonts.regularText['500']};
+  }
 `;
 
 const CustomInformation = styled.p`
-  ${fonts.regularText['600']};
-  margin: ${sizing(20)} 0 ${sizing(100)} 0;
+  ${fonts.regularText['200']};
+  margin: ${sizing(10)} 0 ${sizing(30)} 0;
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['600']};
+    margin: ${sizing(20)} 0 ${sizing(100)} 0;
+  }
 `;
 
 const PackageSection = styled.div`
@@ -227,7 +248,10 @@ const Product = styled.div`
 `;
 
 const Name = styled.p`
-  ${fonts.boldText['600']};
+  ${fonts.boldText['300']};
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['600']};
+  }
 `;
 
 const PackageImageContainer = styled.div`
@@ -248,10 +272,14 @@ const PackageImage = styled.img`
 `
 
 const PackagePriceContainer = styled.div`
-  margin-top: ${sizing(25)};
+  margin-top: ${sizing(0)};
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  @media all and (min-width: 768px) {
+    margin-top: ${sizing(25)};
+  }
 `;
 
 const BreakfastCateringAddOns = styled.div`

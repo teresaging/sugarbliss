@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Img, { FluidObject } from 'gatsby-image';
-import { fonts } from '../design-system';
+import moment from 'moment';
 
+import { fonts } from '../design-system';
 import { sizing, colors } from '../utils';
 
 type Props = {
@@ -12,6 +13,8 @@ type Props = {
 }
 
 const Footer = ({logo, WBELogo, NMSDCLogo}: Props) => {
+
+  const currentYear = moment().year();
 
   return (
     <FooterWrapper>
@@ -29,6 +32,7 @@ const Footer = ({logo, WBELogo, NMSDCLogo}: Props) => {
           <WBELogoImg fluid={WBELogo} />
           <NMSDCLogoImg fluid={NMSDCLogo} />
         </CertifiedLogosContainer>
+        <Copyright>Copyright © {currentYear} Sugar Bliss Cake Boutique. All Rights Reserved.</Copyright>
       </Column>
     </FooterWrapper>
   )
@@ -39,7 +43,7 @@ const FooterWrapper = styled.div`
  color: ${colors.solids.WHITE};
  display: grid;
  grid-template-columns: 1fr;
- padding: ${sizing(40)} ${sizing(20)};
+ padding: ${sizing(40)} ${sizing(20)} 0 ${sizing(20)};
   @media all and (min-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -54,7 +58,12 @@ const LogoContainer = styled.div`
 `;
 
 const Address = styled.p`
-  ${fonts.regularText['400']};
+  ${fonts.regularText['200']};
+  margin-bottom: ${sizing(5)};
+  @media all and (min-width: 768px) {
+    margin-bottom: ${sizing(15)};
+    ${fonts.regularText['400']};
+  }
 `;
 
 const CertifiedLogosContainer = styled.div`
@@ -65,15 +74,29 @@ const CertifiedLogosContainer = styled.div`
 `;
 
 const WBELogoImg = styled(Img)`
-  width:  ${sizing(100)};
-  height: ${sizing(50)};
+  width:  ${sizing(50)};
+  height: ${sizing(25)};
   margin: 0 ${sizing(15)};
+  @media all and (min-width: 768px) {
+    width:  ${sizing(100)};
+    height: ${sizing(50)};
+  }
 `;
 
 const NMSDCLogoImg = styled(Img)`
-  width:  ${sizing(83)};
-  height: ${sizing(50)};
+  width:  ${sizing(41.5)};
+  height: ${sizing(25)};
   margin: 0 ${sizing(15)};
+  @media all and (min-width: 768px) {
+    width:  ${sizing(83)};
+    height: ${sizing(50)};
+  }
+`;
+
+const Copyright = styled.p`
+  ${fonts.regularText['100']};
+  margin-top: ${sizing(20)};
+  margin-bottom: ${sizing(10)};
 `;
 
 export default Footer;

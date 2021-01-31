@@ -43,6 +43,7 @@ const SeasonalCarousel = ({seasonalProducts = []}: Props) => {
                 </LeftImageContainer>
               )}
               <ProductInfoContainer>
+                <MobileImage src={product.imageUrl} />
                 <Name>{product.name}</Name>
                 {product.datesAvailable && (<DatesAvailable>{product.datesAvailable}</DatesAvailable>)}
                 {product.description && (<Description>{product.description}</Description>)}
@@ -66,31 +67,48 @@ const Container = styled.div`
     position: relative;
     
     .slick-next {
-      right: 15px;
+      right: ${sizing(4)};
     }
     
     .slick-prev {
-      left: 4px;
+      left: ${sizing(3)};
       z-index: 1;
     }
     
     .slick-prev:before, .slick-next:before {
       color: ${colors.solids.BROWN};
-      font-size: ${sizing(32)};
+      font-size: ${sizing(12)};
+      @media all and (min-width: 768px) {
+        font-size: ${sizing(32)};
+        }
+      }
     }
     
     .slick-dots {
       bottom: 0;
+      li {
+        margin: 0;
+        @media all and (min-width: 768px) {
+          margin: 0 ${sizing(5)};
+        }
+      }
     }
-    
+
     .slick-arrow {
-      width: ${sizing(32)};
-      height: ${sizing(32)};
+      width: ${sizing(15)};
+      height: ${sizing(15)};
+      @media all and (min-width: 768px) {
+        width: ${sizing(32)};
+        height: ${sizing(32)};
+      }
     }
     
     .slick-dots li button:before {
-      font-size: ${sizing(12)};
+      font-size: ${sizing(5)};
       color: ${colors.solids.BROWN};
+      @media all and (min-width: 768px) {
+        font-size: ${sizing(12)};
+      }
     }
     
     .slick-dots li.slick-active button:before {
@@ -104,8 +122,10 @@ const Slide = styled.div`
    display: flex !important;
    justify-content: center;
    align-items: center;
+  flex-direction: column;
   @media all and (min-width: 768px) {
     height: ${sizing(500)};
+    flex-direction: row;
   }
 `;
 
@@ -114,38 +134,71 @@ const Image = styled.img`
   width: ${sizing(300)};
   min-width: ${sizing(150)};
   height: auto;
+  display: none;
+  @media all and (min-width: 768px) {
+    display: block;
+  }
+`;
+
+const MobileImage = styled.img`
+  border-radius: 50%;
+  width: 50%;
+  height: auto;
+  margin: auto;
+  @media all and (min-width: 768px) {
+    display: none;
+  }
 `;
 
 const Name = styled.p`
-  ${fonts.cursiveText['600']};
-  margin-bottom: ${sizing(10)};
+  ${fonts.cursiveText['500']};
+  margin-bottom: ${sizing(5)};
+  margin-top: ${sizing(10)};
+  text-align: center;
   @media all and (min-width: 768px) {
+    margin-top: 0;
+    margin-bottom: ${sizing(10)};
     ${fonts.cursiveText['900']};
+    text-align: left;
   }
 `;
 
 const DatesAvailable = styled.p`
-  ${fonts.boldText['200']};
-   margin-bottom: ${sizing(10)};
+  ${fonts.boldText['100']};
+  margin-bottom: ${sizing(5)};
+  text-align: center;
   @media all and (min-width: 768px) {
     ${fonts.boldText['500']};
+    text-align: left;
+    margin-bottom: ${sizing(10)};
   }
 `;
 
 const Description = styled.p`
-  ${fonts.regularText['200']};
-  margin-top: ${sizing(20)};
+  ${fonts.regularText['100']};
+  margin-top: ${sizing(5)};
+  text-align: center;
   @media all and (min-width: 768px) {
     ${fonts.regularText['400']};
+    text-align: left;
+    margin-top: ${sizing(20)};
   }
 `;
 
 const LeftImageContainer = styled.div`
   margin-right: ${sizing(20)};
+  display: none;
+  @media all and (min-width: 768px) {
+    display: block;
+  }
 `;
 
 const RightImageContainer = styled.div`
   margin-left: ${sizing(20)};
+  display: none;
+  @media all and (min-width: 768px) {
+    display: block;
+  }
 `;
 
 const ProductInfoContainer = styled.div`

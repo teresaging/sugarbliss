@@ -50,13 +50,20 @@ const PriceSection = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: ${colors.solids.BABY_BLUE};
-  padding: ${sizing(40)} 0;
-  margin: ${sizing(50)} 0;
+  padding: ${sizing(20)} 0;
+  margin: ${sizing(20)} 0;
+  @media all and (min-width: 768px) {
+    padding: ${sizing(40)} 0;
+    margin: ${sizing(50)} 0;
+  }
 `;
 
 const Price = styled.div`
-  ${fonts.boldText['600']};
+  ${fonts.boldText['200']};
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['600']};
+  }
 `;
 
 const Underline = styled.hr`
@@ -67,23 +74,33 @@ const Underline = styled.hr`
 `;
 
 const FlavorsSection = styled.div`
-  margin-top: ${sizing(75)};
+  margin-top: ${sizing(45)};
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: ${sizing(75)};
+  margin-bottom: ${sizing(35)};
+  @media all and (min-width: 768px) {
+    margin-top: ${sizing(75)};
+    margin-bottom: ${sizing(75)};
+  }
 `;
 
 const FlavorsTitle = styled.p`
-  ${fonts.cursiveText['800']};
+  ${fonts.cursiveText['600']};
   color: ${colors.solids.BROWN};
   margin-bottom: ${sizing(30)};
+  @media all and (min-width: 768px) {
+    ${fonts.cursiveText['800']};  
+  }
 `;
 
 const Flavor = styled.p`
-  ${fonts.regularText['400']};
+  ${fonts.regularText['100']};
   color: ${colors.solids.BROWN};
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['400']};
+  }
 `;
 
 export default FrostingShots;

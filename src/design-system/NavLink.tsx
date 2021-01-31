@@ -167,7 +167,7 @@ const ChildNavLink = styled(Link)`
 
 const MobileLinkContainer = styled(Link)`
   ${fonts.boldText['400']};
-  margin: ${sizing(10)} 0;
+  margin: ${sizing(5)} 0;
 `;
 
 const MobileChildLink = styled(Link)`
@@ -179,7 +179,7 @@ const MobileCategoryContainer = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: ${sizing(10)} 0;
+  margin: ${sizing(5)} 0;
 `;
 
 const MobileLinkText = styled.p`

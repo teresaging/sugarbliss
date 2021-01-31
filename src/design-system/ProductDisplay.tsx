@@ -35,18 +35,22 @@ const Image = styled.img`
     height: auto;
     width: 100%;
     max-width: ${sizing(350)};
-    margin-bottom: ${sizing(35)};
+    margin-bottom: ${sizing(15)};
+    @media all and (min-width: 768px) {
+      margin-bottom: ${sizing(35)};
+    }
 `
 const Name = styled.p`
-    ${fonts.cursiveText['600']};
+    ${fonts.cursiveText['500']};
     text-align: center;
-    margin-bototm: ${sizing(20)};
+    margin-bottom: ${sizing(5)};
     @media all and (min-width: 768px) {
       ${fonts.cursiveText['800']};
+      margin-bottom: ${sizing(20)};
     }
 `
 const Description = styled.p`
-    ${fonts.regularText['200']};
+    ${fonts.regularText['100']};
     text-align: center;
   @media all and (min-width: 768px) {
     ${fonts.regularText['300']};  
