@@ -262,7 +262,7 @@ export const CustomFieldContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: ${sizing(15)};
+  margin: 0 auto ${sizing(15)} auto;
 
   .MuiInputLabel-formControl {
     transform: translate(0, 33px) scale(1);
