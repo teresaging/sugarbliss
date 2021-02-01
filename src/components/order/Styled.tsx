@@ -4,9 +4,13 @@ import { fonts } from '../../design-system';
 import { colors, sizing } from '../../utils';
 
 export const Title = styled.h1<{marginBottom: number}>`
-  ${fonts.cursiveText['1200']};
+  ${fonts.cursiveText['600']};
   text-align: center;
-  margin-bottom: ${({marginBottom}) => marginBottom ? `${sizing(marginBottom)}` : 0};
+  margin-bottom: ${sizing(20)};
+  @media all and (min-width: 768px) {
+    ${fonts.cursiveText['1200']};
+    margin-bottom: ${({marginBottom}) => marginBottom ? `${sizing(marginBottom)}` : 0};
+  }
 `;
 
 export const OptionsContainer = styled.div`
@@ -21,16 +25,21 @@ export const OptionsContainer = styled.div`
 `;
 
 export const Option = styled.div<{bgColor: string}>`
-  width: 350px;
-  height: 200px;
+  width: 100%;
+  height: ${sizing(400)};
   background-color: ${({bgColor}) => bgColor};
-  margin: ${sizing(20)} 0;
+  margin: ${sizing(5)} 0;
   border-radius: ${sizing(20)};
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  @media all and (min-width: 992px) {
+  @media all and (min-width: 768px) {
+    width: ${sizing(350)};
+    height: ${sizing(200)};
+    margin: ${sizing(20)} 0;
+  }
+    @media all and (min-width: 992px) {
      margin: 0 ${sizing(20)};
   }
   &:hover, &:focus {
@@ -40,8 +49,11 @@ export const Option = styled.div<{bgColor: string}>`
 `;
 
 export const OptionText = styled.p`
-  ${fonts.boldText['600']};
+  ${fonts.boldText['300']};
   margin-bottom: 0;
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['600']};
+  }
 `;
 
 export const Container = styled.div`
@@ -49,27 +61,43 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: ${sizing(20)};
+  @media all and (min-width: 768px) {
+    margin-top: 0;
+  }
 `;
 
 export const SubTitle = styled.p`
-  ${fonts.mediumText['600']};
-  margin-bottom: ${sizing(50)};
+  ${fonts.mediumText['100']};
+  margin-bottom: ${sizing(20)};
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.mediumText['600']};
+    margin-bottom: ${sizing(50)};
+  }
 `;
 
 export const FormContainer = styled.div<{bgColor: string}>`
   max-width: 1000px;
   width: 100%;
   background-color: ${({bgColor}) => bgColor};
-  border-radius: ${sizing(20)};
-  padding: ${sizing(40)};
+  border-radius: ${sizing(10)};
+  padding: ${sizing(10)};
+  @media all and (min-width: 768px) {
+    padding: ${sizing(40)};
+    border-radius: ${sizing(20)};
+  }
 `;
 
 export const Row = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: ${sizing(40)};
+  grid-template-columns: 1fr;
+  grid-row-gap: ${sizing(10)};
   margin-bottom: ${sizing(20)};
+  @media all and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: ${sizing(40)};
+  }
 `;
 
 export const SingleRow = styled.div`
@@ -77,35 +105,49 @@ export const SingleRow = styled.div`
 `;
 
 export const SubmitButton = styled.button`
-  ${fonts.boldText['500']};
+  ${fonts.boldText['200']};
   border-radius: ${sizing(40)};
   color: ${colors.solids.WHITE};
   background-color: ${colors.solids.BROWN};
   cursor: pointer;
   display: block;
   border-color: transparent;
-  padding: ${sizing(10)} ${sizing(18)};
-  margin: ${sizing(50)} auto 0 auto;
+  padding: ${sizing(5)} ${sizing(10)};
+  margin: ${sizing(20)} auto 0 auto;
   &:disabled {
     opacity: 0.4;
+  }
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['500']};
+    padding: ${sizing(10)} ${sizing(18)};
+    margin: ${sizing(50)} auto 0 auto;
   }
 `;
 
 export const DeliveryPrice = styled.p`
-  ${fonts.boldText['400']};
+  ${fonts.boldText['200']};
   display: block;
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['400']};
+  }
 `;
 
 export const CannotDeliverText = styled.p`
-  ${fonts.boldText['400']};
+  ${fonts.boldText['200']};
   display: block;
   text-align: center;
   color: ${colors.solids.ERROR};
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['400']};
+  }
 `;
 
 export const CategoryTitle = styled.h5`
-  ${fonts.boldText['600']};
+  ${fonts.boldText['400']};
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['600']};
+  }
 `;
 
 export const ProductContainer = styled.div`
@@ -142,17 +184,26 @@ export const ProductsWrapper = styled.div`
 `;
 
 export const Name = styled.h5`
-  ${fonts.boldText['400']};
+  ${fonts.boldText['200']};
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['400']};
+  }
 `;
 
 export const Description = styled.p`
-  ${fonts.regularText['200']};
+  ${fonts.regularText['100']};
   text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['200']};
+  }
 `;
 
 export const Price = styled.p`
-  ${fonts.boldText['300']};
+  ${fonts.boldText['100']};
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['300']};
+  }
 `;
 
 export const PriceWithDozen = styled.p`
@@ -160,7 +211,7 @@ export const PriceWithDozen = styled.p`
 `;
 
 export const AddToCartButton = styled.button`
-  ${fonts.boldText['300']};
+  ${fonts.boldText['200']};
   color: ${colors.solids.BROWN};
   background-color: ${colors.solids.BABY_PINK};
   cursor: pointer;
@@ -170,6 +221,9 @@ export const AddToCartButton = styled.button`
   margin: 0;
   &:disabled {
     opacity: 0.4;
+  }
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['300']};
   }
 `;
 
@@ -181,8 +235,11 @@ export const QuantityInput = styled.input<{marginBottom: number}>`
 `;
 
 export const QuantityInputLabel = styled.p`
-  ${fonts.regularText['300']};
+  ${fonts.regularText['100']};
   margin: 0;
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['300']};
+  }
 `;
 
 export const CustomFieldInput = styled.input`
@@ -192,8 +249,11 @@ export const CustomFieldInput = styled.input`
 `;
 
 export const CustomFieldLabel = styled.p`
-  ${fonts.regularText['300']};
+  ${fonts.regularText['100']};
   margin: 0 ${sizing(10)} 0 0};
+  @media all and (min-width: 768px) {
+    ${fonts.regularText['300']};
+  }
 `;
 
 export const CustomFieldContainer = styled.div`
@@ -225,9 +285,12 @@ export const MakeYourOwnFlavor = styled.div`
 `;
 
 export const PlusMinusButton = styled.div`
-  ${fonts.boldText['400']};
+  ${fonts.boldText['200']};
   cursor: pointer;
   margin: 0 ${sizing(3)};
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['400']};
+  }
 `;
 
 export const MakeYourOwnMinusPlusContainer = styled.div`
@@ -243,7 +306,10 @@ export const MakeYourOwnTopContainer = styled.div`
   width: 100%;
   
   p {
-    ${fonts.regularText['200']};
+    ${fonts.regularText['100']};
+    @media all and (min-width: 768px) {
+      ${fonts.regularText['200']};
+    }
     margin: 0;
   }
 `;
@@ -254,6 +320,9 @@ export const MakeYourOwnContainer = styled.div`
 `;
 
 export const ErrorText = styled.p`
-  ${fonts.boldText['200']};
+  ${fonts.boldText['100']};
   color: red;
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['200']};
+  }
 `;

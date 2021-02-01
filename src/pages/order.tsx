@@ -256,7 +256,7 @@ const OrderPage = ({data}: OrderProps) => {
         )}
         {step !== 1 && (
           <TopSection>
-            <Button size="MEDIUM" text="Back" onClick={goBackAStep}/>
+            <Button size="MEDIUM" mobileSize="SMALL" text="Back" onClick={goBackAStep}/>
             {step === 3 && (
               <Cart cartQuantity={cartQuantity}  />
               )}
@@ -349,20 +349,30 @@ const OrderPage = ({data}: OrderProps) => {
 }
 
 const Container = styled.div`
-  margin: ${sizing(100)} auto ${sizing(75)} auto;
-  width: 85%;
+  margin: ${sizing(20)} auto ${sizing(15)} auto;
+  width: 90%;
+  @media all and (min-width: 768px) {
+    margin: ${sizing(100)} auto ${sizing(75)} auto;
+  }
   @media all and (min-width: 992px) {
      width: 90%;
   }
   
   .MuiInputBase-root {
-    ${fonts.regularText['400']};
-    color: ${colors.solids.BROWN}
+    ${fonts.regularText['200']};
+    color: ${colors.solids.BROWN};
+    @media all and (min-width: 768px) {
+      ${fonts.regularText['400']};
+    }
   }
   .MuiFormLabel-root {
-    ${fonts.mediumText['400']};
-    line-height: ${sizing(2)};
+    ${fonts.mediumText['200']};
+    line-height: ${sizing(14)};
     color: rgba(79, 44, 29, 0.54);
+    @media all and (min-width: 768px) {
+      ${fonts.mediumText['400']};
+      line-height: ${sizing(10)};
+    }
   }
   .MuiInput-underline:before {
     border-bottom: 1px solid rgba(79, 44, 29, 0.42);
@@ -378,10 +388,16 @@ const Container = styled.div`
     color: ${colors.solids.BROWN};
   }
   .MuiList-root {
-    ${fonts.regularText['500']};
+    ${fonts.regularText['300']};
+    @media all and (min-width: 768px) {
+      ${fonts.regularText['500']};
+    }
   }
   .MuiMenuItem-root {
-    ${fonts.regularText['500']};
+    ${fonts.regularText['300']};
+    @media all and (min-width: 768px) {
+      ${fonts.regularText['500']};
+    }
   }
   .MuiFormHelperText-root {
     ${fonts.boldText['100']};

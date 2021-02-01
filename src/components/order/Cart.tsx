@@ -28,20 +28,29 @@ const Container = styled.div`
 const QuantityContainer = styled.div`
   background-color: ${colors.solids.BROWN};
   border-radius: 100px;
-  height: ${sizing(30)};
-  width: ${sizing(30)};
+  height: ${sizing(20)};
+  width: ${sizing(20)};
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: ${sizing(-10)};
-  right: ${sizing(-10)};
+  top: ${sizing(-7)};
+  right: ${sizing(-7)};
+  @media all and (min-width: 768px) {
+    height: ${sizing(30)};
+    width: ${sizing(30)};
+    top: ${sizing(-10)};
+    right: ${sizing(-10)};
+  }
 `;
 
 const Number = styled.p`
-  ${fonts.mediumText['200']};
+  ${fonts.mediumText['100']};
   color: ${colors.solids.WHITE};
   margin: 0;
+  @media all and (min-width: 768px) {
+    ${fonts.mediumText['200']};
+  }
 `;
 
 export default Cart;
