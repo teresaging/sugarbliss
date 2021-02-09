@@ -12,6 +12,32 @@ import { Container, Title, SubTitle, FormContainer, Row, SingleRow, SubmitButton
 
 const LATE_AFTERNOON_TIME = '12pm-4pm';
 
+const currentCentralHour = moment().format('H');
+
+const disableSundays = (date) => {
+  return date.getDay() === 0;
+}
+
+type Values = {
+  date: Date | string;
+  time: string;
+  name: string;
+  companyName?: string;
+  address: string;
+  addressApt?: string;
+  city: string;
+  zipCode: string;
+}
+
+type Errors = {
+  date?: Date | string;
+  time?: string;
+  name?: string;
+  address?: string;
+  city?: string;
+  zipCode?: string;
+}
+
 type Props = {
   handleNextStep: Function;
   addItemToCart: Function;
@@ -24,7 +50,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
   const [ canDeliver, setCanDeliver ] = useState(false);
   const [ deliveryPrice, setDeliveryPrice ] = useState(0);
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values: Values) => {
     await addItemToCart({
       id: `delivery-${deliveryPrice}`,
       name: 'Delivery',
@@ -46,6 +72,11 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
           name: 'Name',
           type: 'readonly',
           value: values.name,
+        },
+        {
+          name: 'Company Name',
+          type: 'readonly',
+          value: values.companyName || '',
         },
         {
           name: 'Address',
@@ -94,8 +125,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
         <Form
           onSubmit={handleSubmit}
           validate={values => {
-            // tslint:disable-next-line:no-any
-            const errors: any = {}
+            const errors: Errors = {}
             if (!values.date) {
               errors.date = 'Required';
             }
@@ -130,7 +160,11 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
 
             return errors;
           }}
-          render={({ handleSubmit, submitting, values, hasValidationErrors }) => (
+          render={({ handleSubmit, submitting, values, hasValidationErrors }) => {
+            const isDatePickedToday = moment(values.date)?.format('L') === moment().format('L')
+            const isAfterHours = Number.parseInt(currentCentralHour, 10) > 12;
+
+            return (
             <form onSubmit={handleSubmit}>
               <Row>
                 <DatePicker
@@ -139,7 +173,10 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                   variant="inline"
                   format="yyyy-MM-dd"
                   dateFunsUtils={DateFnsUtils}
+                  shouldDisableDate={disableSundays}
                   minDate={Date()}
+                  disablePast
+                  allowKeyboardControl
                   required
                 />
                 <Select
@@ -147,15 +184,16 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                   label="Time"
                   formControlProps={{ margin: 'none' }}
                 >
-                  <MenuItem value="9am-1pm">9am - 1pm</MenuItem>
-                  <MenuItem value="10am-2pm">10am - 2pm</MenuItem>
-                  <MenuItem value="11am-3pm">11am - 3pm</MenuItem>
-                  <MenuItem value={LATE_AFTERNOON_TIME}>12pm - 4pm</MenuItem>
+                  <MenuItem value="9am-1pm" disabled={isDatePickedToday}>9am - 1pm</MenuItem>
+                  <MenuItem value="10am-2pm" disabled={isDatePickedToday}>10am - 2pm</MenuItem>
+                  <MenuItem value="11am-3pm" disabled={isDatePickedToday}>11am - 3pm</MenuItem>
+                  <MenuItem disabled={isDatePickedToday && isAfterHours} value={LATE_AFTERNOON_TIME}>12pm - 4pm</MenuItem>
                 </Select>
               </Row>
-              <SingleRow>
-                <TextField label="Name" name="name"/>
-              </SingleRow>
+              <Row>
+                <TextField label="First and Last Name" name="name"/>
+                <TextField label="Company Name (optional)" name="companyName"/>
+              </Row>
               <Row>
                 <TextField label="Address" name="address"/>
                 <TextField label="Apt/Suite #" name="addressApt"/>
@@ -180,7 +218,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                 Add Delivery To Order
               </SubmitButton>
             </form>
-          )}
+          )}}
         />
       </FormContainer>
     </Container>

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { graphql, PageProps } from 'gatsby';
 import { SnipcartContext } from 'gatsby-plugin-snipcart-advanced/context';
 import moment from 'moment';
@@ -414,7 +414,7 @@ export default OrderPage;
 
 export const query = graphql`
   query OrderFormQuery {
-     allContentfulOrderForm(sort: {fields: createdAt}) {
+     allContentfulOrderForm(sort: {fields: tabPlacement}) {
       nodes {
         tabName
         categories {
