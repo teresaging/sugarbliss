@@ -146,7 +146,7 @@ const MobileImage = styled.img`
   height: auto;
   margin: auto;
   @media all and (min-width: 768px) {
-    display: none;
+    display: none !important; // need to override slick-slide
   }
 `;
 
