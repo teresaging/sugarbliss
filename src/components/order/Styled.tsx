@@ -248,6 +248,13 @@ export const CustomFieldInput = styled.input`
   border: solid 1px ${colors.solids.BROWN};
 `;
 
+export const CustomFieldTextArea = styled.textarea`
+  width: 100%;
+  border: solid 1px ${colors.solids.BROWN};
+  max-width: 100%;
+  min-width: 100%;
+`;
+
 export const CustomFieldLabel = styled.p`
   ${fonts.regularText['100']};
   margin: 0 ${sizing(10)} 0 0};
@@ -275,6 +282,16 @@ export const CustomFieldContainer = styled.div`
   .MuiSelect-icon {
     top: calc(62% - 9px);
   }
+`;
+
+export const CustomFieldTextContainer = styled.div`
+  width: 100%;
+  max-width: ${sizing(230)};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto ${sizing(15)} auto;
 `;
 
 export const MakeYourOwnFlavor = styled.div`

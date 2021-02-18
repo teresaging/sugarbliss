@@ -421,7 +421,6 @@ export const query = graphql`
           ... on ContentfulOrderCategory {
             name
             products {
-              dozenPrice
               description
               name
               price
@@ -437,7 +436,6 @@ export const query = graphql`
           ... on ContentfulOrderProduct {
             name
             price
-            dozenPrice
             description
             customFields {
               name

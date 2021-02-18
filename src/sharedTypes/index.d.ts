@@ -172,7 +172,6 @@ export type OrderProduct = {
   name: string;
   description?: string;
   price?: number;
-  dozenPrice?: number;
   customFields?: OrderCustomFields[];
 }
 

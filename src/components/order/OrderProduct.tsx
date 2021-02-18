@@ -19,6 +19,8 @@ import {
   CustomFieldInput,
   CustomFieldLabel,
   CustomFieldContainer,
+  CustomFieldTextContainer,
+  CustomFieldTextArea,
   MakeYourOwnFlavor,
   PlusMinusButton,
   MakeYourOwnMinusPlusContainer,
@@ -105,14 +107,14 @@ const OrderProduct = ({
          ...product,
          customFields: snipCartCustomFields.concat(makeYourOwnCustomFields),
        })
-     } catch(error) {
+     } catch (error) {
        console.log('error adding to cart', error);
      }
     }
 
     try {
       return addItemToCart(product);
-    } catch(error) {
+    } catch (error) {
       console.log('error adding to cart', error);
     }
   }
@@ -254,10 +256,10 @@ const OrderProduct = ({
         return (
           <Field name={field.name}>
             {props => (
-              <CustomFieldContainer>
+              <CustomFieldTextContainer>
                 <CustomFieldLabel>{field.name}:</CustomFieldLabel>
-                <CustomFieldInput type="text" {...props.input} />
-              </CustomFieldContainer>
+                <CustomFieldTextArea type="text" {...props.input} />
+              </CustomFieldTextContainer>
             )}
           </Field>
         );
