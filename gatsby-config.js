@@ -49,23 +49,24 @@ const snipCartBillingHTML = `
   </div>
 </item-line>
 
-<cart-summary-item>
-   <slot v-bind="item">
-    <li class="snipcart-cart-summary-item">
-        <span class="snipcart-cart-summary-item__name snipcart__font--slim">
-            {{ item.name }} - {{item.customFields[0].displayValue}}
-        </span>
+<!--<cart-summary-item>-->
+<!--   <slot v-bind="item">-->
+<!--    <li class="snipcart-cart-summary-item">-->
+<!--        <span class="snipcart-cart-summary-item__name snipcart__font&#45;&#45;slim">-->
+<!--            {{ item.name }}-->
+<!--            <item-custom-fields v-if="!adding"></item-custom-fields>-->
+<!--        </span>-->
 
-        <span v-if="item.totalPrice !== 0" class="snipcart-cart-summary-item__quantity snipcart__font--slim">
-            {{ $localize('cart_summary.quantity') }}{{ item.quantity }}
-        </span>
+<!--        <span class="snipcart-cart-summary-item__quantity snipcart__font&#45;&#45;slim">-->
+<!--            {{ $localize('cart_summary.quantity') }}{{ item.quantity }}-->
+<!--        </span>-->
 
-        <span v-if="item.totalPrice !== 0" class="snipcart-cart-summary-item__price snipcart__font--slim">
-            {{ item.totalPrice | money(currency) }}
-        </span>
-    </li>
-</slot>
-</cart-summary-item>
+<!--        <span class="snipcart-cart-summary-item__price snipcart__font&#45;&#45;slim">-->
+<!--            {{ item.totalPrice | money(currency) }}-->
+<!--        </span>-->
+<!--    </li>-->
+<!--</slot>-->
+<!--</cart-summary-item>-->
 `;
 
 module.exports = {
