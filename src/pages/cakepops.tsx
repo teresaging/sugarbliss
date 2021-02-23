@@ -8,6 +8,7 @@ import SeasonalProductCarousel from '../components/SeasonalProductCarousel';
 import ProductsList from '../components/ProductsList';
 
 import { fonts, OrderFooter, ProductHeader } from '../design-system';
+import { CircleImageContainer } from '../design-system/ProductHeader';
 import { sizing, colors } from '../utils';
 import { CakePop } from '../sharedTypes';
 
@@ -32,7 +33,9 @@ const CakePopsPage = ({data}: CakePopsProps) => {
 
   return (
     <Layout>
-      <ProductHeader productName="Cake Pops" backgroundImage={data.cakePopsHeaderImage} underlineImage={data.underlineImage} isFullWidth />
+      <ProductHeaderContainer>
+        <ProductHeader productName="Cake Pops" backgroundImage={data.cakePopsHeaderImage} underlineImage={data.underlineImage} />
+      </ProductHeaderContainer>
       <PricesContainer>
         <Price>$3 Each | $34 Dozen</Price>
       </PricesContainer>
@@ -45,6 +48,16 @@ const CakePopsPage = ({data}: CakePopsProps) => {
 };
 
 export default CakePopsPage;
+
+const ProductHeaderContainer = styled.div`
+  ${CircleImageContainer} {
+    @media all and (min-width: 768px) {
+      margin-top: ${sizing(35)};
+      width: ${sizing(550)};
+      height: auto;
+    }
+  }
+`;
 
 const PricesContainer = styled.div`
   width: 100%;
@@ -90,14 +103,14 @@ query CakePopsQuery {
       }
     }
   }
-  cakePopsHeaderImage: file(absolutePath: {regex: "/\\/images\\/cakePops\\/cakePopsHeaderImage\\.jpg/"}) {
+  cakePopsHeaderImage: file(absolutePath: {regex: "/\\/images\\/cakePops\\/cakePopsHeaderImageNew\\.jpg/"}) {
     childImageSharp {
       fluid(maxWidth: 1600) {
             ...GatsbyImageSharpFluid
       }
     }
   }
-  underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline\\.png/"}) {
+  underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline_brown\\.png/"}) {
     childImageSharp {
       fluid(maxWidth: 300) {
             ...GatsbyImageSharpFluid

@@ -93,7 +93,7 @@ const Container = styled.div`
   margin-top: ${sizing(35)};
 `;
 
-const CircleImageContainer = styled.div`
+export const CircleImageContainer = styled.div`
   margin-top: ${sizing(20)};
   width: 70%;
   height: auto;

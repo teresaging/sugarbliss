@@ -37,7 +37,7 @@ const CookiesPage = ({data}: CookiesPageProps) => {
 
   return (
     <Layout>
-      <ProductHeader backgroundImage={data.cookiesHeaderImage} underlineImage={data.underlineImage} productName="Cookies" isFullWidth />
+      <ProductHeader backgroundImage={data.cookiesHeaderImage} underlineImage={data.underlineImage} productName="Cookies" />
       <Content>
         {Boolean(everydayFlavors) && renderSection({title: 'Everyday Flavors', flavors: everydayFlavors})}
         {Boolean(rotatingFlavors) && renderSection({title: 'Rotating Flavors', flavors: rotatingFlavors})}
@@ -84,14 +84,14 @@ export const query = graphql`
         customPrice
       }
     }
-    underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline\\.png/"}) {
+    underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline_brown\\.png/"}) {
       childImageSharp {
         fluid(maxWidth: 300) {
               ...GatsbyImageSharpFluid
         }
       }
     }
-    cookiesHeaderImage: file(absolutePath: {regex: "/\\/images\\/cookies\\/cookiesHeader\\.jpg/"}) {
+    cookiesHeaderImage: file(absolutePath: {regex: "/\\/images\\/cookies\\/cookiesHeaderCircle\\.jpg/"}) {
       childImageSharp {
         fluid(maxWidth: 2000) {
               ...GatsbyImageSharpFluid

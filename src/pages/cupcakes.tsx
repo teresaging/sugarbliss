@@ -167,7 +167,7 @@ query CupcakesQuery {
       }
     }
   }
-  underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline\\.png/"}) {
+  underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline_brown\\.png/"}) {
     childImageSharp {
       fluid(maxWidth: 300) {
             ...GatsbyImageSharpFluid

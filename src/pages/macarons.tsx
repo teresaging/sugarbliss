@@ -31,7 +31,7 @@ const MacaronsPage = ({data}: MacaronsProps) => {
 
   return (
     <Layout>
-      <ProductHeader productName="Macarons" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} isFullWidth />
+      <ProductHeader productName="Macarons" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} />
       <PricesContainer>
         <Price>$2.50 Each | Box of 6: $15 | Box of 12: $28</Price>
       </PricesContainer>
@@ -87,14 +87,14 @@ query MacaronsQuery {
       }
     }
   }
-  macaronsHeaderImage: file(absolutePath: {regex: "/\\/images\\/macarons\\/macaronsHeaderImage\\.jpg/"}) {
+  macaronsHeaderImage: file(absolutePath: {regex: "/\\/images\\/macarons\\/macaronsHeaderCircleImage\\.jpg/"}) {
     childImageSharp {
       fluid(maxWidth: 1600) {
             ...GatsbyImageSharpFluid
       }
     }
   }
-  underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline\\.png/"}) {
+  underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline_brown\\.png/"}) {
     childImageSharp {
       fluid(maxWidth: 300) {
             ...GatsbyImageSharpFluid

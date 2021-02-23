@@ -26,7 +26,7 @@ const BarsBrowniesPage = ({data}: BarsBrowniesPageProps) => {
 
   return (
     <Layout>
-      <ProductHeader productName="Bars & Brownies" backgroundImage={data.barsBrowniesHeaderImage} underlineImage={data.underlineImage} isFullWidth  />
+      <ProductHeader productName="Bars & Brownies" backgroundImage={data.barsBrowniesHeaderImage} underlineImage={data.underlineImage}  />
       <Content>
         <ProductList price={4} dozenPrice={44} title="Flavors" flavors={products} />
       </Content>
@@ -50,14 +50,14 @@ export default BarsBrowniesPage;
 
 export const query = graphql`
   query BarsBrowniesQuery {
-    underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline\\.png/"}) {
+    underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline_brown\\.png/"}) {
       childImageSharp {
         fluid(maxWidth: 300) {
               ...GatsbyImageSharpFluid
         }
       }
     }
-    barsBrowniesHeaderImage: file(absolutePath: {regex: "/\\/images\\/bars-brownies\\/barsBrowniesHeader\\.jpg/"}) {
+    barsBrowniesHeaderImage: file(absolutePath: {regex: "/\\/images\\/bars-brownies\\/barsBrowniesHeaderCircle\\.jpg/"}) {
       childImageSharp {
         fluid(maxWidth: 2000) {
               ...GatsbyImageSharpFluid
