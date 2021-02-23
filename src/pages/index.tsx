@@ -40,12 +40,12 @@ const IndexPage = ({data}: IndexProps) => {
     {
       name: 'Cupcakes',
       fluidImage: data.productCupcakeImage.childImageSharp.fluid,
-      url: '/',
+      url: '/cupcakes',
     },
     {
       name: 'CakePops',
       fluidImage: data.productCakePopImage.childImageSharp.fluid,
-      url: '/cake-pops',
+      url: '/cakepops',
     },
     {
       name: 'Macarons',
@@ -73,9 +73,9 @@ const IndexPage = ({data}: IndexProps) => {
       url: '/morning-pastries',
     },
     {
-      name: 'Crepes',
+      name: 'Sweet Crepes',
       fluidImage: data.productCrepesImage.childImageSharp.fluid,
-      url: '/crepes',
+      url: '/sweet-crepes',
     },
     {
       name: 'Frosting Shots',
@@ -109,7 +109,7 @@ const IndexPage = ({data}: IndexProps) => {
       <Layout>
         <HomepageHero isMobile={isMobile} slideData={data.allContentfulHomepageHero.edges} />
         <Intro backgroundImage={data.aboutBackgroundImage.childImageSharp.fluid.src}>
-          <p>Sugar Bliss Cake Boutique bakes all cupcakes, cake pops, French macarons from scratch using only the highest quality, natural ingredients, such as European Cocoa, Nielsen Massey pure Madagascar Bourbon vanilla, and real fruits. Come visit our retail location in the Downtown Loop or call us to cater or deliver for your next business meeting, office party, birthday, wedding, or special event.</p>
+          <p>Sugar Bliss is an independent woman minority owned bakery in downtown Chicago. Sugar Bliss offers a wide variety of baked goods including morning pastries, cupcakes, cake pops, French macarons, brownies, cookies, and more. Sugar Bliss bakes everything on site and from scratch using only the highest quality, natural ingredients, such as European Cocoa, Nielsen Massey vanilla, and real fruits. Sugar Bliss provides catering to corporate events, office meetings, and a variety of celebrations including birthdays, retirement, weddings, and bridal and baby showers.</p>
         </Intro>
         <HomepageProducts isMobile={isMobile} products={productSectionData} />
         <OrderOnline>

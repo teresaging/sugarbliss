@@ -20,7 +20,7 @@ type Props = {
 const HomepageProducts = ({products, isMobile}: Props) => {
 
   return (
-    <HomepageProductsWrapper>
+    <HomepageProductsWrapper id="products">
       <Title>Products</Title>
       <ProductsContainer>
         {products.map((product) => {

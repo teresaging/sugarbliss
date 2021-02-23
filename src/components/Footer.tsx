@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import Img, { FluidObject } from 'gatsby-image';
 import moment from 'moment';
+import { Facebook, Instagram, Twitter } from 'react-feather';
 
 import { fonts } from '../design-system';
 import { sizing, colors } from '../utils';
@@ -25,14 +26,19 @@ const Footer = ({logo, WBELogo, NMSDCLogo}: Props) => {
         {/*</LogoContainer>*/}
       </Column>
       <Column textAlign="center">
-        <Address>115 N. Wabash</Address>
-        <Address>Chicago, IL 60602</Address>
+        <Address>122 S Wabash</Address>
+        <Address>Chicago, IL 60603</Address>
         <Address>312-845-9669</Address>
         <CertifiedLogosContainer>
           <WBELogoImg fluid={WBELogo} />
           <NMSDCLogoImg fluid={NMSDCLogo} />
         </CertifiedLogosContainer>
-        <Copyright>Copyright © {currentYear} Sugar Bliss Cake Boutique. All Rights Reserved.</Copyright>
+        <SocialMediaIconsWrapper>
+          <a href="https://www.facebook.com/sugarblisscake/" target="_blank"><Facebook fill="white" strokeWidth={0} size={25} /></a>
+          <a href="https://www.instagram.com/sugarblisscakes/" target="_blank"><Instagram  size={25} /></a>
+          <a href="https://twitter.com/sugarblisscakes" target="_blank"><Twitter fill="white" strokeWidth={0}  size={25} /></a>
+        </SocialMediaIconsWrapper>
+        <Copyright>Copyright © {currentYear} Sugar Bliss LLC. All Rights Reserved.</Copyright>
       </Column>
     </FooterWrapper>
   )
@@ -97,6 +103,24 @@ const Copyright = styled.p`
   ${fonts.regularText['100']};
   margin-top: ${sizing(20)};
   margin-bottom: ${sizing(10)};
+`;
+
+const SocialMediaIconsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: ${sizing(40)};
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin: 0 ${sizing(8)};
+    transition: 0.2s opacity;
+    &:hover {
+      opacity: 0.6;
+    }
+  }
 `;
 
 export default Footer;

@@ -65,11 +65,13 @@ type Props = {
 
 const SLIDER_SETTINGS = {
   arrows: true,
+  autoplay: true,
+  autoplaySpeed: 3000,
   dots: true,
   infinite: true,
   speed: 500,
   slidesToShow: 1,
-  slidesToScroll: 1
+  slidesToScroll: 1,
 };
 
 const Bold = ({ children }) => <BoldCarouselText>{children}</BoldCarouselText>;
