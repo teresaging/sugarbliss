@@ -91,7 +91,7 @@ const Title = styled.p`
   margin-bottom: ${sizing(10)};
   @media all and (min-width: 768px) {
     ${fonts.cursiveText['1000']};
-    margin-bottom: ${sizing(50)};
+    margin-bottom: ${sizing(30)};
   }
 `;
 

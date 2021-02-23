@@ -182,3 +182,12 @@ export type OrderCustomFields = {
   isMakeYourOwnFlavor?: boolean;
   makeYourOwnFlavorsQuantity?: number;
 }
+
+export type ProductPage = {
+  name: string;
+  flavorChart: { // might change this name
+    file: {
+      url: string;
+    }
+  };
+}

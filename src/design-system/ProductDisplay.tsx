@@ -33,8 +33,8 @@ const ProductDisplayContainer = styled.div`
 const Image = styled.img`
     border-radius: 50%;
     height: auto;
-    width: 100%;
-    max-width: ${sizing(350)};
+    width: 90%;
+    max-width: ${sizing(300)};
     margin-bottom: ${sizing(15)};
     @media all and (min-width: 768px) {
       margin-bottom: ${sizing(35)};
@@ -52,8 +52,10 @@ const Name = styled.p`
 const Description = styled.p`
     ${fonts.regularText['100']};
     text-align: center;
+    width: 90%;
   @media all and (min-width: 768px) {
     ${fonts.regularText['300']};  
+    width: 75%;
   }
 `
 

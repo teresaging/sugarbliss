@@ -10,7 +10,6 @@ type Props = {
 };
 
 const ProductsList = ({products, title}: Props) => {
-  // ToDo: add quantity input
 
   return (
     <Wrapper>
@@ -35,9 +34,10 @@ const Wrapper = styled.div`
   width: 100%;
   position: relative;
   padding: ${sizing(20)};
-  margin-top: ${sizing(50)};
+  margin-top: ${sizing(25)};
   @media all and (min-width: 992px) {
     padding: ${sizing(20)} ${sizing(20)};
+    margin-top: ${sizing(40)};
   }
   @media all and (min-width: 1250px) {
     padding: ${sizing(20)} ${sizing(100)};
@@ -50,7 +50,7 @@ const Title = styled.p`
   margin-bottom: ${sizing(10)};
   @media all and (min-width: 768px) {
     ${fonts.cursiveText['1000']};
-    margin-bottom: ${sizing(50)};
+    margin-bottom: ${sizing(10)};
   }
 `;
 
@@ -61,7 +61,7 @@ const FlavorsContainer = styled.div`
   grid-column-gap: ${sizing(20)};
   grid-row-gap: ${sizing(20)};
   @media all and (min-width: 768px) {
-    margin-top: ${sizing(100)};
+    margin-top: ${sizing(40)};
     grid-template-columns: repeat(2, minmax(${sizing(300)}, 1fr));
   }
   @media all and (min-width: 992px) {

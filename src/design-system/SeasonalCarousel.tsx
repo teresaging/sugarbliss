@@ -124,7 +124,7 @@ const Slide = styled.div`
    align-items: center;
   flex-direction: column;
   @media all and (min-width: 768px) {
-    height: ${sizing(500)};
+    height: ${sizing(420)};
     flex-direction: row;
   }
 `;

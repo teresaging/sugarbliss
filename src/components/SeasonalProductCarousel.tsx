@@ -74,10 +74,10 @@ const Wrapper = styled.div`
 const Title = styled.p`
   ${fonts.cursiveText['600']};
   text-align: center;
-  margin-bottom: ${sizing(15)};
+  margin-bottom: ${sizing(0)};
   @media all and (min-width: 768px) {
     ${fonts.cursiveText['1000']};
-    margin-bottom: ${sizing(50)};
+    margin-bottom: 0;
   }
 `;
 

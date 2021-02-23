@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { graphql, PageProps } from 'gatsby';
-import { FluidObject } from 'gatsby-image';
+import Img, { FluidObject } from 'gatsby-image';
+import { Modal } from '@material-ui/core';
 
 import Layout from '../components/layout'
 import CupcakeDailyFlavors from '../components/CupcakeDailyFlavors';
@@ -9,7 +10,7 @@ import ProductsList from '../components/ProductsList';
 import styled from '@emotion/styled';
 import { fonts, Button, OrderFooter, ProductHeader } from '../design-system';
 import { sizing, colors } from '../utils';
-import { Cupcake } from '../sharedTypes';
+import { Cupcake, ProductPage } from '../sharedTypes';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
@@ -20,19 +21,35 @@ type CupcakeQueryProps = {
   allContentfulCupcake: {
     nodes: Cupcake[];
   };
+  allContentfulProductPages: {
+    nodes: ProductPage[];
+  }
 };
 
 type CupcakeProps = PageProps<CupcakeQueryProps>;
 
 const CupcakesPage = ({data}: CupcakeProps) => {
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const seasonalCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isSeasonal);
   const dailyCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isDaily);
   const everyDayCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isEverydayFlavor);
+  const flavorChartUrl = data.allContentfulProductPages?.nodes[0]?.flavorChart.file.url;
 
   return (
     <Layout>
-      <ProductHeader productName="Cupcakes" backgroundImage={data.cupcakesHeaderImage} underlineImage={data.underlineImage} isFullWidth />
+      {/*<Modal*/}
+      {/*  open={isModalOpen}*/}
+      {/*  onClose={() => setIsModalOpen(false)}*/}
+      {/*  aria-labelledby="modal-title"*/}
+      {/*  aria-describedby="modal-description"*/}
+      {/*>*/}
+      {/*  <div>*/}
+      {/*    <FlavorChartImage src={flavorChartUrl} />*/}
+      {/*  </div>*/}
+      {/*</Modal>*/}
+      <ProductHeader productName="Cupcakes" backgroundImage={data.cupcakesHeaderImage} underlineImage={data.underlineImage} />
       <Intro>
         <div>
           <IntroTitle>Regular Cupcakes:</IntroTitle>
@@ -48,7 +65,7 @@ const CupcakesPage = ({data}: CupcakeProps) => {
         </div>
       </Intro>
       {/*<DailyMenuSection>*/}
-      {/*  <Button url="" text="View Daily Menu" size="XLARGE"/>*/}
+      {/*  <Button onClick={() => setIsModalOpen(true)} text="View Daily Menu" size="XLARGE"/>*/}
       {/*</DailyMenuSection>*/}
       <SeasonalProductCarousel products={seasonalCupcakes} />
       <ProductsList products={everyDayCupcakes} />
@@ -65,27 +82,27 @@ const Intro = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: ${sizing(10)} ${sizing(10)};
+  padding: ${sizing(20)} ${sizing(10)} ${sizing(0)} ${sizing(10)};
   @media all and (min-width: 768px) {
     &> div{
       margin: 0 ${sizing(50)};
     }
     flex-direction: row;
-    padding: ${sizing(75)} ${sizing(50)} ${sizing(75)} ${sizing(50)};
+    padding: ${sizing(75)} ${sizing(50)} ${sizing(5)} ${sizing(50)};
   }
 `;
 
 const IntroTitle = styled.p`
-  ${fonts.boldText['200']};
+  ${fonts.boldText['300']};
   @media all and (min-width: 768px) {
-    ${fonts.boldText['400']};
+    ${fonts.boldText['600']};
   }
 `;
 
 const IntroText = styled.p`
   ${fonts.regularText['100']};
   @media all and (min-width: 768px) {
-    ${fonts.boldText['400']};
+    ${fonts.regularText['400']};
   }
 `;
 
@@ -103,11 +120,17 @@ const DailyMenuSection = styled.div`
   }
 `;
 
+const FlavorChartImage = styled.img`
+  width: 100%;
+  max-width: ${sizing(500)};
+  height: auto;
+`;
+
 export default CupcakesPage;
 
 export const query = graphql`
 query CupcakesQuery {
-  allContentfulCupcake {
+  allContentfulCupcake(sort: {fields: createdAt}) {
     nodes {
       name
       description
@@ -127,7 +150,17 @@ query CupcakesQuery {
       }
     }
   }
-  cupcakesHeaderImage: file(absolutePath: {regex: "/\\/images\\/cupcakes\\/cupcakesHeaderImage\\.jpg/"}) {
+  allContentfulProductPages(filter: {name: {eq: "Cupcakes"}}) {
+    nodes {
+      name
+      flavorChart {
+        file {
+          url
+        }
+      }
+    }
+  }
+  cupcakesHeaderImage: file(absolutePath: {regex: "/\\/images\\/cupcakes\\/cupcakesHeaderCircleImage\\.jpg/"}) {
     childImageSharp {
       fluid(maxWidth: 1600) {
             ...GatsbyImageSharpFluid
