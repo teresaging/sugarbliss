@@ -74,17 +74,16 @@ const SLIDER_SETTINGS = {
   slidesToScroll: 1,
 };
 
-const Bold = ({ children }) => <BoldCarouselText>{children}</BoldCarouselText>;
-const Text = ({ children }) => <CarouselText>{children}</CarouselText>;
-
 const options = {
   renderMark: {
-    [MARKS.BOLD]: text => <Bold>{text}</Bold>,
+    [MARKS.BOLD]: text => <BoldCarouselText>{text}</BoldCarouselText>,
   },
   renderNode: {
-    [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
+    [BLOCKS.HEADING_1]: (node, children) => <H1Text>{children}</H1Text>,
+    [BLOCKS.HEADING_2]: (node, children) => <H2Text>{children}</H2Text>,
+    [BLOCKS.HEADING_3]: (node, children) => <H3Text>{children}</H3Text>,
+    [BLOCKS.PARAGRAPH]: (node, children) => <CarouselText>{children}</CarouselText>,
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
-
       return <img src={node.data.target.fields.file['en-US'].url} width={node.data.target.fields.file['en-US'].details.image.width} height={node.data.target.fields.file['en-US'].details.image.height} />
       },
   },
@@ -177,56 +176,90 @@ export const getSlideLayoutStyles = (position: string) => {
   switch (position) {
     case CONTENT_POSITIONS.TOP_CENTER: {
       return `
-        padding: ${sizing(15)} ${sizing(15)}!important;
+        padding: ${sizing(15)};
         justify-content: center;
         align-items: flex-start;
+        @media all and (min-width: 1265px) {
+          padding: ${sizing(40)};
+        }
       `;
     }
     case CONTENT_POSITIONS.BOTTOM_CENTER: {
       return `
-        padding: ${sizing(15)} ${sizing(15)}!important;
+        padding: ${sizing(15)};
         justify-content: center;
         align-items: flex-end;
+        @media all and (min-width: 1265px) {
+          padding: ${sizing(40)};
+        }
       `;
     }
     case CONTENT_POSITIONS.TOP_LEFT: {
       return `
-        padding: ${sizing(15)} ${sizing(15)}!important;
         justify-content: flex-start;
         align-items: flex-start;
+        padding-top: ${sizing(50)};
+        padding-left: ${sizing(50)};
+        @media all and (min-width: 1265px) {
+          padding-top: ${sizing(100)};
+          padding-left: ${sizing(200)};
+        }
       `;
     }
     case CONTENT_POSITIONS.TOP_RIGHT: {
       return `
-        padding: ${sizing(15)} ${sizing(15)}!important;
         justify-content: flex-end;
         align-items: flex-start;
+        padding-top: ${sizing(50)};
+        padding-right: ${sizing(50)};
+        @media all and (min-width: 1265px) {
+          padding-top: ${sizing(100)};
+          padding-right: ${sizing(200)};
+        }
       `;
     }
     case CONTENT_POSITIONS.BOTTOM_LEFT: {
       return `
-        padding: ${sizing(15)} ${sizing(15)}!important;
         justify-content: flex-start;
         align-items: flex-end;
+        padding-bottom: ${sizing(50)};
+        padding-left: ${sizing(50)};
+        @media all and (min-width: 1265px) {
+          padding-bottom: ${sizing(100)};
+          padding-left: ${sizing(200)};
+        }
       `;
     }
     case CONTENT_POSITIONS.BOTTOM_RIGHT: {
       return `
-        padding: ${sizing(15)} ${sizing(15)}!important;
         justify-content: flex-end;
         align-items: flex-end;
+        padding-bottom: ${sizing(50)};
+        padding-right: ${sizing(50)};
+        @media all and (min-width: 1265px) {
+          padding-bottom: ${sizing(100)};
+          padding-right: ${sizing(200)};
+        }
       `;
     }
     case CONTENT_POSITIONS.CENTER: {
       return `
+        padding: ${sizing(15)};
         justify-content: center;
         align-items: center;
+        @media all and (min-width: 1265px) {
+          padding: ${sizing(40)};
+        }
       `;
     }
     default: {
       return `
+        padding: ${sizing(15)};
         justify-content: center;
         align-items: center;
+        @media all and (min-width: 1265px) {
+          padding: ${sizing(40)};
+        }
       `;
     }
   }
@@ -240,11 +273,11 @@ const Slide = styled.div<{backgroundImage: string, backgroundImagePosition: stri
   width: 100%;
   height: 250px;
   display: flex !important;
-  ${({ contentPosition }) => getSlideLayoutStyles(contentPosition)};
   @media all and (min-width: 1265px) {
     background-size: 100%;
     height: 425px;
   }
+  ${({ contentPosition }) => getSlideLayoutStyles(contentPosition)};
 `;
 
 const ContentCenteredContainer = styled.div`
@@ -254,9 +287,12 @@ const ContentCenteredContainer = styled.div`
     flex-direction: column;
     text-align: center;
     background-color: rgba(255,255,255,.7);
-    padding: ${sizing(20)};
+    padding: ${sizing(5)};
     border: solid 4px white;
     max-width: 486px;
+    @media all and (min-width: 1265px) {
+      padding: ${sizing(20)};
+    }
     p {
       ${fonts.regularText['100']};
       @media all and (min-width: 1265px) {
@@ -290,6 +326,29 @@ const BoldCarouselText = styled.p`
   ${fonts.boldText['100']};
   @media all and (min-width: 1265px) {
     ${fonts.boldText['600']};
+  }
+`;
+
+const H1Text = styled.h1`
+  ${fonts.cursiveText['500']};
+  text-align: center;
+  @media all and (min-width: 1265px) {
+    ${fonts.cursiveText['1200']};
+  }
+`;
+
+const H2Text = styled.h2`
+  text-align: center;
+  ${fonts.boldText['300']};
+  @media all and (min-width: 1265px) {
+    ${fonts.boldText['1000']};
+  }
+`;
+
+const H3Text = styled.h3`
+  ${fonts.boldText['200']};
+  @media all and (min-width: 1265px) {
+    ${fonts.boldText['800']};
   }
 `;
 
