@@ -37,6 +37,30 @@ const CupcakesPage = ({data}: CupcakeProps) => {
   const everyDayCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isEverydayFlavor);
   const flavorChartUrl = data.allContentfulProductPages?.nodes[0]?.flavorChart.file.url;
 
+  const handleLeftHeaderContent = () => (
+    <HeaderLeftContent>
+        <IntroTitle>Regular Cupcakes:</IntroTitle>
+      <div>
+        <IntroText>Single: $3.95 | Dozen: $45</IntroText>
+        <IntroText>Gluten Free, Single: $4.25 | Dozen: $48</IntroText>
+        <IntroText>Vegan, Single: $4.50 | Dozen: $50</IntroText>
+      </div>
+    </HeaderLeftContent>
+  );
+
+  const handleRightHeaderContent = () => {
+    return (
+      <HeaderRightContent>
+        <IntroTitle>Mini Cupcakes: </IntroTitle>
+        <div>
+          <IntroText>Single: $2 | Dozen: $22</IntroText>
+          <IntroText>Gluten Free, Dozen: $25</IntroText>
+          <IntroText>Vegan, Dozen: $28</IntroText>
+        </div>
+      </HeaderRightContent>
+    );
+  };
+
   return (
     <Layout>
       {/*<Modal*/}
@@ -49,21 +73,13 @@ const CupcakesPage = ({data}: CupcakeProps) => {
       {/*    <FlavorChartImage src={flavorChartUrl} />*/}
       {/*  </div>*/}
       {/*</Modal>*/}
-      <ProductHeader productName="Cupcakes" backgroundImage={data.cupcakesHeaderImage} underlineImage={data.underlineImage} />
-      <Intro>
-        <div>
-          <IntroTitle>Regular Cupcakes:</IntroTitle>
-          <IntroText>Single: $3.95 | Dozen: $45</IntroText>
-          <IntroText>Gluten Free, Single: $4.25 | Dozen: $48</IntroText>
-          <IntroText>Vegan, Single: $4.50 | Dozen: $50</IntroText>
-        </div>
-        <div>
-          <IntroTitle>Mini Cupcakes: </IntroTitle>
-          <IntroText>Single: $2 | Dozen: $22</IntroText>
-          <IntroText>Gluten Free, Dozen: $25</IntroText>
-          <IntroText>Vegan, Dozen: $28</IntroText>
-        </div>
-      </Intro>
+      <ProductHeader
+        productName="Cupcakes"
+        backgroundImage={data.cupcakesHeaderImage}
+        underlineImage={data.underlineImage}
+        leftContent={handleLeftHeaderContent()}
+        rightContent={handleRightHeaderContent()}
+      />
       {/*<DailyMenuSection>*/}
       {/*  <Button onClick={() => setIsModalOpen(true)} text="View Daily Menu" size="XLARGE"/>*/}
       {/*</DailyMenuSection>*/}
@@ -75,27 +91,10 @@ const CupcakesPage = ({data}: CupcakeProps) => {
   )
 }
 
-const Intro = styled.div`
-  text-align: center;
-  color: ${colors.solids.BROWN};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: ${sizing(20)} ${sizing(10)} ${sizing(0)} ${sizing(10)};
-  @media all and (min-width: 768px) {
-    &> div{
-      margin: 0 ${sizing(50)};
-    }
-    flex-direction: row;
-    padding: ${sizing(75)} ${sizing(50)} ${sizing(5)} ${sizing(50)};
-  }
-`;
-
 const IntroTitle = styled.p`
-  ${fonts.boldText['300']};
+  ${fonts.cursiveText['500']};
   @media all and (min-width: 768px) {
-    ${fonts.boldText['600']};
+    ${fonts.cursiveText['800']};
   }
 `;
 
@@ -124,6 +123,50 @@ const FlavorChartImage = styled.img`
   width: 100%;
   max-width: ${sizing(500)};
   height: auto;
+`;
+
+const HeaderLeftContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  @media all and (min-width: 992px) {
+    justify-content: center;
+    align-items: flex-end;
+    > div {
+      margin-right: ${sizing(20)};
+      justify-content: center;
+      align-items: flex-end;
+    }
+  }
+`;
+
+const HeaderRightContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  @media all and (min-width: 992px) {
+    justify-content: center;
+    align-items: flex-start;
+    > div {
+      margin-left: ${sizing(20)};
+      justify-content: center;
+      align-items: flex-start;
+    }
+  }
 `;
 
 export default CupcakesPage;

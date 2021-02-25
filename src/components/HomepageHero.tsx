@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'gatsby';
+import React from 'react';
 import Slider from 'react-slick';
 import styled from '@emotion/styled';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';

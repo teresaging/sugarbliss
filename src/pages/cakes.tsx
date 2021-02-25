@@ -23,7 +23,6 @@ type CakesPageProps = PageProps<CakesQueryProps>;
 const CakesPage = ({data}: CakesPageProps) => {
 
   const sixInchCakesData = data.allContentfulCakes.nodes.filter((item) => item.category === '6" Round Cake');
-  const sheetCakesData = data.allContentfulCakes.nodes.filter((item) => item.category === 'Sheet Cakes');
   const customOptionsData = data.allContentfulCakes.nodes.filter((item) => item.category === 'Custom Options');
 
   return (
@@ -41,17 +40,6 @@ const CakesPage = ({data}: CakesPageProps) => {
           ))}
         </Section>
       )}
-      {sheetCakesData && (
-        <Section>
-          {sheetCakesData.map((item, idx) => (
-            <ItemContainer key={idx}>
-              <ItemTitle>{item.name}</ItemTitle>
-              <Price>Starts at ${item.price}</Price>
-              <Description>{item.servingDescription}</Description>
-            </ItemContainer>
-          ))}
-        </Section>
-      )}
       {customOptionsData && (
         <Section>
           {customOptionsData.map((item, idx) => (
@@ -62,6 +50,12 @@ const CakesPage = ({data}: CakesPageProps) => {
           ))}
         </Section>
       )}
+      <Section>
+        <OrderingInfo>
+          <h5>Ordering Info</h5>
+          <p>6" round cakes must be ordered 48 hours in advance.</p>
+        </OrderingInfo>
+      </Section>
     </Layout>
   );
 }
@@ -69,9 +63,10 @@ const CakesPage = ({data}: CakesPageProps) => {
 export default CakesPage;
 
 const Section = styled.div`
-  margin: ${sizing(50)} auto ${sizing(50)} auto;
+  margin: ${sizing(10)} auto ${sizing(10)} auto;
   width: 90%;
   @media all and (min-width: 992px) {
+    margin: ${sizing(50)} auto ${sizing(50)} auto;
     width: 50%;
   }
 `;
@@ -81,14 +76,18 @@ const ItemContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: ${sizing(75)};
+  margin-bottom: ${sizing(20)};
+  @media all and (min-width: 992px) {
+    margin-bottom: ${sizing(50)};
+
+  }
 `;
 
 const ItemTitle = styled.p`
-  ${fonts.cursiveText['600']};
+  ${fonts.cursiveText['500']};
   text-align: center;
   @media all and (min-width: 992px) {
-    ${fonts.cursiveText['800']};
+    ${fonts.cursiveText['900']};
   }
 `;
 
@@ -105,6 +104,27 @@ const Description = styled.p`
   text-align: center;
   @media all and (min-width: 992px) {
     ${fonts.regularText['400']};
+  }
+`;
+
+const OrderingInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  h5 {
+    ${fonts.boldText['400']};
+    text-align: center;
+    @media all and (min-width: 992px) {
+      ${fonts.boldText['800']};
+    }
+  }
+  p {
+    ${fonts.regularText['100']};
+    text-align: center;
+    @media all and (min-width: 992px) {
+      ${fonts.regularText['400']};
+    }
   }
 `;
 

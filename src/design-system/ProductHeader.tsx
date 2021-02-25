@@ -14,9 +14,11 @@ type Props = {
   underlineImage: FluidImage;
   productName: string;
   isFullWidth?: boolean;
+  leftContent?:  React.ReactNode;
+  rightContent?: React.ReactNode;
 }
 
-const ProductHeader = ({backgroundImage, underlineImage, productName, isFullWidth = false}: Props) => {
+const ProductHeader = ({backgroundImage, underlineImage, productName, isFullWidth = false, leftContent, rightContent }: Props) => {
 
   if (isFullWidth) {
     return (
@@ -28,6 +30,26 @@ const ProductHeader = ({backgroundImage, underlineImage, productName, isFullWidt
         </TextContainer>
       </FullWidthContainer>
     )
+  }
+
+  if (leftContent && rightContent && !isFullWidth) {
+    return (
+      <Container>
+        <Text>{productName}</Text>
+        <Underline fluid={underlineImage.childImageSharp.fluid}/>
+        <ContentContainer>
+          <LeftContentContainer>
+            {leftContent}
+          </LeftContentContainer>
+          <CircleImageContainer>
+            <CircleImage fluid={backgroundImage.childImageSharp.fluid} alt={productName}/>
+          </CircleImageContainer>
+          <RightContentContainer>
+            {rightContent}
+          </RightContentContainer>
+        </ContentContainer>
+      </Container>
+    );
   }
 
   return (
@@ -119,6 +141,39 @@ const Text = styled.p`
   @media all and (min-width: 768px) {
     ${fonts.cursiveText['1200']};
     margin-bottom: ${sizing(14)};
+  }
+`;
+
+const ContentContainer = styled.div`
+  margin-top: ${sizing(20)};
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  grid-column-gap: ${sizing(20)};
+  grid-row-gap: ${sizing(20)};
+  align-items: center;
+  @media all and (min-width: 992px) {
+    grid-template-columns: 1fr ${sizing(350)} 1fr;
+    margin-top: ${sizing(35)};
+  }
+  ${CircleImageContainer} {
+    dispay: block;
+    margin: auto;
+    @media all and (min-width: 992px) {
+      margin: ${sizing(35)} 0 0 0;
+    }
+  }
+  
+`;
+
+const LeftContentContainer = styled.div`
+  @media all and (max-width: 992px) {
+    grid-row: 2;
+  }
+`;
+const RightContentContainer = styled.div`
+  @media all and (max-width: 992px) {
+    grid-row: 3;
   }
 `;
 

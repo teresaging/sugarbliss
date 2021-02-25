@@ -41,7 +41,7 @@ const CakePopsPage = ({data}: CakePopsProps) => {
       </PricesContainer>
       <SeasonalProductCarousel products={seasonalFlavors} />
       <ProductsList title="Classic Collection Flavors" products={classicCollectionFlavors} />
-      <ProductsList title="Assorted Rotating Flavors" products={everyDayFlavors} />
+      <ProductsList title="Rotating Flavors" products={everyDayFlavors} />
       <OrderFooter backgroundImage={data.cakePopsFooterImage} />
     </Layout>
   )
