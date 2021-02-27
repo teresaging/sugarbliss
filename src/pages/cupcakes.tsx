@@ -42,8 +42,8 @@ const CupcakesPage = ({data}: CupcakeProps) => {
         <IntroTitle>Regular Cupcakes:</IntroTitle>
       <div>
         <IntroText>Single: $3.95 | Dozen: $45</IntroText>
-        <IntroText>Gluten Free, Single: $4.25 | Dozen: $48</IntroText>
-        <IntroText>Vegan, Single: $4.50 | Dozen: $50</IntroText>
+        <IntroText>Gluten Free - Single: $4.25 | Dozen: $48</IntroText>
+        <IntroText>Vegan - Single: $4.50 | Dozen: $50</IntroText>
       </div>
     </HeaderLeftContent>
   );
@@ -54,8 +54,8 @@ const CupcakesPage = ({data}: CupcakeProps) => {
         <IntroTitle>Mini Cupcakes: </IntroTitle>
         <div>
           <IntroText>Single: $2 | Dozen: $22</IntroText>
-          <IntroText>Gluten Free, Dozen: $25</IntroText>
-          <IntroText>Vegan, Dozen: $28</IntroText>
+          <IntroText>Gluten Free - Dozen: $25</IntroText>
+          <IntroText>Vegan - Dozen: $28</IntroText>
         </div>
       </HeaderRightContent>
     );
