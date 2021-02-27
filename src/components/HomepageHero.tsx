@@ -64,7 +64,7 @@ type Props = {
 
 const SLIDER_SETTINGS = {
   arrows: true,
-  autoplay: true,
+  autoplay: false,
   autoplaySpeed: 3000,
   dots: true,
   infinite: true,
@@ -288,7 +288,8 @@ const ContentCenteredContainer = styled.div`
     background-color: rgba(255,255,255,.7);
     padding: ${sizing(5)};
     border: solid 4px white;
-    max-width: 486px;
+    width: 95%;
+    max-width: ${sizing(550)};
     @media all and (min-width: 1265px) {
       padding: ${sizing(20)};
     }
@@ -300,9 +301,13 @@ const ContentCenteredContainer = styled.div`
     }
     img {
       min-width: ${sizing(50)};
+      width: 100%;
+      max-width: ${sizing(550)};
       height: auto;
       @media all and (max-width: 767px) {
         margin-bottom: 0;
+        max-width: ${sizing(250)};
+        width: 80%;
       }
     }
 `;

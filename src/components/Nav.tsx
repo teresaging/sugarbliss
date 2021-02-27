@@ -45,10 +45,10 @@ export const NavData = [
                 name: 'Frosting Shots',
                 url: '/frosting-shots',
             },
-            {
-                name: 'Sweet Crepes',
-                url: '/sweet-crepes',
-            },
+            // {
+            //     name: 'Sweet Crepes',
+            //     url: '/sweet-crepes',
+            // },
             {
                 name: 'Other Goodies',
                 url: '/other-goodies',

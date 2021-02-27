@@ -72,20 +72,20 @@ const IndexPage = ({data}: IndexProps) => {
       fluidImage: data.productBreakfastCupcakesImage.childImageSharp.fluid,
       url: '/morning-pastries',
     },
+    // {
+    //   name: 'Sweet Crepes',
+    //   fluidImage: data.productCrepesImage.childImageSharp.fluid,
+    //   url: '/sweet-crepes',
+    // },
     {
-      name: 'Sweet Crepes',
-      fluidImage: data.productCrepesImage.childImageSharp.fluid,
-      url: '/sweet-crepes',
+      name: 'Other Goodies',
+      fluidImage: data.productOtherImage.childImageSharp.fluid,
+      url: '/other-goodies',
     },
     {
       name: 'Frosting Shots',
       fluidImage: data.productFrostingShotImage.childImageSharp.fluid,
       url: '/frosting-shots',
-    },
-    {
-      name: 'Other Goodies',
-      fluidImage: data.productOtherImage.childImageSharp.fluid,
-      url: '/other-goodies',
     },
   ];
 
