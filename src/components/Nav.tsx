@@ -59,10 +59,10 @@ export const NavData = [
         name: 'Services',
         url: '/',
         children: [
-            {
-                name: 'Party & Gifts',
-                url: '/',
-            },
+            // {
+            //     name: 'Party & Gifts',
+            //     url: '/',
+            // },
             {
                 name: 'Catering',
                 url: '/catering',
@@ -71,24 +71,24 @@ export const NavData = [
                 name: 'Weddings',
                 url: '/weddings',
             },
-            {
-                name: 'Sweets Cart',
-                url: '/',
-            },
+            // {
+            //     name: 'Sweets Cart',
+            //     url: '/',
+            // },
         ],
     },
-    {
-        name: 'Press',
-        url: '/',
-    },
+    // {
+    //     name: 'Press',
+    //     url: '/',
+    // },
     {
         name: 'Store',
         url: '/store',
     },
-    {
-        name: 'Faq',
-        url: '/',
-    },
+    // {
+    //     name: 'Faq',
+    //     url: '/',
+    // },
     {
         name: 'About',
         url: '/about',

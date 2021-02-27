@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 import styled from '@emotion/styled';
 
 import { fonts } from '../design-system';
-import { sizing } from '../utils';
+import { sizing, colors } from '../utils';
 import { ChevronDown } from 'react-feather';
 
 interface LinkData {
@@ -44,7 +44,7 @@ const NavLink = ({link, idx, isMobile}: Props) => {
     }
 
     return (
-      <MobileLinkContainer to={link.url}>
+      <MobileLinkContainer to={link.url} isHighlighted={link.url === '/order'}>
         {link.name}
       </MobileLinkContainer>
     )
@@ -67,7 +67,7 @@ const NavLink = ({link, idx, isMobile}: Props) => {
   }
 
   return (
-    <LinkContainer number={idx} key={link.name} to={link.url}>
+    <LinkContainer number={idx} key={link.name} to={link.url} isHighlighted={link.url === '/order'}>
       {link.name}
     </LinkContainer>
   )
@@ -101,7 +101,7 @@ const DropdownContainer = styled.div<{number: number}>`
         right: -18px;
         top: 19%;
         border-radius: 10px;
-        background-color: ${({number}) => number % 2 === 0 ? 'var(--main-light-blue)' : 'var(--main-med-blue)'};
+        background-color: ${({number}) => number % 2 === 0 ? `${colors.solids.MAIN_MED_BLUE}` : `${colors.solids.MAIN_MED_PINK}`};
     }
     
     &:hover {
@@ -109,7 +109,7 @@ const DropdownContainer = styled.div<{number: number}>`
     }
 `;
 
-const LinkContainer = styled(Link)<{number: number}>`
+const LinkContainer = styled(Link)<{number: number, isHighlighted: boolean}>`
     text-transform: uppercase;
     text-decoration: none;
     position: relative;
@@ -118,6 +118,18 @@ const LinkContainer = styled(Link)<{number: number}>`
     font-size: ${sizing(16)};
     padding-bottom: 3px;
     border-bottom: solid 2px transparent;
+    
+  ${({isHighlighted}) => isHighlighted && `
+    color: white;
+    background-color: ${colors.solids.DARK_BLUE};
+    border-radius: ${sizing(5)};
+    padding: ${sizing(5)} ${sizing(10)};
+    transition: 0.3s opacity;
+    &:hover {
+      color: white;
+      opacity: 0.7;
+    }
+  `}
     
     &:after {
         content: "";
@@ -129,7 +141,7 @@ const LinkContainer = styled(Link)<{number: number}>`
         right: -18px;
         top: 19%;
         border-radius: 10px;
-        background-color: ${({number}) => number % 2 === 0 ? 'var(--main-light-blue)' : 'var(--main-med-blue)'};
+        background-color: ${({number}) => number % 2 === 0 ? `${colors.solids.MAIN_MED_BLUE}` : `${colors.solids.MAIN_MED_PINK}`};
     }
     
     &:hover {
@@ -165,14 +177,27 @@ const ChildNavLink = styled(Link)`
     }
 `;
 
-const MobileLinkContainer = styled(Link)`
+const MobileLinkContainer = styled(Link)<{isHighlighted: boolean}>`
   ${fonts.boldText['400']};
   margin: ${sizing(5)} 0;
+  text-decoration: none;
+  ${({isHighlighted}) => isHighlighted && `
+    color: white;
+    background-color: ${colors.solids.DARK_BLUE};
+    border-radius: ${sizing(5)};
+    padding: ${sizing(5)} ${sizing(10)};
+    transition: 0.3s opacity;
+    &:hover {
+      color: white;
+      opacity: 0.7;
+    }
+  `}
 `;
 
 const MobileChildLink = styled(Link)`
   ${fonts.boldText['200']};
   margin: ${sizing(5)} 0;
+  text-decoration: none;
 `;
 
 const MobileCategoryContainer = styled.p`

@@ -33,7 +33,7 @@ export default Header;
 const HeaderWrapper = styled.div`
   display: grid;
   grid-template-columns: 168px 1fr;
-  padding: 15px;
+  padding: ${sizing(10)} ${sizing(15)} ${sizing(2)} ${sizing(15)};
   width: 100%;
   @media all and (min-width: 1024px) {
     grid-template-columns: 250px 1fr;
@@ -53,7 +53,6 @@ const NavContainer = styled.div`
 `
 
 const LogoImg = styled(Img)`
-  //width: ${sizing(275)};
   width: 100%;
   height: auto;
 `;
