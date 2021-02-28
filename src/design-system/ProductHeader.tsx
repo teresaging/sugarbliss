@@ -139,7 +139,7 @@ const Text = styled.p`
   color: ${colors.solids.BROWN};
   margin-bottom: 0;
   @media all and (min-width: 768px) {
-    ${fonts.cursiveText['1200']};
+    ${fonts.cursiveText['2000']};
     margin-bottom: ${sizing(14)};
   }
 `;
