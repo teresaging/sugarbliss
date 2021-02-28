@@ -28,6 +28,7 @@ const MacaronsPage = ({data}: MacaronsProps) => {
 
   const seasonalMacarons = data.allContentfulMacaron.nodes.filter((macaron) => macaron.isSeasonalFlavor);
   const everyDayFlavors = data.allContentfulMacaron.nodes.filter((macaron) => macaron.isSeasonalFlavor === false);
+  const rotatingFlavors = data.allContentfulMacaron.nodes.filter((macaron) => macaron.isRotatingFlavor);
 
   return (
     <Layout>
@@ -37,6 +38,7 @@ const MacaronsPage = ({data}: MacaronsProps) => {
       </PricesContainer>
       <SeasonalProductCarousel products={seasonalMacarons} />
       <ProductsList products={everyDayFlavors} />
+      <ProductsList products={rotatingFlavors} title="Rotating Flavors" />
       <OrderFooter backgroundImage={data.macaronsFooterImage} />
     </Layout>
   )
@@ -70,7 +72,7 @@ const Price = styled.p`
 
 export const query = graphql`
 query MacaronsQuery {
-  allContentfulMacaron {
+  allContentfulMacaron(sort: {fields: createdAt}) {
     nodes {
       name
       description
@@ -80,6 +82,7 @@ query MacaronsQuery {
         }
       }
       isSeasonalFlavor
+      isRotatingFlavor
       seasonalDatesAvailable {
         name
         startDate

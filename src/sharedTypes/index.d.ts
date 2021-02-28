@@ -33,6 +33,7 @@ export type Macaron = {
     }
   }
   isSeasonalFlavor: boolean;
+  isRotatingFlavor: boolean;
   seasonalStartDate?: Date;
   seasonalEndDate?: Date;
   monthAvailable?: string | string[];
