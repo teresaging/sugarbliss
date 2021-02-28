@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import 'fontsource-sacramento';
 
-import { sizing } from '../utils';
+import { sizing, displayPrice } from '../utils';
 
 type flavor = {
   name: string;
@@ -44,7 +44,7 @@ const ProductList = ({title, description, price, dozenPrice, flavors}: Props) =>
                 <FlavorPrice>Single: ${flavor.price} | Dozen: ${flavor.dozenPrice}</FlavorPrice> )
                 : flavor.price ? (<FlavorPrice>${flavor.price}</FlavorPrice>) : null }
               {Boolean(flavor.description) && (<FlavorDescription>{flavor.description}</FlavorDescription>)}
-              {Boolean(flavor.customPrice) && (<FlavorPrice>Custom price starts at: ${flavor.customPrice}</FlavorPrice>)}
+              {Boolean(flavor.customPrice) && (<FlavorPrice>Custom price starts at: {displayPrice(flavor.customPrice)}</FlavorPrice>)}
             </FlavorContainer>
           ))
         }
@@ -121,7 +121,7 @@ const FlavorName = styled.p`
   ${fonts.boldText['300']};
   text-align: center;
   @media all and (min-width: 768px) {
-    ${fonts.boldText['400']};
+    ${fonts.boldText['600']};
   }
 `;
 

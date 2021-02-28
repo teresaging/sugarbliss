@@ -37,7 +37,7 @@ const CakePopsPage = ({data}: CakePopsProps) => {
         <ProductHeader productName="Cake Pops" backgroundImage={data.cakePopsHeaderImage} underlineImage={data.underlineImage} />
       </ProductHeaderContainer>
       <PricesContainer>
-        <Price>$3 Each | $34 Dozen</Price>
+        <Price>$3 Each | $34 per Dozen</Price>
       </PricesContainer>
       <SeasonalProductCarousel products={seasonalFlavors} />
       <ProductsList title="Classic Collection Flavors" products={classicCollectionFlavors} />

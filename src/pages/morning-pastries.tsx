@@ -11,7 +11,7 @@ import { sizing } from '../utils';
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
 type MorningPastriesQueryProps = {
-  macaronsHeaderImage: FluidImage;
+  productBreakfastCupcakesImage: FluidImage;
   underlineImage: FluidImage;
   allContentfulMorningPastries: {
     nodes: MorningPastry[];
@@ -59,17 +59,19 @@ const MorningPastriesPage = ({data}: MorningPastriesProps) => {
 
   return (
     <Layout>
-      <ProductHeader productName="Morning Pastries" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} isFullWidth />
-      {Boolean(muffins) && (
-        <HighlightedProduct>
-          <ProductList title={muffins.name} price={muffins.price} dozenPrice={muffins.dozenPrice} flavors={muffins.flavors}/>
-        </HighlightedProduct>
-      )}
-      {Boolean(scones) && (
-        <HighlightedProduct>
-          <ProductList title={scones.name} price={scones.price} dozenPrice={scones.dozenPrice} flavors={scones.flavors}/>
-        </HighlightedProduct>
-      )}
+      <ProductHeader productName="Morning Pastries" backgroundImage={data.productBreakfastCupcakesImage} underlineImage={data.underlineImage} />
+      <Row>
+        {Boolean(muffins) && (
+          <HighlightedProduct>
+            <ProductList title={muffins.name} price={muffins.price} dozenPrice={muffins.dozenPrice} flavors={muffins.flavors}/>
+          </HighlightedProduct>
+        )}
+        {Boolean(scones) && (
+          <HighlightedProduct>
+            <ProductList title={scones.name} price={scones.price} dozenPrice={scones.dozenPrice} flavors={scones.flavors}/>
+          </HighlightedProduct>
+        )}
+      </Row>
       {Boolean(otherTreats) && (
         <OtherTreatsContainer>
           <Title>Other Treats</Title>
@@ -89,13 +91,24 @@ const MorningPastriesPage = ({data}: MorningPastriesProps) => {
 export default MorningPastriesPage;
 
 const HighlightedProduct = styled.div`
-  margin: ${sizing(30)} auto ${sizing(20)} auto;
+  margin: ${sizing(30)} auto ${sizing(10)} auto;
   width: 85%;
   @media all and (min-width: 768px) {
     margin: ${sizing(100)} auto ${sizing(75)} auto;
   }
   @media all and (min-width: 992px) {
      width: 50%;
+  }
+`;
+
+const Row = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  width: 85%;
+  margin: auto;
+  @media all and (min-width: 992px) {
+    grid-template-columns: 1fr 1fr;
+    width: 60%;
   }
 `;
 
@@ -165,9 +178,9 @@ query MorningPastriesQuery {
       dozenPrice
     }
   }
-  macaronsHeaderImage: file(absolutePath: {regex: "/\\/images\\/macarons\\/macaronsHeaderImage\\.jpg/"}) {
+  productBreakfastCupcakesImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_breakfastcupcakes\\.jpg/"}) {
     childImageSharp {
-      fluid(maxWidth: 1600) {
+      fluid(maxWidth: 800) {
             ...GatsbyImageSharpFluid
       }
     }

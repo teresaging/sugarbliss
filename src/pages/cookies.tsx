@@ -4,9 +4,9 @@ import { FluidObject } from 'gatsby-image';
 import { graphql, PageProps } from 'gatsby';
 
 import Layout from '../components/layout';
-import { ProductHeader, ProductList, OrderFooter } from '../design-system';
+import { ProductHeader, ProductList, OrderFooter, fonts } from '../design-system';
 import { Cookies } from '../sharedTypes';
-import { sizing } from '../utils';
+import { colors, sizing } from '../utils';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
@@ -21,7 +21,7 @@ type CookiesPageQueryProps = {
 
 type CookiesPageProps = PageProps<CookiesPageQueryProps>;
 
-const renderSection = ({title, flavors}) => {
+const renderSection = ({title = '', flavors}) => {
   return (
     <Section>
       <ProductList title={title} flavors={flavors} />
@@ -38,10 +38,15 @@ const CookiesPage = ({data}: CookiesPageProps) => {
   return (
     <Layout>
       <ProductHeader backgroundImage={data.cookiesHeaderImage} underlineImage={data.underlineImage} productName="Cookies" />
+      <PricesContainer>
+        <Price>$3 Each | $34 per Dozen</Price>
+      </PricesContainer>
       <Content>
-        {Boolean(everydayFlavors) && renderSection({title: 'Everyday Flavors', flavors: everydayFlavors})}
-        {Boolean(rotatingFlavors) && renderSection({title: 'Rotating Flavors', flavors: rotatingFlavors})}
-        {Boolean(seasonalFlavors) && renderSection({title: 'Seasonal Flavors', flavors: seasonalFlavors})}
+        <Row>
+          {Boolean(everydayFlavors) && renderSection({title: 'Everyday Flavors', flavors: everydayFlavors})}
+          {Boolean(rotatingFlavors) && renderSection({title: 'Rotating Flavors', flavors: rotatingFlavors})}
+        </Row>
+        {Boolean(seasonalFlavors) && renderSection({flavors: seasonalFlavors})}
       </Content>
       <OrderFooter backgroundImage={data.cookiesFooterImage} />
     </Layout>
@@ -59,14 +64,47 @@ const Content = styled.div`
   }
 `;
 
+const Row = styled.div`
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  @media all and (min-width: 991px) {
+    flex-direction: row;
+  }
+`;
+
 const Section = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: ${sizing(20)};
   @media all and (min-width: 768px) {
     margin-bottom: ${sizing(80)}
+  }
+`;
+
+const PricesContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.solids.BABY_BLUE};
+  padding: ${sizing(20)} 0;
+  margin: ${sizing(20)} 0;
+  @media all and (min-width: 768px) {
+    padding: ${sizing(40)} 0;
+    margin: ${sizing(50)} 0;
+  }
+`;
+
+const Price = styled.p`
+  ${fonts.mediumText['200']};
+  color: ${colors.solids.BROWN};
+  margin-bottom: 0;
+  text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.mediumText['500']};
   }
 `;
 
