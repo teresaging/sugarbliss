@@ -5,6 +5,7 @@ import { graphql, PageProps } from 'gatsby';
 
 import Layout from '../components/layout';
 import { ProductHeader, ProductList, OrderFooter, fonts } from '../design-system';
+import { CircleImage } from '../design-system/ProductHeader';
 import { sizing } from '../utils';
 import { SweetCrepes } from '../sharedTypes';
 
@@ -28,7 +29,9 @@ const SweetCrepesPage = ({data}: SweetCrepesPageProps) => {
 
   return(
     <Layout>
-      <ProductHeader backgroundImage={data.sweetCrepesHeaderImage} underlineImage={data.underlineImage} productName="Sweet Crepes" isFullWidth />
+      <HeaderContainer>
+        <ProductHeader backgroundImage={data.sweetCrepesHeaderImage} underlineImage={data.underlineImage} productName="Sweet Crepes" />
+      </HeaderContainer>
       <Content>
         <Section>
           <ProductList title="Flavors" flavors={crepes} />
@@ -49,11 +52,18 @@ const SweetCrepesPage = ({data}: SweetCrepesPageProps) => {
   );
 };
 
+const HeaderContainer = styled.div`
+  ${CircleImage} {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
 const Content = styled.div`
   margin: ${sizing(100)} auto ${sizing(75)} auto;
   width: 85%;
   @media all and (min-width: 992px) {
-     width: 50%;
+     width: 75%;
   }
 `;
 
@@ -108,16 +118,16 @@ export default SweetCrepesPage;
 
 export const query = graphql`
   query SweetCrepesQuery {
-    underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline\\.png/"}) {
+    underlineImage: file(absolutePath: {regex: "/\\/images\\/fancy_underline_brown\\.png/"}) {
       childImageSharp {
         fluid(maxWidth: 300) {
               ...GatsbyImageSharpFluid
         }
       }
     }
-    sweetCrepesHeaderImage: file(absolutePath: {regex: "/\\/images\\/sweet-crepes\\/sweetCrepesHeader\\.jpg/"}) {
+    sweetCrepesHeaderImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_crepes\\.jpg/"}) {
       childImageSharp {
-        fluid(maxWidth: 2000) {
+        fluid(maxWidth: 800) {
               ...GatsbyImageSharpFluid
         }
       }

@@ -128,7 +128,7 @@ export const CircleImageContainer = styled.div`
   }
 `;
 
-const CircleImage = styled(Img)`
+export const CircleImage = styled(Img)`
   width: 100%;
   height: auto;
 `;

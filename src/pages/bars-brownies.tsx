@@ -42,7 +42,7 @@ const Content = styled.div`
     margin: ${sizing(100)} auto ${sizing(75)} auto;
   }
   @media all and (min-width: 992px) {
-    width: 50%;
+    width: 75%;
   }
 `;
 
