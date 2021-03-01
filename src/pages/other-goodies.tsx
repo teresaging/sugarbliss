@@ -7,6 +7,7 @@ import Layout from '../components/layout';
 import { ProductHeader, ProductList, OrderFooter } from '../design-system';
 import { sizing } from '../utils';
 import { OtherGoodies } from '../sharedTypes';
+import { CircleImage } from '../design-system/ProductHeader';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
@@ -21,10 +22,10 @@ type OtherGoodiesQueryProps = {
 
 type OtherGoodiesPageProps = PageProps<OtherGoodiesQueryProps>;
 
-const renderSection = ({title, flavors}) => {
+const renderSection = ({title = '', flavors, price = 0}) => {
   return (
     <Section>
-      <ProductList title={title} flavors={flavors} />
+      <ProductList price={price} title={title} flavors={flavors} />
     </Section>
   )
 }
@@ -37,16 +38,25 @@ const OtherGoodiesPage = ({data}: OtherGoodiesPageProps) => {
 
   return (
     <Layout>
-      <ProductHeader backgroundImage={data.otherGoodiesHeaderImage} underlineImage={data.underlineImage} productName="Other Goodies" isFullWidth />
+      <HeaderContainer>
+        <ProductHeader backgroundImage={data.otherGoodiesHeaderImage} underlineImage={data.underlineImage} productName="Other Goodies" />
+      </HeaderContainer>
       <Content>
-        {Boolean(biscottiFlavors) && renderSection({title: 'Biscotti', flavors: biscottiFlavors})}
-        {Boolean(granolaBarsFlavors) && renderSection({title: 'Granola Bars', flavors: granolaBarsFlavors})}
-        {Boolean(otherFlavors) && renderSection({title: 'Other', flavors: otherFlavors})}
+        {Boolean(biscottiFlavors) && renderSection({title: 'Biscottis', flavors: biscottiFlavors, price: 4.50})}
+        {Boolean(granolaBarsFlavors) && renderSection({flavors: granolaBarsFlavors})}
+        {Boolean(otherFlavors) && renderSection({flavors: otherFlavors})}
       </Content>
       <OrderFooter backgroundImage={data.otherGoodiesFooterImage} />
     </Layout>
   );
 };
+
+const HeaderContainer = styled.div`
+  ${CircleImage} {
+    width: 100%;
+    height: 100%;
+  }
+`;
 
 const Content = styled.div`
   margin: ${sizing(100)} auto ${sizing(75)} auto;
@@ -75,9 +85,9 @@ export const query = graphql`
         }
       }
     }
-    otherGoodiesHeaderImage: file(absolutePath: {regex: "/\\/images\\/other-goodies\\/otherGoodiesHeader\\.jpg/"}) {
+    otherGoodiesHeaderImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_other\\.jpg/"}) {
       childImageSharp {
-        fluid(maxWidth: 2000) {
+        fluid(maxWidth: 800) {
               ...GatsbyImageSharpFluid
         }
       }

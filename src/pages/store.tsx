@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import { FluidObject } from 'gatsby-image'
+import Img, { FluidObject } from 'gatsby-image'
 import styled from '@emotion/styled';
 import { BLOCKS, MARKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
@@ -53,6 +53,9 @@ const StorePage = ({data}: StorePageProps) => {
               {hoursData && documentToReactComponents(hoursData.json, options) }
             </Hours>
          </HoursContainer>
+         <MapContainer>
+          <Image fluid={data.storeMapImage.childImageSharp.fluid} />
+         </MapContainer>
        </Content>
     </Layout>
   );
@@ -83,6 +86,17 @@ const Hours = styled.p`
   ${fonts.regularText['600']};
 `;
 
+const MapContainer = styled.div`
+  max-width: ${sizing(750)};
+  width: 100%;
+  margin: auto;
+`;
+
+const Image = styled(Img)`
+  width: 100%;
+  height: auto;
+`;
+
 export default StorePage;
 
 export const query = graphql`
@@ -101,7 +115,7 @@ export const query = graphql`
         }
       }
     }
-    storeMapImage: file(absolutePath: {regex: "/\\/images\\/store\\/spb_location_map\\.jpg/"}) {
+    storeMapImage: file(absolutePath: {regex: "/\\/images\\/store\\/location_map\\.jpg/"}) {
       childImageSharp {
         fluid(maxWidth: 2000) {
               ...GatsbyImageSharpFluid
