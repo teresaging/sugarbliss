@@ -72,9 +72,9 @@ const WeddingsPage = ({data}: WeddingsPageProps) => {
   return (
     <Layout>
       <ProductHeader productName="Weddings" backgroundImage={data.weddingsHeaderImage} underlineImage={data.underlineImage} isFullWidth />
-      <PriceSection>
-        <Button url="/" text="Wedding Brochure" size="LARGE" />
-      </PriceSection>
+      {/*<PriceSection>*/}
+      {/*  <Button url="/" text="Wedding Brochure" size="LARGE" />*/}
+      {/*</PriceSection>*/}
       <Content>
         <CupcakeImageContainer>
           <CupcakeImage fluid={data.weddingsCupcakeImage.childImageSharp.fluid} />
