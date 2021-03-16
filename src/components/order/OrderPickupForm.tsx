@@ -6,8 +6,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import moment from 'moment';
 
 import { colors } from '../../utils';
-
-import { Container, Title, FormContainer, Row, SubmitButton } from './Styled';
+import { disableSundays } from './OrderDeliveryForm';
+import { Container, Title, FormContainer, Row, SubmitButton, SubTitle } from './Styled';
 
 type Props = {
   handleNextStep: Function;
@@ -45,6 +45,7 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
   return (
     <Container>
       <Title marginBottom={50}>Pickup From Store</Title>
+      <SubTitle>(Monday - Saturday only)</SubTitle>
       <FormContainer bgColor={colors.solids.BABY_BLUE}>
         <Form
           onSubmit={handleSubmit}
@@ -69,6 +70,7 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
                   variant="inline"
                   format="yyyy-MM-dd"
                   dateFunsUtils={DateFnsUtils}
+                  shouldDisableDate={disableSundays}
                   minDate={Date()}
                   required
                 />

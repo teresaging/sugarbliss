@@ -82,6 +82,18 @@ const mediumText = {
     'font-weight': '500',
     'line-height': sizing(23),
   },
+  600: {
+    'font-family': FONT_FAMILIES.MULI,
+    'font-size': sizing(22),
+    'font-weight': '500',
+    'line-height': sizing(26),
+  },
+  700: {
+    'font-family': FONT_FAMILIES.MULI,
+    'font-size': sizing(26),
+    'font-weight': '500',
+    'line-height': sizing(32),
+  },
 };
 
 const boldText = {

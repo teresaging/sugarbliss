@@ -12,11 +12,9 @@ import {
   Name,
   Description,
   Price,
-  PriceWithDozen,
   AddToCartButton,
   QuantityInput,
   QuantityInputLabel,
-  CustomFieldInput,
   CustomFieldLabel,
   CustomFieldContainer,
   CustomFieldTextContainer,
@@ -33,7 +31,6 @@ type Props = {
   name: string;
   description?: string;
   price: number;
-  dozenPrice?: number;
   customFields?: OrderCustomFields[];
   addItemToCart: Function;
   availableCupcakeFlavors: Cupcake[];
@@ -48,7 +45,6 @@ const OrderProduct = ({
   name,
   description = '',
   price,
-  dozenPrice = 0,
   customFields = [],
   addItemToCart,
   availableCupcakeFlavors,
@@ -347,11 +343,7 @@ const OrderProduct = ({
             <ProductContainer>
               <Name>{name}</Name>
               {description && <Description>{description}</Description>}
-              {dozenPrice ? (
-                <PriceWithDozen>Single price: ${price} | Dozen price: ${dozenPrice} </PriceWithDozen>
-              ) : (
-                <Price>${price}</Price>
-              )}
+              <Price>${price}</Price>
               {customFields?.map((field, idx) => (
                 <div style={{width: '100%'}} key={idx}>
                   {handleRenderField(field)}

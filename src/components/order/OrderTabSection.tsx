@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useResize } from '../../hooks';
 
 import OrderProduct from './OrderProduct';
-import { CategoryTitle, ProductsWrapper, CategoryWrapper, CategoriesContainer } from './Styled';
+import { CategoryTitle, ProductsWrapper, CategoryWrapper, CategoriesContainer, CategoryTitleWrapper, DotsContainer, Dot } from './Styled';
 import { OrderCategory, OrderProduct as OrderProductType, Cupcake, Macaron, CakePop, Cookies } from '../../sharedTypes';
+
+import { colors } from '../../utils';
+
+export const DOTS_SIZE = 200;
 
 type ProductDataType = OrderCategory & OrderProductType;
 
@@ -30,6 +35,32 @@ const OrderTabSection = ({
    availableSconesFlavors = []
 }: Props) => {
 
+  const dotsContainer = useRef(null);
+  const { width } = useResize(dotsContainer)
+
+  const renderDots = () => {
+    const dotsWidth = width || dotsContainer?.current?.offsetWidth;
+    const amountOfDotsToRender = (dotsWidth ? dotsWidth / DOTS_SIZE : 1) || 1;
+    const dots = [];
+    for (let i = 0; i < amountOfDotsToRender - 1; i++) {
+      dots.push(
+        <>
+          <Dot key={`${i}-1`} color={colors.solids.BROWN} />
+          <Dot key={`${i}-2`} color={colors.solids.MAIN_MED_BLUE} />
+          <Dot key={`${i}-3`} color={colors.solids.MAIN_MED_PINK} />
+          <Dot key={`${i}-4`} color={colors.solids.MAIN_LIGHT_PINK} />
+          <Dot key={`${i}-5`} color={colors.solids.DARK_BLUE}/>
+        </>
+      );
+    }
+
+    return (
+      <>
+        {dots}
+      </>
+    )
+  }
+
   const renderCategory = ({products}) => {
     return (
       <ProductsWrapper>
@@ -39,7 +70,6 @@ const OrderTabSection = ({
             name={product.name}
             description={product.description}
             price={product.price}
-            dozenPrice={product.dozenPrice}
             customFields={product.customFields}
             addItemToCart={addItemToCart}
             availableCupcakeFlavors={availableCupcakeFlavors}
@@ -60,7 +90,12 @@ const OrderTabSection = ({
         <CategoryWrapper key={idx}>
           {data.products ? (
             <>
-              <CategoryTitle>{data.name}</CategoryTitle>
+              <CategoryTitleWrapper>
+                <CategoryTitle>{data.name}</CategoryTitle>
+                <DotsContainer ref={dotsContainer}>
+                  {renderDots()}
+                </DotsContainer>
+              </CategoryTitleWrapper>
               {renderCategory({products: data.products})}
             </>
           )
@@ -70,7 +105,6 @@ const OrderTabSection = ({
                 name={data.name}
                 price={data.price}
                 description={data.description}
-                dozenPrice={data.dozenPrice}
                 customFields={data.customFields}
                 addItemToCart={addItemToCart}
                 availableCupcakeFlavors={availableCupcakeFlavors}

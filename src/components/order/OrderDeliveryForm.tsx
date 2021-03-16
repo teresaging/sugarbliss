@@ -1,20 +1,32 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { Form } from 'react-final-form';
+import { Form, Field } from 'react-final-form';
 import { TextField, DatePicker, Select } from 'mui-rff';
-import { MenuItem } from '@material-ui/core'
+import { MenuItem, Checkbox } from '@material-ui/core'
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 
 import { CityDeliveryZipCodePrices, SuburbDeliveryZipCodePrices, colors } from '../../utils';
 
-import { Container, Title, SubTitle, FormContainer, Row, SingleRow, SubmitButton, DeliveryPrice, CannotDeliverText } from './Styled';
+import {
+  Container,
+  Title,
+  SubTitle,
+  FormContainer,
+  Row,
+  SingleRow,
+  SubmitButton,
+  DeliveryPrice,
+  CannotDeliverText,
+  CustomFieldLabel,
+  CheckBoxContainer,
+} from './Styled';
 
 const LATE_AFTERNOON_TIME = '12pm-4pm';
 
 const currentCentralHour = moment().format('H');
 
-const disableSundays = (date) => {
+export const disableSundays = (date) => {
   return date.getDay() === 0;
 }
 
@@ -120,7 +132,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
   return (
     <Container>
       <Title marginBottom={0}>Local Delivery</Title>
-      <SubTitle>(Monday - Sunday only)</SubTitle>
+      <SubTitle>(Monday - Saturday only)</SubTitle>
       <FormContainer bgColor={colors.solids.BABY_PINK}>
         <Form
           onSubmit={handleSubmit}
@@ -161,17 +173,18 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
             return errors;
           }}
           render={({ handleSubmit, submitting, values, hasValidationErrors }) => {
-            const isDatePickedToday = moment(values.date)?.format('L') === moment().format('L')
+            const isDatePickedToday = moment(values.date)?.format('L') === moment().format('L');
             const isAfterHours = Number.parseInt(currentCentralHour, 10) > 12;
+            const isRecipientDifferent = values.isRecipientDifferent;
 
             return (
             <form onSubmit={handleSubmit}>
               <Row>
                 <DatePicker
-                  label="Date"
+                  label="Date (Monday - Sunday only)"
                   name="date"
                   variant="inline"
-                  format="yyyy-MM-dd"
+                  format="MM-dd"
                   dateFunsUtils={DateFnsUtils}
                   shouldDisableDate={disableSundays}
                   minDate={Date()}
@@ -190,10 +203,32 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                   <MenuItem disabled={isDatePickedToday && isAfterHours} value={LATE_AFTERNOON_TIME}>12pm - 4pm</MenuItem>
                 </Select>
               </Row>
-              <Row>
+              <SingleRow>
                 <TextField label="First and Last Name" name="name"/>
-                <TextField label="Company Name (optional)" name="companyName"/>
+              </SingleRow>
+              <Row>
+                <TextField label="Phone" name="phone" type="tel"/>
+                <TextField label="Email" name="email" type="email"/>
               </Row>
+              <Field name="isRecipientDifferent" type="checkbox">
+                {props => (
+                  <SingleRow>
+                    <CheckBoxContainer>
+                      <Checkbox {...props.input}/>
+                      <CustomFieldLabel>Check this box if the recipient name is different than above</CustomFieldLabel>
+                    </CheckBoxContainer>
+                  </SingleRow>
+                )}
+              </Field>
+              {isRecipientDifferent && (
+                <Row>
+                  <TextField label="Recipient First and Last Name" name="name"/>
+                  <TextField label="Phone" name="phone" type="tel"/>
+                </Row>
+              )}
+              <SingleRow>
+                <TextField label="Company Name (optional)" name="companyName"/>
+              </SingleRow>
               <Row>
                 <TextField label="Address" name="address"/>
                 <TextField label="Apt/Suite #" name="addressApt"/>
@@ -212,6 +247,16 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                   <CannotDeliverText>We're sorry, we cannot deliver to this address</CannotDeliverText>
                 </SingleRow>
               )}
+              <Field name="isGift" type="checkbox">
+                {props => (
+                  <SingleRow>
+                    <CheckBoxContainer>
+                      <Checkbox {...props.input}/>
+                      <CustomFieldLabel>Check here if this is a  gift</CustomFieldLabel>
+                    </CheckBoxContainer>
+                  </SingleRow>
+                )}
+              </Field>
               <SubmitButton
                 type="submit"
                 disabled={submitting || hasValidationErrors}>

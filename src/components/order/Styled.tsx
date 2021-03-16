@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 import { fonts } from '../../design-system';
 import { colors, sizing } from '../../utils';
+import { DOTS_SIZE } from './OrderTabSection';
 
 export const Title = styled.h1<{marginBottom: number}>`
   ${fonts.cursiveText['600']};
@@ -24,7 +25,7 @@ export const OptionsContainer = styled.div`
   }
 `;
 
-export const Option = styled.div<{bgColor: string}>`
+export const Option = styled.div<{bgColor: string, borderColor: string}>`
   width: 100%;
   height: ${sizing(400)};
   background-color: ${({bgColor}) => bgColor};
@@ -34,6 +35,9 @@ export const Option = styled.div<{bgColor: string}>`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  color: ${colors.solids.DARK_BLUE};
+  border: ${({borderColor}) => `solid ${sizing(8)} ${borderColor}`};
+  transition: 0.3s opacity;
   @media all and (min-width: 768px) {
     width: ${sizing(350)};
     height: ${sizing(200)};
@@ -72,7 +76,7 @@ export const SubTitle = styled.p`
   margin-bottom: ${sizing(20)};
   text-align: center;
   @media all and (min-width: 768px) {
-    ${fonts.mediumText['600']};
+    ${fonts.mediumText['500']};
     margin-bottom: ${sizing(50)};
   }
 `;
@@ -144,9 +148,14 @@ export const CannotDeliverText = styled.p`
 `;
 
 export const CategoryTitle = styled.h5`
-  ${fonts.boldText['400']};
+  ${fonts.boldText['500']};
+  color: ${colors.solids.DARK_BLUE};
+  margin-bottom: 0;
+  flex: 0;
+  white-space: normal;
   @media all and (min-width: 768px) {
-    ${fonts.boldText['600']};
+    ${fonts.boldText['800']};
+    white-space: nowrap;
   }
 `;
 
@@ -341,5 +350,45 @@ export const ErrorText = styled.p`
   color: red;
   @media all and (min-width: 768px) {
     ${fonts.boldText['200']};
+  }
+`;
+
+export const CheckBoxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .MuiSvgIcon-root {
+    width: ${sizing(22)};
+    height: ${sizing(22)};
+  }
+`;
+
+export const CategoryTitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: ${sizing(20)};
+`;
+
+export const DotsContainer = styled.div`
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: ${sizing(15)};
+  overflow: hidden;
+  flex: 2;
+`;
+
+export const Dot = styled.div<{color: string}>`
+  width: ${sizing(20)};
+  height: ${sizing(20)};
+  background-color: ${({color}) => color};
+  border-radius: ${sizing(50)};
+  margin-right: ${sizing(1)};
+  @media all and (min-width: 768px) {
+    margin-right: ${sizing(5)};
   }
 `;

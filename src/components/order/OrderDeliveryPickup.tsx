@@ -11,11 +11,24 @@ const OrderDeliveryPickup = ({onOptionPress}: Props) => {
     <>
       <Title marginBottom={50}>Local Delivery or Pickup</Title>
       <OptionsContainer>
-        <Option onClick={() => onOptionPress('delivery')} bgColor={colors.solids.BABY_PINK}>
-          <OptionText>Local Delivery</OptionText>
-          <OptionText>(Monday - Sunday)</OptionText>
+        <Option
+          onClick={() => onOptionPress('pickup')}
+          bgColor={colors.solids.ORDER_PINK}
+          borderColor={colors.solids.DARK_BLUE}
+        >
+          <OptionText>Pickup From Store</OptionText>
+          <OptionText>122 S Wabash</OptionText>
+          <OptionText>(Monday - Saturday)</OptionText>
         </Option>
-        <Option onClick={() => onOptionPress('pickup')} bgColor={colors.solids.BABY_BLUE}><OptionText>Pickup From Store</OptionText></Option>
+        <Option
+          onClick={() => onOptionPress('delivery')}
+          bgColor={colors.solids.ORDER_PINK}
+          borderColor={colors.solids.MAIN_MED_BLUE}
+        >
+          <OptionText>Local Chicago &</OptionText>
+          <OptionText>Suburb Delivery</OptionText>
+          <OptionText>(Monday - Saturday)</OptionText>
+        </Option>
       </OptionsContainer>
     </>
   );
