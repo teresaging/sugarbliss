@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 
 import { fonts } from '../../design-system';
 import { colors, sizing } from '../../utils';
-import { DOTS_SIZE } from './OrderTabSection';
 
 export const Title = styled.h1<{marginBottom: number}>`
   ${fonts.cursiveText['600']};

@@ -61,12 +61,12 @@ const OrderTabSection = ({
     )
   }
 
-  const renderCategory = ({products}) => {
+  const renderCategory = ({products, type}) => {
     return (
       <ProductsWrapper>
         {products?.map((product, idx) => (
           <OrderProduct
-            type="dark"
+            type={type}
             key={idx}
             name={product.name}
             description={product.description}
@@ -87,40 +87,44 @@ const OrderTabSection = ({
 
   return (
     <CategoriesContainer style={{display: isHidden ? 'none' : 'block'}}>
-      {productData?.map((data, idx) => (
-        <CategoryWrapper key={idx}>
-          {data.products ? (
-            <>
-              <CategoryTitleWrapper>
-                <CategoryTitle>{data.name}</CategoryTitle>
-                <DotsContainer ref={dotsContainer}>
-                  {renderDots()}
-                </DotsContainer>
-              </CategoryTitleWrapper>
-              {renderCategory({products: data.products})}
-            </>
-          )
-          : (
-            <ProductsWrapper>
-              <OrderProduct
-                type="light"
-                name={data.name}
-                price={data.price}
-                description={data.description}
-                customFields={data.customFields}
-                addItemToCart={addItemToCart}
-                availableCupcakeFlavors={availableCupcakeFlavors}
-                availableMacaronFlavors={availableMacaronFlavors}
-                availableCakePopFlavors={availableCakePopFlavors}
-                availableCookiesFlavors={availableCookiesFlavors}
-                availableMuffinsFlavors={availableMuffinsFlavors}
-                availableSconesFlavors={availableSconesFlavors}
-              />
-            </ProductsWrapper>
+      {productData?.map((data, idx) => {
+        const isEven = idx % 2 === 0;
+        console.log('isEven');
+
+        return (
+          <CategoryWrapper key={idx}>
+            {data.products ? (
+              <>
+                <CategoryTitleWrapper>
+                  <CategoryTitle>{data.name}</CategoryTitle>
+                  <DotsContainer ref={dotsContainer}>
+                    {renderDots()}
+                  </DotsContainer>
+                </CategoryTitleWrapper>
+                {renderCategory({products: data.products, type: isEven ? 'light' : 'dark'})}
+              </>
             )
-          }
-        </CategoryWrapper>
-      ))
+            : (
+              <ProductsWrapper>
+                <OrderProduct
+                  type={isEven ? 'light' : 'dark'}
+                  name={data.name}
+                  price={data.price}
+                  description={data.description}
+                  customFields={data.customFields}
+                  addItemToCart={addItemToCart}
+                  availableCupcakeFlavors={availableCupcakeFlavors}
+                  availableMacaronFlavors={availableMacaronFlavors}
+                  availableCakePopFlavors={availableCakePopFlavors}
+                  availableCookiesFlavors={availableCookiesFlavors}
+                  availableMuffinsFlavors={availableMuffinsFlavors}
+                  availableSconesFlavors={availableSconesFlavors}
+                />
+              </ProductsWrapper>
+              )
+            }
+          </CategoryWrapper>
+      )})
       }
       <button
         style={{display: 'none'}}
