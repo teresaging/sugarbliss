@@ -3,11 +3,13 @@ import { Form } from 'react-final-form';
 import { DatePicker, Select } from 'mui-rff';
 import { MenuItem } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import { colors } from '../../utils';
 import { disableSundays } from './OrderDeliveryForm';
 import { Container, Title, FormContainer, Row, SubmitButton, SubTitle } from './Styled';
+
+const CST_CURRENT_DATE_TIME = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
 
 type Props = {
   handleNextStep: Function;
@@ -42,6 +44,116 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
     handleNextStep();
   }
 
+  const handleMinDate = () => {
+    if (Number(CST_CURRENT_DATE_TIME.hour()) > 12) {
+      const nextDay = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })).add(1, 'day');
+
+      return nextDay;
+    }
+
+    return CST_CURRENT_DATE_TIME;
+  }
+
+  const renderDates = (pickupDate) => {
+    const selectedDate = moment(pickupDate);
+    const isSameDay = selectedDate.format('M, D') === CST_CURRENT_DATE_TIME.format('M, D');
+    const isCurrentDateNightBefore = (Number(CST_CURRENT_DATE_TIME.date()) + 1 === Number(selectedDate.date())) && Number(CST_CURRENT_DATE_TIME.hour()) > 16;
+    const isSameDayBefore11 = isSameDay && Number(CST_CURRENT_DATE_TIME.hour()) < 11;
+    const isSameDay11 = isSameDay && Number(CST_CURRENT_DATE_TIME.hour()) === 11;
+    const isWeekend = selectedDate.format('dddd') === 'Saturday' || selectedDate.format('dddd') === 'Sunday'
+
+    let datesArray = [];
+    if (isSameDayBefore11) {
+      datesArray = [
+        {
+          value: '12pm-1pm',
+          text: '12pm - 1pm'
+        },
+        {
+          value: '1pm-2pm',
+          text: '1pm - 2pm',
+        },
+        {
+          value: '2pm-3pm',
+          text: '2pm - 3pm',
+        },
+        {
+          value: '3pm-4pm',
+          text: '3pm - 4pm',
+        },
+      ]
+      if (!isWeekend) { datesArray = [...datesArray, {value: '4pm-5pm', text: '4pm - 5pm'}]; }
+    } else if (isSameDay11) {
+      datesArray = [
+        {
+          value: '2pm-3pm',
+          text: '2pm - 3pm',
+        },
+        {
+          value: '3pm-4pm',
+          text: '3pm - 4pm',
+        }
+      ]
+      if (!isWeekend) { datesArray = [...datesArray, {value: '4pm-5pm', text: '4pm - 5pm'}]; }
+    } else if (isCurrentDateNightBefore) {
+      datesArray = [
+        {
+          value: '10am-11am',
+          text: '10am - 11am',
+        },
+        {
+          value: '12pm-1pm',
+          text: '12pm - 1pm'
+        },
+        {
+          value: '1pm-2pm',
+          text: '1pm - 2pm',
+        },
+        {
+          value: '2pm-3pm',
+          text: '2pm - 3pm',
+        },
+        {
+          value: '3pm-4pm',
+          text: '3pm - 4pm',
+        },
+      ]
+      if (!isWeekend) { datesArray = [...datesArray, {value: '4pm-5pm', text: '4pm - 5pm'}]; }
+    } else {
+      datesArray = [
+        {
+          value: '9am-10am',
+          text: '9am - 10am',
+        },
+        {
+          value: '10am-11am',
+          text: '10am - 11am',
+        },
+        {
+          value: '12pm-1pm',
+          text: '12pm - 1pm'
+        },
+        {
+          value: '1pm-2pm',
+          text: '1pm - 2pm',
+        },
+        {
+          value: '2pm-3pm',
+          text: '2pm - 3pm',
+        },
+        {
+          value: '3pm-4pm',
+          text: '3pm - 4pm',
+        },
+      ]
+      if (!isWeekend) { datesArray = [...datesArray, {value: '4pm-5pm', text: '4pm - 5pm'}]; }
+    }
+
+    return datesArray.map((date, idx) => {
+        return (<MenuItem key={idx} value={date.value}>{date.text}</MenuItem>)
+      })
+  }
+
   return (
     <Container>
       <Title marginBottom={50}>Pickup From Store</Title>
@@ -61,44 +173,36 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
 
             return errors;
           }}
-          render={({ handleSubmit, submitting, values, hasValidationErrors }) => (
-            <form onSubmit={handleSubmit}>
-              <Row>
-                <DatePicker
-                  label="Date"
-                  name="date"
-                  variant="inline"
-                  format="yyyy-MM-dd"
-                  dateFunsUtils={DateFnsUtils}
-                  shouldDisableDate={disableSundays}
-                  minDate={Date()}
-                  required
-                />
-                <Select
-                  name="time"
-                  label="Pickup Time"
-                  formControlProps={{ margin: 'none' }}
-                  required
-                >
-                  <MenuItem value="9am-10am">9am - 10am</MenuItem>
-                  <MenuItem value="10am-11am">10am - 11am</MenuItem>
-                  <MenuItem value="11am-12pm">11am - 12pm</MenuItem>
-                  <MenuItem value="12pm-1pm">12pm - 1pm</MenuItem>
-                  <MenuItem value="1pm-2pm">1pm - 2pm</MenuItem>
-                  <MenuItem value="2pm-3pm">2pm - 3pm</MenuItem>
-                  <MenuItem value="3pm-4pm">3pm - 4pm</MenuItem>
-                  {moment(values.date).format('dddd') !== 'Saturday' && moment(values.date).format('dddd') !== 'Sunday' && (
-                    <MenuItem value="4pm-5pm">4pm - 5pm</MenuItem>
-                  )}
-                </Select>
-              </Row>
-              <SubmitButton
-                type="submit"
-                disabled={submitting || hasValidationErrors}>
-                Add Pickup To Order
-              </SubmitButton>
-            </form>
-          )}
+          render={({ handleSubmit, submitting, values, hasValidationErrors }) => {
+            return (
+              <form onSubmit={handleSubmit}>
+                <Row>
+                  <DatePicker
+                    label="Date"
+                    name="date"
+                    variant="inline"
+                    format="yyyy-MM-dd"
+                    dateFunsUtils={DateFnsUtils}
+                    shouldDisableDate={disableSundays}
+                    minDate={handleMinDate()}
+                    required
+                  />
+                  <Select
+                    name="time"
+                    label="Pickup Time"
+                    formControlProps={{ margin: 'none' }}
+                    required
+                  >
+                    {renderDates(values.date)}
+                  </Select>
+                </Row>
+                <SubmitButton
+                  type="submit"
+                  disabled={submitting || hasValidationErrors}>
+                  Add Pickup To Order
+                </SubmitButton>
+              </form>
+          )}}
         />
       </FormContainer>
     </Container>
