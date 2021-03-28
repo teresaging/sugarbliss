@@ -3,7 +3,7 @@ import { Form } from 'react-final-form';
 import { DatePicker, Select } from 'mui-rff';
 import { MenuItem } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
-import moment from 'moment-timezone';
+import moment from 'moment';
 
 import { colors } from '../../utils';
 import { disableSundays } from './OrderDeliveryForm';
