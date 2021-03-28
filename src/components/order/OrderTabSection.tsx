@@ -66,6 +66,7 @@ const OrderTabSection = ({
       <ProductsWrapper>
         {products?.map((product, idx) => (
           <OrderProduct
+            type="dark"
             key={idx}
             name={product.name}
             description={product.description}
@@ -102,6 +103,7 @@ const OrderTabSection = ({
           : (
             <ProductsWrapper>
               <OrderProduct
+                type="light"
                 name={data.name}
                 price={data.price}
                 description={data.description}

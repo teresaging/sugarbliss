@@ -28,6 +28,7 @@ import {
 } from './Styled';
 
 type Props = {
+  type: 'light' | 'dark';
   name: string;
   description?: string;
   price: number;
@@ -42,6 +43,7 @@ type Props = {
 }
 
 const OrderProduct = ({
+  type = 'light',
   name,
   description = '',
   price,
@@ -340,7 +342,7 @@ const OrderProduct = ({
         onSubmit={handleAddToCart}
         render={({handleSubmit, submitting, values, hasValidationErrors, submitError}) => (
           <form onSubmit={handleSubmit}>
-            <ProductContainer>
+            <ProductContainer type={type}>
               <Name>{name}</Name>
               {description && <Description>{description}</Description>}
               <Price>${price}</Price>

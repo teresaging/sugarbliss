@@ -159,14 +159,118 @@ export const CategoryTitle = styled.h5`
   }
 `;
 
-export const ProductContainer = styled.div`
+export const AddToCartButton = styled.button`
+  ${fonts.boldText['200']};
+  color: ${colors.solids.BROWN};
+  background-color: ${colors.solids.BABY_PINK};
+  cursor: pointer;
+  border-color: transparent;
+  border-radius: ${sizing(40)};
+  padding: ${sizing(10)} ${sizing(18)};
+  margin: 0;
+  &:disabled {
+    opacity: 0.4;
+  }
+  @media all and (min-width: 768px) {
+    ${fonts.boldText['300']};
+  }
+`;
+
+export const ProductContainer = styled.div<{type: string}>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: ${sizing(20)};
-  border: solid 6px ${colors.solids.BABY_PINK};
   border-radius: ${sizing(20)};
+  ${({type}) => type === 'light' && `
+    background-color: ${colors.solids.ORDER_PINK};
+    color: ${colors.solids.DARK_BLUE};
+    border: solid 6px ${colors.solids.DARK_BLUE};
+     
+    textarea {
+      background-color: ${colors.solids.ORDER_PINK_LIGHT};
+      color: ${colors.solids.DARK_BLUE};
+      border-color: ${colors.solids.DARK_BLUE};
+      border-radius: ${sizing(7)};
+    }
+    
+    input {
+      background-color: ${colors.solids.ORDER_PINK_LIGHT};
+      color: ${colors.solids.DARK_BLUE};
+      border-bottom: 2px solid ${colors.solids.DARK_BLUE};
+    }
+    
+    ${CustomFieldContainer}, .MuiFormControl-root, .MuiInputBase-root {
+      color: ${colors.solids.DARK_BLUE}!important;
+    }
+    
+    .MuiInput-underline:before {
+      border-bottom: 1px solid rgba(44, 58, 86, 0.54) !important;
+    }
+    
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border-bottom: 2px solid rgba(44, 58, 86, 0.87);
+    }
+    
+    .MuiInput-underline:after {
+      border-bottom: 2px solid ${colors.solids.DARK_BLUE};
+    }
+    
+    .MuiFormLabel-root {
+      color: rgba(44, 58, 86, 0.54) !important;
+    }
+     
+    ${AddToCartButton} {
+      background-color: ${colors.solids.DARK_BLUE};
+      color: white;
+    }
+  `}
+  
+  ${({type}) => type === 'dark' && `
+    color: ${colors.solids.ORDER_PINK};
+    background-color: ${colors.solids.DARK_BLUE};
+    border: solid 6px ${colors.solids.ORDER_PINK};
+    
+    textarea {
+      background-color: ${colors.solids.ORDER_DARK_BLUE_LIGHT};
+      color: ${colors.solids.ORDER_PINK};
+      border-color: ${colors.solids.ORDER_PINK};
+      border-radius: 7px;
+    }
+    
+    input {
+      background-color: ${colors.solids.ORDER_DARK_BLUE_LIGHT};
+      color: ${colors.solids.ORDER_PINK};
+      border-bottom: 2px solid ${colors.solids.ORDER_PINK};
+    }
+    
+    ${CustomFieldContainer}, .MuiFormControl-root, .MuiInputBase-root {
+      color: ${colors.solids.ORDER_PINK}!important;
+    }
+    
+    .MuiInput-underline:before {
+      border-bottom: 1px solid rgba(244, 215, 217, 0.54) !important;
+    }
+    
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border-bottom: 2px solid rgba(244, 215, 217, 0.87);
+    }
+    
+    .MuiInput-underline:after {
+      border-bottom: 2px solid ${colors.solids.DARK_BLUE};
+    }
+    
+    .MuiFormLabel-root {
+      color: rgba(244, 215, 217, 0.54) !important;
+    }
+    
+    ${AddToCartButton} {
+      background-color: ${colors.solids.ORDER_PINK};
+      color: ${colors.solids.DARK_BLUE};
+    }
+  `}
+  
 `;
 
 export const CategoriesContainer = styled.div`
@@ -193,10 +297,10 @@ export const ProductsWrapper = styled.div`
 `;
 
 export const Name = styled.h5`
-  ${fonts.boldText['200']};
+  ${fonts.boldText['300']};
   text-align: center;
   @media all and (min-width: 768px) {
-    ${fonts.boldText['400']};
+    ${fonts.boldText['600']};
   }
 `;
 
@@ -217,23 +321,6 @@ export const Price = styled.p`
 
 export const PriceWithDozen = styled.p`
   ${fonts.regularText['300']}
-`;
-
-export const AddToCartButton = styled.button`
-  ${fonts.boldText['200']};
-  color: ${colors.solids.BROWN};
-  background-color: ${colors.solids.BABY_PINK};
-  cursor: pointer;
-  border-color: transparent;
-  border-radius: ${sizing(40)};
-  padding: ${sizing(10)} ${sizing(18)};
-  margin: 0;
-  &:disabled {
-    opacity: 0.4;
-  }
-  @media all and (min-width: 768px) {
-    ${fonts.boldText['300']};
-  }
 `;
 
 export const QuantityInput = styled.input<{marginBottom: number}>`
@@ -262,6 +349,7 @@ export const CustomFieldTextArea = styled.textarea`
   border: solid 1px ${colors.solids.BROWN};
   max-width: 100%;
   min-width: 100%;
+  border-radius: 7px;
 `;
 
 export const CustomFieldLabel = styled.p`
