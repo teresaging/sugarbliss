@@ -102,12 +102,12 @@ const HomepageHero = ({slideData, isMobile}: Props) => {
             {slide.node.textPosition === CONTENT_POSITIONS.CENTER ? (
               <ContentCenteredContainer>
                 {slide.node.childContentfulHomepageHeroTextRichTextNode && documentToReactComponents(slide.node.childContentfulHomepageHeroTextRichTextNode.json, options)}
-                <Button url={slide.node?.pdf?.file?.url || slide.node?.buttonLink} size={isMobile ? 'SMALL' : 'LARGE'} text={slide.node.buttonText} />
+                <Button openInNewTab={Boolean(slide.node?.pdf?.file?.url)} url={slide.node?.pdf?.file?.url || slide.node?.buttonLink} size={isMobile ? 'SMALL' : 'LARGE'} text={slide.node.buttonText} />
               </ContentCenteredContainer>
             ) : (
               <ContentContainer>
                 {slide.node.childContentfulHomepageHeroTextRichTextNode && documentToReactComponents(slide.node.childContentfulHomepageHeroTextRichTextNode.json, options)}
-                <Button url={slide.node?.pdf?.file?.url || slide.node?.buttonLink} size={isMobile ? 'SMALL' : 'LARGE'} text={slide.node.buttonText} />
+                <Button openInNewTab={Boolean(slide.node?.pdf?.file?.url)} url={slide.node?.pdf?.file?.url || slide.node?.buttonLink} size={isMobile ? 'SMALL' : 'LARGE'} text={slide.node.buttonText} />
               </ContentContainer>
             )}
           </Slide>

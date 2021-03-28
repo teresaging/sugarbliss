@@ -24,6 +24,7 @@ type Props = {
   text: string;
   onClick?: Function;
   mobileSize?: keyof typeof Sizes;
+  openInNewTab?: boolean;
 }
 
 export const getFont = (size: keyof typeof Sizes) => {
@@ -84,7 +85,17 @@ export const getSize = (size: keyof typeof Sizes) => {
   }
 };
 
-const Button = ({url, size = Sizes.MEDIUM, mobileSize = Sizes.SMALL, isFullWidth = false, text, backgroundColor = colors.solids.BROWN, textColor = colors.solids.WHITE, onClick = null}: Props) => {
+const Button = ({
+  url,
+  size = Sizes.MEDIUM,
+  mobileSize = Sizes.SMALL,
+  isFullWidth = false,
+  text,
+  backgroundColor = colors.solids.BROWN,
+  textColor = colors.solids.WHITE,
+  onClick = null,
+  openInNewTab = false,
+}: Props) => {
 
   const handleOnClick = () => {
     onClick();
@@ -100,6 +111,7 @@ const Button = ({url, size = Sizes.MEDIUM, mobileSize = Sizes.SMALL, isFullWidth
           isFullWidth={isFullWidth}
           backgroundColor={backgroundColor}
           textColor={textColor}
+          target={openInNewTab ? '_blank' : '_self'}
         >
           {text}
         </StyledLink>
