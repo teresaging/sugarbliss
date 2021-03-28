@@ -63,54 +63,70 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
   const [ deliveryPrice, setDeliveryPrice ] = useState(0);
 
   const handleSubmit = async (values: Values) => {
+    const customFields = [
+      {
+        name: 'Date',
+        type: 'readonly',
+        value: moment(values.date).format('MMMM Do YYYY'),
+      },
+      {
+        name: 'Time',
+        type: 'readonly',
+        value: values.time,
+      },
+      {
+        name: 'Name',
+        type: 'readonly',
+        value: values.name,
+      },
+      {
+        name: 'Recipient Name',
+        type: 'readonly',
+        value: values.recipientName || '',
+      },
+      {
+        name: 'Recipient Phone',
+        type: 'readonly',
+        value: values.recipientPhone || '',
+      },
+      {
+        name: 'Company Name',
+        type: 'readonly',
+        value: values.companyName || '',
+      },
+      {
+        name: 'Address',
+        type: 'readonly',
+        value: values.address,
+      },
+      {
+        name: 'Apartment',
+        type: 'readonly',
+        value: values.addressApt || '',
+      },
+      {
+        name: 'City',
+        type: 'readonly',
+        value: values.city,
+      },
+      {
+        name: 'Zip Code',
+        type: 'readonly',
+        value: values.zipCode,
+      },
+      {
+        name: 'Is Gift?',
+        type: 'readonly',
+        value: values.isGift || false,
+      },
+    ]
     await addItemToCart({
       id: `delivery-${deliveryPrice}`,
       name: 'Delivery',
       price: deliveryPrice || 0,
       url: '/order',
       quantity: 1,
-      customFields: [
-        {
-          name: 'Date',
-          type: 'readonly',
-          value: moment(values.date).format('MMMM Do YYYY'),
-        },
-        {
-          name: 'Time',
-          type: 'readonly',
-          value: values.time,
-        },
-        {
-          name: 'Name',
-          type: 'readonly',
-          value: values.name,
-        },
-        {
-          name: 'Company Name',
-          type: 'readonly',
-          value: values.companyName || '',
-        },
-        {
-          name: 'Address',
-          type: 'readonly',
-          value: values.address,
-        },
-        {
-          name: 'Apartment',
-          type: 'readonly',
-          value: values.addressApt || '',
-        },
-        {
-          name: 'City',
-          type: 'readonly',
-          value: values.city,
-        },
-        {
-          name: 'Zip Code',
-          type: 'readonly',
-          value: values.zipCode,
-        }
-      ],
+      customFields,
     });
     await setDayOfWeek(moment(values.date).format('dddd'));
     await setOrderDate(moment(values.date));
@@ -173,6 +189,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
             return errors;
           }}
           render={({ handleSubmit, submitting, values, hasValidationErrors }) => {
+            const isTimePicked = Boolean(values.time);
             const isDatePickedToday = moment(values.date)?.format('L') === moment().format('L');
             const isAfterHours = Number.parseInt(currentCentralHour, 10) > 12;
             const isRecipientDifferent = values.isRecipientDifferent;
@@ -181,7 +198,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
             <form onSubmit={handleSubmit}>
               <Row>
                 <DatePicker
-                  label="Date (Monday - Sunday only)"
+                  label="Date (Monday - Saturday only)"
                   name="date"
                   variant="inline"
                   format="MM-dd"
@@ -203,60 +220,64 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                   <MenuItem disabled={isDatePickedToday && isAfterHours} value={LATE_AFTERNOON_TIME}>12pm - 4pm</MenuItem>
                 </Select>
               </Row>
-              <SingleRow>
-                <TextField label="First and Last Name" name="name"/>
-              </SingleRow>
-              <Row>
-                <TextField label="Phone" name="phone" type="tel"/>
-                <TextField label="Email" name="email" type="email"/>
-              </Row>
-              <Field name="isRecipientDifferent" type="checkbox">
-                {props => (
+              {isTimePicked && (
+                <>
                   <SingleRow>
-                    <CheckBoxContainer>
-                      <Checkbox {...props.input}/>
-                      <CustomFieldLabel>Check this box if the recipient name is different than above</CustomFieldLabel>
-                    </CheckBoxContainer>
+                    <TextField label="First and Last Name" name="name"/>
                   </SingleRow>
-                )}
-              </Field>
-              {isRecipientDifferent && (
-                <Row>
-                  <TextField label="Recipient First and Last Name" name="name"/>
-                  <TextField label="Phone" name="phone" type="tel"/>
-                </Row>
-              )}
-              <SingleRow>
-                <TextField label="Company Name (optional)" name="companyName"/>
-              </SingleRow>
-              <Row>
-                <TextField label="Address" name="address"/>
-                <TextField label="Apt/Suite #" name="addressApt"/>
-              </Row>
-              <Row>
-                <TextField label="City" name="city"/>
-                <TextField label="Zip/Postal Code" name="zipCode"/>
-              </Row>
-              {values.zipCode?.length > 4 && values.time && canDeliver && (
-                <SingleRow>
-                  <DeliveryPrice>Delivery Price: ${deliveryPrice}</DeliveryPrice>
-                </SingleRow>
-              )}
-              {values.zipCode?.length > 4 && !canDeliver && (
-                <SingleRow>
-                  <CannotDeliverText>We're sorry, we cannot deliver to this address</CannotDeliverText>
-                </SingleRow>
-              )}
-              <Field name="isGift" type="checkbox">
-                {props => (
+                  <Row>
+                    <TextField label="Phone" name="phone" type="tel"/>
+                    <TextField label="Email" name="email" type="email"/>
+                  </Row>
+                  <Field name="isRecipientDifferent" type="checkbox">
+                    {props => (
+                      <SingleRow>
+                        <CheckBoxContainer>
+                          <Checkbox {...props.input}/>
+                          <CustomFieldLabel>Check this box if the recipient name is different than above</CustomFieldLabel>
+                        </CheckBoxContainer>
+                      </SingleRow>
+                    )}
+                  </Field>
+                  {isRecipientDifferent && (
+                    <Row>
+                      <TextField label="Recipient First and Last Name" name="recipientName"/>
+                      <TextField label="Recipient Phone" name="recipientPhone" type="tel"/>
+                    </Row>
+                  )}
                   <SingleRow>
-                    <CheckBoxContainer>
-                      <Checkbox {...props.input}/>
-                      <CustomFieldLabel>Check here if this is a  gift</CustomFieldLabel>
-                    </CheckBoxContainer>
+                    <TextField label="Company Name (optional)" name="companyName"/>
                   </SingleRow>
-                )}
-              </Field>
+                  <Row>
+                    <TextField label="Address" name="address"/>
+                    <TextField label="Apt/Suite #" name="addressApt"/>
+                  </Row>
+                  <Row>
+                    <TextField label="City" name="city"/>
+                    <TextField label="Zip/Postal Code" name="zipCode"/>
+                  </Row>
+                  {values.zipCode?.length > 4 && values.time && canDeliver && (
+                    <SingleRow>
+                      <DeliveryPrice>Delivery Price: ${deliveryPrice}</DeliveryPrice>
+                    </SingleRow>
+                  )}
+                  {values.zipCode?.length > 4 && !canDeliver && (
+                    <SingleRow>
+                      <CannotDeliverText>We're sorry, we cannot deliver to this address</CannotDeliverText>
+                    </SingleRow>
+                  )}
+                  <Field name="isGift" type="checkbox">
+                    {props => (
+                      <SingleRow>
+                        <CheckBoxContainer>
+                          <Checkbox {...props.input}/>
+                          <CustomFieldLabel>Check here if this is a  gift</CustomFieldLabel>
+                        </CheckBoxContainer>
+                      </SingleRow>
+                    )}
+                  </Field>
+                </>
+              )}
               <SubmitButton
                 type="submit"
                 disabled={submitting || hasValidationErrors}>
