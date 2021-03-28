@@ -22,8 +22,9 @@ const OrderDeliveryPickup = ({onOptionPress}: Props) => {
         </Option>
         <Option
           onClick={() => onOptionPress('delivery')}
-          bgColor={colors.solids.ORDER_PINK}
-          borderColor={colors.solids.MAIN_MED_BLUE}
+          bgColor={colors.solids.DARK_BLUE}
+          borderColor={colors.solids.ORDER_PINK}
+          textColor={colors.solids.ORDER_PINK}
         >
           <OptionText>Local Chicago &</OptionText>
           <OptionText>Suburb Delivery</OptionText>

@@ -25,7 +25,7 @@ export const OptionsContainer = styled.div`
   }
 `;
 
-export const Option = styled.div<{bgColor: string, borderColor: string}>`
+export const Option = styled.div<{bgColor: string, borderColor: string, textColor: string}>`
   width: 100%;
   height: ${sizing(400)};
   background-color: ${({bgColor}) => bgColor};
@@ -35,7 +35,7 @@ export const Option = styled.div<{bgColor: string, borderColor: string}>`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  color: ${colors.solids.DARK_BLUE};
+  color: ${({textColor}) => textColor ? textColor : colors.solids.DARK_BLUE};
   border: ${({borderColor}) => `solid ${sizing(8)} ${borderColor}`};
   transition: 0.3s opacity;
   @media all and (min-width: 768px) {
