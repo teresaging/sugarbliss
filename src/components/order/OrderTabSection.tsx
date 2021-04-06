@@ -99,9 +99,9 @@ const OrderTabSection = ({
               <>
                 <CategoryTitleWrapper>
                   <CategoryTitle>{data.name}</CategoryTitle>
-                  <DotsContainer ref={dotsContainer}>
-                    {renderDots()}
-                  </DotsContainer>
+                  {/*<DotsContainer ref={dotsContainer}>*/}
+                  {/*  {renderDots()}*/}
+                  {/*</DotsContainer>*/}
                 </CategoryTitleWrapper>
                 {renderCategory({products: data.products, type: isEven ? 'light' : 'dark'})}
               </>
