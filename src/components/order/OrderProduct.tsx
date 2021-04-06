@@ -35,6 +35,7 @@ type Props = {
   customFields?: OrderCustomFields[];
   addItemToCart: Function;
   availableCupcakeFlavors: Cupcake[];
+  availableGlutenFreeCupcakeFlavors: Cupcake[];
   availableMacaronFlavors: Macaron[];
   availableCakePopFlavors: CakePop[];
   availableCookiesFlavors: Cookies[];
@@ -50,6 +51,7 @@ const OrderProduct = ({
   customFields = [],
   addItemToCart,
   availableCupcakeFlavors,
+  availableGlutenFreeCupcakeFlavors,
   availableMacaronFlavors,
   availableCakePopFlavors,
   availableCookiesFlavors,
@@ -148,6 +150,22 @@ const OrderProduct = ({
               <CustomFieldContainer>
                 <Select label="Pick a Flavor" {...props.input}>
                   {availableCupcakeFlavors?.map((flavor, idx) => (
+                    <MenuItem key={idx} value={flavor.name}>{flavor.name}</MenuItem>
+                  ))}
+                </Select>
+              </CustomFieldContainer>
+            )}
+          </Field>
+        )
+        break;
+      }
+      case 'Cupcake Flavors (GF)': {
+        return (
+          <Field name={field.name}>
+            {props => (
+              <CustomFieldContainer>
+                <Select label="Pick a Flavor" {...props.input}>
+                  {availableGlutenFreeCupcakeFlavors?.map((flavor, idx) => (
                     <MenuItem key={idx} value={flavor.name}>{flavor.name}</MenuItem>
                   ))}
                 </Select>
@@ -269,6 +287,9 @@ const OrderProduct = ({
     let flavors = [];
     if (field.type === 'Cupcake Flavors') {
       flavors = availableCupcakeFlavors;
+    }
+    if (field.type === 'Cupcake Flavors (GF)') {
+      flavors = availableGlutenFreeCupcakeFlavors;
     }
     if (field.type === 'Macaron Flavors') {
       flavors = availableMacaronFlavors;

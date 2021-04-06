@@ -22,6 +22,8 @@ export type Cupcake = {
   weekDaysAvailable?: string[];
   seasonalDaysAvailable?: string;
   seasonalDatesAvailable?: SeasonalDate[];
+  isAvailableInGlutenFree?: boolean;
+  isVeganFlavor?: boolean;
 };
 
 export type Macaron = {

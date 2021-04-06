@@ -69,6 +69,7 @@ const OrderPage = ({data}: OrderProps) => {
   const [ orderDate, setOrderDate ] = useState(null);
   const [ activeTabId, setActiveTabId ] = useState(tabsData[0]?.id);
   const [ availableCupcakeFlavors, setAvailableCupcakeFlavors ] = useState([]);
+  const [ availableGlutenFreeCupcakeFlavors, setAvailableGlutenFreeCupcakeFlavors ] = useState([]);
   const [ availableMacaronFlavors, setAvailableMacaronFlavors ] = useState([]);
   const [ availableCakePopFlavors, setAvailableCakePopFlavors ] = useState([]);
   const [ orderFormData, setOrderFormData ] = useState<OrderFormDataType>({
@@ -113,7 +114,7 @@ const OrderPage = ({data}: OrderProps) => {
 
   useEffect(() => {
     const cupcakeFlavors = orderFormData?.cupcakeData?.filter((cupcake) => {
-      if (cupcake.isEverydayFlavor) {
+      if (cupcake.isEverydayFlavor && cupcake.name !== 'Gluten Free' && !cupcake.isVeganFlavor) {
         return true;
       }
 
@@ -131,6 +132,14 @@ const OrderPage = ({data}: OrderProps) => {
       }
 
       if (cupcake.isDaily && cupcake.weekDaysAvailable.includes(dayOfWeek)) {
+        return true;
+      }
+
+      return false;
+    });
+
+    const glutenFreeCupcakeFlavors = orderFormData?.cupcakeData?.filter((cupcake) => {
+      if (cupcake.isEverydayFlavor && cupcake.isAvailableInGlutenFree) {
         return true;
       }
 
@@ -175,6 +184,7 @@ const OrderPage = ({data}: OrderProps) => {
     });
 
     setAvailableCupcakeFlavors(cupcakeFlavors);
+    setAvailableGlutenFreeCupcakeFlavors(glutenFreeCupcakeFlavors);
     setAvailableMacaronFlavors(macaronFlavors);
     setAvailableCakePopFlavors(cakePopFlavors);
   }, [dayOfWeek, orderDate]);
@@ -292,6 +302,7 @@ const OrderPage = ({data}: OrderProps) => {
                productData={data.categories}
                addItemToCart={addItemToCart}
                availableCupcakeFlavors={availableCupcakeFlavors}
+               availableGlutenFreeCupcakeFlavors={availableGlutenFreeCupcakeFlavors}
                availableMacaronFlavors={availableMacaronFlavors}
                availableCakePopFlavors={availableCakePopFlavors}
                availableCookiesFlavors={orderFormData?.cookiesData}
@@ -433,18 +444,6 @@ export const query = graphql`
               }
             }
           }
-          ... on ContentfulOrderProduct {
-            name
-            price
-            description
-            customFields {
-              name
-              type
-              choices
-              isMakeYourOwnFlavor
-              makeYourOwnFlavorsQuantity
-            }
-          }
         }
       }
     }
@@ -461,6 +460,8 @@ export const query = graphql`
         isDaily
         weekDaysAvailable
         isEverydayFlavor
+        isAvailableInGlutenFree
+        isVeganFlavor
       }
     }
     allContentfulMacaron {

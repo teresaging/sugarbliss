@@ -16,6 +16,7 @@ type Props = {
   isHidden: boolean;
   addItemToCart: Function;
   availableCupcakeFlavors: Cupcake[];
+  availableGlutenFreeCupcakeFlavors: Cupcake[];
   availableMacaronFlavors: Macaron[];
   availableCakePopFlavors: CakePop[];
   availableCookiesFlavors: Cookies[];
@@ -28,6 +29,7 @@ const OrderTabSection = ({
    isHidden,
    addItemToCart,
    availableCupcakeFlavors = [],
+   availableGlutenFreeCupcakeFlavors = [],
    availableMacaronFlavors = [],
    availableCakePopFlavors = [],
    availableCookiesFlavors = [],
@@ -74,6 +76,7 @@ const OrderTabSection = ({
             customFields={product.customFields}
             addItemToCart={addItemToCart}
             availableCupcakeFlavors={availableCupcakeFlavors}
+            availableGlutenFreeCupcakeFlavors={availableGlutenFreeCupcakeFlavors}
             availableMacaronFlavors={availableMacaronFlavors}
             availableCakePopFlavors={availableCakePopFlavors}
             availableCookiesFlavors={availableCookiesFlavors}
@@ -89,7 +92,6 @@ const OrderTabSection = ({
     <CategoriesContainer style={{display: isHidden ? 'none' : 'block'}}>
       {productData?.map((data, idx) => {
         const isEven = idx % 2 === 0;
-        console.log('isEven');
 
         return (
           <CategoryWrapper key={idx}>
@@ -114,6 +116,7 @@ const OrderTabSection = ({
                   customFields={data.customFields}
                   addItemToCart={addItemToCart}
                   availableCupcakeFlavors={availableCupcakeFlavors}
+                  availableGlutenFreeCupcakeFlavors={availableGlutenFreeCupcakeFlavors}
                   availableMacaronFlavors={availableMacaronFlavors}
                   availableCakePopFlavors={availableCakePopFlavors}
                   availableCookiesFlavors={availableCookiesFlavors}
