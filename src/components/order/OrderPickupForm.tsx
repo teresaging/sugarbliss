@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from 'react-final-form';
-import { DatePicker, Select } from 'mui-rff';
+import { DatePicker, Select, TextField } from 'mui-rff';
 import { MenuItem } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import moment from 'moment';
@@ -36,6 +36,11 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
           name: 'Time',
           type: 'readonly',
           value: values.time,
+        },
+        {
+          name: 'Phone',
+          type: 'readonly',
+          value: values.phone,
         }
       ],
     })
@@ -195,6 +200,9 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
                   >
                     {renderDates(values.date)}
                   </Select>
+                </Row>
+                <Row>
+                  <TextField label="Phone" name="phone" type="tel"/>
                 </Row>
                 <SubmitButton
                   type="submit"

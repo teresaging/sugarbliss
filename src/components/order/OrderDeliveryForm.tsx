@@ -80,6 +80,16 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
         value: values.name,
       },
       {
+        name: 'Phone',
+        type: 'readonly',
+        value: values.phone,
+      },
+      {
+        name: 'Email',
+        type: 'readonly',
+        value: values.email,
+      },
+      {
         name: 'Recipient Name',
         type: 'readonly',
         value: values.recipientName || '',
