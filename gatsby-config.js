@@ -22,11 +22,11 @@ const snipCartBillingHTML = `
             <div>
               <item-quantity
                   class="snipcart-item-line__quantity"
-                  v-if="item.id !== 'pickup' && item.id !== 'local delivery'"
+                  v-if="item.id !== 'pickup' && item.name !== 'Delivery'"
               />
             </div>
           </div>
-          <remove-item-action v-if="item.id !== 'pickup' && item.id !== 'local delivery'" class="snipcart__button--icon">
+          <remove-item-action v-if="item.id !== 'pickup' && item.name !== 'Delivery'" class="snipcart__button--icon">
                 <icon
                     name="trash"
                     class="snipcart__icon--red"
