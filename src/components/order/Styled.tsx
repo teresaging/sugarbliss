@@ -18,15 +18,14 @@ export const OptionsContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 40vh;
   @media all and (min-width: 992px) {
-     flex-direction: row;
+    height: 40vh;
+    flex-direction: row;
   }
 `;
 
 export const Option = styled.div<{bgColor: string, borderColor: string, textColor: string}>`
   width: 100%;
-  height: ${sizing(400)};
   background-color: ${({bgColor}) => bgColor};
   margin: ${sizing(5)} 0;
   border-radius: ${sizing(20)};
@@ -37,10 +36,14 @@ export const Option = styled.div<{bgColor: string, borderColor: string, textColo
   color: ${({textColor}) => textColor ? textColor : colors.solids.DARK_BLUE};
   border: ${({borderColor}) => `solid ${sizing(8)} ${borderColor}`};
   transition: 0.3s opacity;
+  padding-top: ${sizing(20)};
+  padding-bottom: ${sizing(20)};
   @media all and (min-width: 768px) {
     width: ${sizing(350)};
     height: ${sizing(200)};
     margin: ${sizing(20)} 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
     @media all and (min-width: 992px) {
      margin: 0 ${sizing(20)};

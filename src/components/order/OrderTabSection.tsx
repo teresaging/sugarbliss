@@ -38,30 +38,30 @@ const OrderTabSection = ({
 }: Props) => {
 
   const dotsContainer = useRef(null);
-  const { width } = useResize(dotsContainer)
+  // const { width } = useResize(dotsContainer)
 
-  const renderDots = () => {
-    const dotsWidth = width || dotsContainer?.current?.offsetWidth;
-    const amountOfDotsToRender = (dotsWidth ? dotsWidth / DOTS_SIZE : 1) || 1;
-    const dots = [];
-    for (let i = 0; i < amountOfDotsToRender - 1; i++) {
-      dots.push(
-        <>
-          <Dot key={`${i}-1`} color={colors.solids.BROWN} />
-          <Dot key={`${i}-2`} color={colors.solids.MAIN_MED_BLUE} />
-          <Dot key={`${i}-3`} color={colors.solids.MAIN_MED_PINK} />
-          <Dot key={`${i}-4`} color={colors.solids.MAIN_LIGHT_PINK} />
-          <Dot key={`${i}-5`} color={colors.solids.DARK_BLUE}/>
-        </>
-      );
-    }
-
-    return (
-      <>
-        {dots}
-      </>
-    )
-  }
+  // const renderDots = () => {
+  //   const dotsWidth = width || dotsContainer?.current?.offsetWidth;
+  //   const amountOfDotsToRender = (dotsWidth ? dotsWidth / DOTS_SIZE : 1) || 1;
+  //   const dots = [];
+  //   for (let i = 0; i < amountOfDotsToRender - 1; i++) {
+  //     dots.push(
+  //       <>
+  //         <Dot key={`${i}-1`} color={colors.solids.BROWN} />
+  //         <Dot key={`${i}-2`} color={colors.solids.MAIN_MED_BLUE} />
+  //         <Dot key={`${i}-3`} color={colors.solids.MAIN_MED_PINK} />
+  //         <Dot key={`${i}-4`} color={colors.solids.MAIN_LIGHT_PINK} />
+  //         <Dot key={`${i}-5`} color={colors.solids.DARK_BLUE}/>
+  //       </>
+  //     );
+  //   }
+  //
+  //   return (
+  //     <>
+  //       {dots}
+  //     </>
+  //   )
+  // }
 
   const renderCategory = ({products, type}) => {
     return (
