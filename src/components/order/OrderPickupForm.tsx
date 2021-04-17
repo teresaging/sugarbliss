@@ -50,10 +50,15 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
   }
 
   const handleMinDate = () => {
-    if (Number(CST_CURRENT_DATE_TIME.hour()) > 12) {
+    if (Number(CST_CURRENT_DATE_TIME.hour()) > 12 && Number(CST_CURRENT_DATE_TIME.hour()) < 14) {
       const nextDay = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })).add(1, 'day');
-
       return nextDay;
+    }
+
+    if (Number(CST_CURRENT_DATE_TIME.hour()) > 14) {
+      const next2Days = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })).add(2, 'day');
+
+      return next2Days;
     }
 
     return CST_CURRENT_DATE_TIME;
@@ -65,7 +70,7 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
     const isCurrentDateNightBefore = (Number(CST_CURRENT_DATE_TIME.date()) + 1 === Number(selectedDate.date())) && Number(CST_CURRENT_DATE_TIME.hour()) > 16;
     const isSameDayBefore11 = isSameDay && Number(CST_CURRENT_DATE_TIME.hour()) < 11;
     const isSameDay11 = isSameDay && Number(CST_CURRENT_DATE_TIME.hour()) === 11;
-    const isWeekend = selectedDate.format('dddd') === 'Saturday' || selectedDate.format('dddd') === 'Sunday'
+    const isWeekend = selectedDate.format('dddd') === 'Saturday' || selectedDate.format('dddd') === 'Sunday';
 
     let datesArray = [];
     if (isSameDayBefore11) {

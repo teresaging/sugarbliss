@@ -25,6 +25,8 @@ import {
 const LATE_AFTERNOON_TIME = '12pm-4pm';
 
 const currentCentralHour = moment().format('H');
+const CST_CURRENT_DATE_TIME = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
+
 
 export const disableSundays = (date) => {
   return date.getDay() === 0;
@@ -34,11 +36,17 @@ type Values = {
   date: Date | string;
   time: string;
   name: string;
+  phone: number;
+  email: string;
   companyName?: string;
+  recipientName?: string;
+  recipientPhone?: string;
   address: string;
   addressApt?: string;
   city: string;
   zipCode: string;
+  isGift?: boolean;
+  isRecipientDifferent?: boolean;
 }
 
 type Errors = {
@@ -155,6 +163,21 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
     return SuburbDeliveryZipCodePrices[zipCode]?.day || null;
   }
 
+  const handleMinDate = () => {
+    if (Number(CST_CURRENT_DATE_TIME.hour()) > 12 && Number(CST_CURRENT_DATE_TIME.hour()) < 14) {
+      const nextDay = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })).add(1, 'day');
+      return nextDay;
+    }
+
+    if (Number(CST_CURRENT_DATE_TIME.hour()) > 14) {
+      const next2Days = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })).add(2, 'day');
+
+      return next2Days;
+    }
+
+    return CST_CURRENT_DATE_TIME;
+  }
+
   return (
     <Container>
       <Title marginBottom={0}>Local Delivery</Title>
@@ -201,7 +224,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
           render={({ handleSubmit, submitting, values, hasValidationErrors }) => {
             const isTimePicked = Boolean(values.time);
             const isDatePickedToday = moment(values.date)?.format('L') === moment().format('L');
-            const isAfterHours = Number.parseInt(currentCentralHour, 10) > 12;
+            const isAfterHours = Number.parseInt(currentCentralHour, 10) > 16;
             const isRecipientDifferent = values.isRecipientDifferent;
 
             return (
@@ -214,7 +237,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                   format="MM-dd"
                   dateFunsUtils={DateFnsUtils}
                   shouldDisableDate={disableSundays}
-                  minDate={Date()}
+                  minDate={handleMinDate()}
                   disablePast
                   allowKeyboardControl
                   required
