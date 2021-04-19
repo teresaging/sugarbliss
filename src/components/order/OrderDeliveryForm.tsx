@@ -256,11 +256,11 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
               {isTimePicked && (
                 <>
                   <SingleRow>
-                    <TextField label="First and Last Name" name="name"/>
+                    <TextField label="Your First and Last Name" name="name"/>
                   </SingleRow>
                   <Row>
-                    <TextField label="Phone" name="phone" type="tel"/>
-                    <TextField label="Email" name="email" type="email"/>
+                    <TextField label="Your Phone #" name="phone" type="tel"/>
+                    <TextField label="Your Email" name="email" type="email"/>
                   </Row>
                   <Field name="isRecipientDifferent" type="checkbox">
                     {props => (
