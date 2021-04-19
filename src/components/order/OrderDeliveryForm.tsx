@@ -20,6 +20,7 @@ import {
   CannotDeliverText,
   CustomFieldLabel,
   CheckBoxContainer,
+  Disclaimer,
 } from './Styled';
 
 const LATE_AFTERNOON_TIME = '12pm-4pm';
@@ -164,24 +165,21 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
   }
 
   const handleMinDate = () => {
-    if (Number(CST_CURRENT_DATE_TIME.hour()) > 12 && Number(CST_CURRENT_DATE_TIME.hour()) < 14) {
-      const nextDay = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })).add(1, 'day');
-      return nextDay;
-    }
-
-    if (Number(CST_CURRENT_DATE_TIME.hour()) > 14) {
+    if (Number(CST_CURRENT_DATE_TIME.hour()) > 21) {
       const next2Days = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })).add(2, 'day');
 
       return next2Days;
     }
+    const nextDay = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })).add(1, 'day');
 
-    return CST_CURRENT_DATE_TIME;
+    return nextDay;
   }
 
   return (
     <Container>
       <Title marginBottom={0}>Local Delivery</Title>
       <SubTitle>(Monday - Saturday only)</SubTitle>
+      <Disclaimer>*for same day deliveries please call <a href="tel:312-845-9669">312-845-9669</a></Disclaimer>
       <FormContainer bgColor={colors.solids.BABY_PINK}>
         <Form
           onSubmit={handleSubmit}

@@ -75,13 +75,19 @@ export const Container = styled.div`
 
 export const SubTitle = styled.p`
   ${fonts.mediumText['100']};
-  margin-bottom: ${sizing(20)};
+  margin-bottom: ${sizing(5)};
   text-align: center;
   @media all and (min-width: 768px) {
     ${fonts.mediumText['500']};
-    margin-bottom: ${sizing(50)};
+    margin-bottom: ${sizing(15)};
   }
 `;
+
+export const Disclaimer = styled.p`
+  ${fonts.regularText['200']};
+  margin-bottom: ${sizing(20)};
+  
+`
 
 export const FormContainer = styled.div<{bgColor: string}>`
   max-width: 1000px;
