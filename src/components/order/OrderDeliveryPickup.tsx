@@ -1,6 +1,6 @@
 import React from 'react';
 import { colors } from '../../utils';
-import { Title, OptionsContainer, Option, OptionText } from './Styled';
+import { Title, OptionsContainer, Option, OptionText, SubTitle } from './Styled';
 
 type Props = {
   onOptionPress: Function;
@@ -32,6 +32,7 @@ const OrderDeliveryPickup = ({onOptionPress}: Props) => {
           <OptionText>(Monday - Saturday)</OptionText>
         </Option>
       </OptionsContainer>
+      <SubTitle>We ship Nationwide, please give us a call to place your order <a href="tel:312-845-9669">312-845-9669</a> option 5.</SubTitle>
     </>
   );
 }

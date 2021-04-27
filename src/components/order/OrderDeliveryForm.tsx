@@ -48,6 +48,7 @@ type Values = {
   zipCode: string;
   isGift?: boolean;
   isRecipientDifferent?: boolean;
+  giftMessage?: string;
 }
 
 type Errors = {
@@ -137,6 +138,11 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
         name: 'Is Gift?',
         type: 'readonly',
         value: values.isGift || false,
+      },
+      {
+        name: 'Gift Message',
+        type: 'readonly',
+        value: values.giftMessage || false,
       },
     ]
     await addItemToCart({
@@ -307,6 +313,11 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                       </SingleRow>
                     )}
                   </Field>
+                  {values.isGift && (
+                    <SingleRow>
+                      <TextField label="Gift Message" name="giftMessage"/>
+                    </SingleRow>
+                  )}
                 </>
               )}
               <SubmitButton
