@@ -31,7 +31,7 @@ const BarsBrowniesPage = ({data}: BarsBrowniesPageProps) => {
         <Price>$4 Each | $44 per Dozen</Price>
       </PricesContainer>
       <Content>
-        <ProductList title="Flavors" flavors={products} />
+        <ProductList flavors={products} />
       </Content>
       <OrderFooter backgroundImage={data.barsBrowniesFooterImage} />
     </Layout>
@@ -45,7 +45,7 @@ const Content = styled.div`
     margin: ${sizing(100)} auto ${sizing(75)} auto;
   }
   @media all and (min-width: 992px) {
-    width: 75%;
+    width: 90%;
   }
 `;
 
