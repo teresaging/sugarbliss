@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-contentful-typescript",
-  "description": "Gatsby Contentful TypeScript starter",
+  "name": "Sugar Bliss Cakes",
+  "description": "Sugar Bliss is an independent woman minority owned bakery in downtown Chicago.",
   "version": "1.0.0",
-  "author": "Filip Havrlent <filip@havrlent.com>",
+  "author": "Merissa Acosta",
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@contentful/rich-text-react-renderer": "^14.1.2",
