@@ -1,7 +1,7 @@
 import React from 'react';
 import { FluidObject } from 'gatsby-image';
 import Layout from '../components/layout';
-import { graphql, PageProps } from 'gatsby';
+import { graphql, PageProps, Link } from 'gatsby';
 import styled from '@emotion/styled';
 
 import { ProductHeader, ProductList, fonts } from '../design-system';
@@ -84,6 +84,9 @@ const MorningPastriesPage = ({data}: MorningPastriesProps) => {
           ))}
         </OtherTreatsContainer>
       )}
+      <Disclaimer>
+        See <Link to={'/catering'}>Catering</Link> for more Breakfast Catering options
+      </Disclaimer>
     </Layout>
   );
 }
@@ -130,7 +133,7 @@ const OtherTreatsContainer = styled.div`
   align-items: center;
   text-align: center;
   @media all and (min-width: 768px) {
-    margin: ${sizing(75)} auto ${sizing(75)} auto;
+    margin: 0 auto ${sizing(75)} auto;
   }
   @media all and (min-width: 992px) {
      width: 50%;
@@ -166,6 +169,12 @@ const OtherTreatsPrice = styled.p`
     ${fonts.regularText['300']};
   }
 `
+
+const Disclaimer = styled.p`
+  ${fonts.regularText['300']};
+  text-align: center;
+  margin-bottom: ${sizing(30)};
+`;
 
 export const query = graphql`
 query MorningPastriesQuery {
