@@ -64,7 +64,7 @@ type Props = {
 
 const SLIDER_SETTINGS = {
   arrows: true,
-  autoplay: false,
+  autoplay: true,
   autoplaySpeed: 3000,
   dots: true,
   infinite: true,
