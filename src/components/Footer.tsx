@@ -34,7 +34,7 @@ const Footer = ({logo, WBELogo, NMSDCLogo}: Props) => {
           <NMSDCLogoImg fluid={NMSDCLogo} />
         </CertifiedLogosContainer>
         <SocialMediaIconsWrapper>
-          <a href="https://www.facebook.com/sugarblisscake/" target="_blank"><Facebook fill="white" strokeWidth={0} size={25} /></a>
+          <a href="https://www.facebook.com/sugarblisscakes/" target="_blank"><Facebook fill="white" strokeWidth={0} size={25} /></a>
           <a href="https://www.instagram.com/sugarblisscakes/" target="_blank"><Instagram  size={25} /></a>
           <a href="https://twitter.com/sugarblisscakes" target="_blank"><Twitter fill="white" strokeWidth={0}  size={25} /></a>
         </SocialMediaIconsWrapper>
