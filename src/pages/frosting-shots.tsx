@@ -27,10 +27,9 @@ const FrostingShots = ({data}: FrostingShotsProps) => {
   return (
     <Layout>
       <ProductHeader productName="Frosting Shots" backgroundImage={data.frostingShotsImage} underlineImage={data.underlineImage} />
-      <PriceSection>
+      <PricesContainer>
         <Price>Price: ${frostingData.price}</Price>
-        <Underline />
-      </PriceSection>
+      </PricesContainer>
       <FlavorsSection>
         <FlavorsTitle>
           Flavors:
@@ -39,16 +38,16 @@ const FrostingShots = ({data}: FrostingShotsProps) => {
           <Flavor key={idx}>{flavor}</Flavor>
         ))}
       </FlavorsSection>
+      <Disclaimer>(Flavors rotate daily)</Disclaimer>
     </Layout>
   );
 };
 
-const PriceSection = styled.div`
+const PricesContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   background-color: ${colors.solids.BABY_BLUE};
   padding: ${sizing(20)} 0;
   margin: ${sizing(20)} 0;
@@ -58,19 +57,14 @@ const PriceSection = styled.div`
   }
 `;
 
-const Price = styled.div`
-  ${fonts.boldText['200']};
+const Price = styled.p`
+  ${fonts.mediumText['200']};
+  color: ${colors.solids.BROWN};
+  margin-bottom: 0;
   text-align: center;
   @media all and (min-width: 768px) {
-    ${fonts.boldText['600']};
+    ${fonts.mediumText['500']};
   }
-`;
-
-const Underline = styled.hr`
-  border-top: 2px solid ${colors.solids.BROWN};
-  width: ${sizing(40)};
-  margin-top: ${sizing(7)};
-  margin-bottom: 0;
 `;
 
 const FlavorsSection = styled.div`
@@ -101,6 +95,12 @@ const Flavor = styled.p`
   @media all and (min-width: 768px) {
     ${fonts.regularText['400']};
   }
+`;
+
+const Disclaimer = styled.p`
+  ${fonts.regularText['300']};
+  text-align: center;
+  margin-bottom: ${sizing(30)};
 `;
 
 export default FrostingShots;

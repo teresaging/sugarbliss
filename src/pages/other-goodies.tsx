@@ -22,10 +22,10 @@ type OtherGoodiesQueryProps = {
 
 type OtherGoodiesPageProps = PageProps<OtherGoodiesQueryProps>;
 
-const renderSection = ({title = '', flavors, price = 0}) => {
+const renderSection = ({title = '', flavors, price = 0, description = null}) => {
   return (
     <Section>
-      <ProductList price={price} title={title} flavors={flavors} />
+      <ProductList price={price} title={title} flavors={flavors} description={description} />
     </Section>
   )
 }
@@ -42,7 +42,7 @@ const OtherGoodiesPage = ({data}: OtherGoodiesPageProps) => {
         <ProductHeader backgroundImage={data.otherGoodiesHeaderImage} underlineImage={data.underlineImage} productName="Other Goodies" />
       </HeaderContainer>
       <Content>
-        {Boolean(biscottiFlavors) && renderSection({title: 'Biscottis', flavors: biscottiFlavors, price: 4.50})}
+        {Boolean(biscottiFlavors) && renderSection({title: 'Biscottis', flavors: biscottiFlavors, price: 4.75, description: '(flavors rotate)'})}
         {Boolean(granolaBarsFlavors) && renderSection({flavors: granolaBarsFlavors})}
         {Boolean(otherFlavors) && renderSection({flavors: otherFlavors})}
       </Content>
