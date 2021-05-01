@@ -41,7 +41,7 @@ const ProductList = ({title, description, price, dozenPrice, flavors}: Props) =>
             <FlavorContainer key={idx}>
               <FlavorName>{flavor.name}</FlavorName>
               {Boolean(flavor.price) && Boolean(flavor.dozenPrice) ? (
-                <FlavorPrice>Single: ${displayPrice(flavor.price)} | Dozen: ${displayPrice(flavor.dozenPrice)}</FlavorPrice> )
+                <FlavorPrice>Single: {displayPrice(flavor.price)} | Dozen: {displayPrice(flavor.dozenPrice)}</FlavorPrice> )
                 : flavor.price ? (<FlavorPrice>{displayPrice(flavor.price)}</FlavorPrice>) : null }
               {Boolean(flavor.description) && (<FlavorDescription>{flavor.description}</FlavorDescription>)}
               {Boolean(flavor.customPrice) && (<FlavorPrice>Custom price starts at: {displayPrice(flavor.customPrice)}</FlavorPrice>)}
