@@ -194,3 +194,11 @@ export type ProductPage = {
     }
   };
 }
+
+export type HomePageContent = {
+  description: { // this is contentful being annoying
+    internal: {
+      content: string;
+    };
+  }
+}

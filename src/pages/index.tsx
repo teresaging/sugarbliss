@@ -7,6 +7,7 @@ import HomepageProducts from '../components/HomepageProducts';
 
 import { sizing, colors } from '../utils';
 import { Button, fonts } from '../design-system';
+import { HomePageContent } from '../sharedTypes';
 
 import { SlideTypes } from '../components/HomepageHero';
 
@@ -17,6 +18,9 @@ type FluidImage = { childImageSharp: {fluid: FluidObject} };
 type IndexQueryProps = {
   allContentfulHomepageHero: {
     edges: SlideTypes[]
+  };
+  allContentfulHomePage: {
+    nodes: HomePageContent[]
   };
   aboutBackgroundImage: FluidImage;
   productCupcakeImage: FluidImage;
@@ -109,7 +113,7 @@ const IndexPage = ({data}: IndexProps) => {
       <Layout>
         <HomepageHero isMobile={isMobile} slideData={data.allContentfulHomepageHero.edges} />
         <Intro backgroundImage={data.aboutBackgroundImage.childImageSharp.fluid.src}>
-          <p>Sugar Bliss is an independent woman minority owned bakery in downtown Chicago. Sugar Bliss offers a wide variety of baked goods including morning pastries, cupcakes, cake pops, French macarons, brownies, cookies, and more. Sugar Bliss bakes everything on site and from scratch using only the highest quality, natural ingredients, such as European Cocoa, Nielsen Massey vanilla, and real fruits. Sugar Bliss provides catering to corporate events, office meetings, and a variety of celebrations including birthdays, retirement, weddings, and bridal and baby showers.</p>
+          <p>{data?.allContentfulHomePage?.nodes[0]?.description?.internal?.content}</p>
         </Intro>
         <HomepageProducts isMobile={isMobile} products={productSectionData} />
         <OrderOnline>
@@ -210,6 +214,15 @@ query HomeQuery {
           file {
             url
           }
+        }
+      }
+    }
+  }
+  allContentfulHomePage(limit: 1) {
+    nodes {
+      description {
+        internal {
+          content
         }
       }
     }
