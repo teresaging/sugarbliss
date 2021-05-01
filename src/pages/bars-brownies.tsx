@@ -4,8 +4,8 @@ import { FluidObject } from 'gatsby-image';
 import { graphql, PageProps } from 'gatsby';
 
 import Layout from '../components/layout';
-import { ProductHeader, ProductList, OrderFooter } from '../design-system';
-import { sizing } from '../utils';
+import { ProductHeader, ProductList, OrderFooter, fonts } from '../design-system';
+import { colors, sizing } from '../utils';
 import { BarsBrownies } from '../sharedTypes';
 
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
@@ -27,8 +27,11 @@ const BarsBrowniesPage = ({data}: BarsBrowniesPageProps) => {
   return (
     <Layout>
       <ProductHeader productName="Bars & Brownies" backgroundImage={data.barsBrowniesHeaderImage} underlineImage={data.underlineImage}  />
+      <PricesContainer>
+        <Price>$4 Each | $44 per Dozen</Price>
+      </PricesContainer>
       <Content>
-        <ProductList price={4} dozenPrice={44} title="Flavors" flavors={products} />
+        <ProductList title="Flavors" flavors={products} />
       </Content>
       <OrderFooter backgroundImage={data.barsBrowniesFooterImage} />
     </Layout>
@@ -43,6 +46,30 @@ const Content = styled.div`
   }
   @media all and (min-width: 992px) {
     width: 75%;
+  }
+`;
+
+const PricesContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.solids.BABY_BLUE};
+  padding: ${sizing(20)} 0;
+  margin: ${sizing(20)} 0;
+  @media all and (min-width: 768px) {
+    padding: ${sizing(40)} 0;
+    margin: ${sizing(50)} 0;
+  }
+`;
+
+const Price = styled.p`
+  ${fonts.mediumText['200']};
+  color: ${colors.solids.BROWN};
+  margin-bottom: 0;
+  text-align: center;
+  @media all and (min-width: 768px) {
+    ${fonts.mediumText['500']};
   }
 `;
 
