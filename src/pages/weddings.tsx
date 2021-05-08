@@ -45,7 +45,7 @@ const WeddingsPage = ({data}: WeddingsPageProps) => {
                 Mini {title}
               </MultiplePriceType>
               <MultiplePrice>
-                ${price} {priceAmount}
+                ${miniPrice} {priceAmount}
               </MultiplePrice>
             </div>
           </MultiplePriceWrapper>
@@ -220,7 +220,7 @@ const FlavorList = styled.p`
   text-align: center;
   margin-top: ${sizing(20)};
   @media all and (min-width: 768px) {
-    ${fonts.regularText['200']};
+    ${fonts.regularText['400']};
   }
 `;
 
@@ -232,7 +232,7 @@ const ProductInfo = styled.p`
  ${fonts.regularText['100']};
  text-align: center;
   @media all and (min-width: 768px) {
-    ${fonts.regularText['300']};
+    ${fonts.regularText['400']};
   }
 `;
 
