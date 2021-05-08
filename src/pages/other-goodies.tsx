@@ -22,10 +22,10 @@ type OtherGoodiesQueryProps = {
 
 type OtherGoodiesPageProps = PageProps<OtherGoodiesQueryProps>;
 
-const renderSection = ({title = '', flavors, price = 0, description = null}) => {
+const renderSection = ({title = '', flavors = [], price = 0, description = null, makeFlavorsCursive = false}) => {
   return (
     <Section>
-      <ProductList price={price} title={title} flavors={flavors} description={description} />
+      <ProductList price={price} title={title} flavors={flavors} description={description} makeFlavorsCursive={makeFlavorsCursive}/>
     </Section>
   )
 }
@@ -43,8 +43,8 @@ const OtherGoodiesPage = ({data}: OtherGoodiesPageProps) => {
       </HeaderContainer>
       <Content>
         {Boolean(biscottiFlavors) && renderSection({title: 'Biscottis', flavors: biscottiFlavors, price: 4.75, description: '(flavors rotate)'})}
-        {Boolean(granolaBarsFlavors) && renderSection({flavors: granolaBarsFlavors})}
-        {Boolean(otherFlavors) && renderSection({flavors: otherFlavors})}
+        {Boolean(granolaBarsFlavors) && renderSection({flavors: granolaBarsFlavors, makeFlavorsCursive: true})}
+        {Boolean(otherFlavors) && renderSection({flavors: otherFlavors, makeFlavorsCursive: true})}
       </Content>
       <OrderFooter backgroundImage={data.otherGoodiesFooterImage} />
     </Layout>

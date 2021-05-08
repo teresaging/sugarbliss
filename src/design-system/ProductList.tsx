@@ -20,9 +20,10 @@ type Props = {
   price?: number;
   dozenPrice?: number;
   flavors: flavor[];
+  makeFlavorsCursive?: boolean;
 }
 
-const ProductList = ({title, description, price, dozenPrice, flavors}: Props) => {
+const ProductList = ({title, description, price, dozenPrice, flavors, makeFlavorsCursive = false}: Props) => {
 
   return (
     <ProductListContainer>
@@ -39,7 +40,7 @@ const ProductList = ({title, description, price, dozenPrice, flavors}: Props) =>
         {
           flavors.map((flavor, idx) => (
             <FlavorContainer key={idx}>
-              <FlavorName>{flavor.name}</FlavorName>
+              {makeFlavorsCursive ? <Title>{flavor.name}</Title> : <FlavorName>{flavor.name}</FlavorName>}
               {Boolean(flavor.price) && Boolean(flavor.dozenPrice) ? (
                 <FlavorPrice>Single: {displayPrice(flavor.price)} | Dozen: {displayPrice(flavor.dozenPrice)}</FlavorPrice> )
                 : flavor.price ? (<FlavorPrice>{displayPrice(flavor.price)}</FlavorPrice>) : null }
