@@ -60,7 +60,7 @@ const CateringPage = ({data}: CateringPageProps) => {
           Let Sugar Bliss cater your next meeting, party, or event!
         </MenuTitle>
         <ButtonContainer>
-          <Button url="/order" text="Catering Menu" size="XLARGE" />
+          <Button url="/order" text="Ordering Catering" size="XLARGE" />
         </ButtonContainer>
       </MenuSection>
       <Content>
@@ -145,9 +145,9 @@ const CateringPage = ({data}: CateringPageProps) => {
           <SectionTitle>
             Ordering Details
           </SectionTitle>
-          <Text>
+          <CustomInformation>
             Catering is available Monday-Saturday, all orders must be placed by 12pm the day before and by 12pm Friday for all Monday orders. Delivery available 9am-4pm (Monday-Friday) and 10am-4pm (Saturday). Delivery fees are as quoted when order is placed. All prices are before tax.
-          </Text>
+          </CustomInformation>
         </OrderingDetails>
       </Content>
       <OrderFooter backgroundImage={data.cateringFooterImage} />
