@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { graphql, PageProps } from 'gatsby';
-import Img, { FluidObject } from 'gatsby-image';
-import { Modal } from '@material-ui/core';
+import { FluidObject } from 'gatsby-image';
 
 import Layout from '../components/layout'
 import CupcakeDailyFlavors from '../components/CupcakeDailyFlavors';
@@ -63,16 +62,6 @@ const CupcakesPage = ({data}: CupcakeProps) => {
 
   return (
     <Layout>
-      {/*<Modal*/}
-      {/*  open={isModalOpen}*/}
-      {/*  onClose={() => setIsModalOpen(false)}*/}
-      {/*  aria-labelledby="modal-title"*/}
-      {/*  aria-describedby="modal-description"*/}
-      {/*>*/}
-      {/*  <div>*/}
-      {/*    <FlavorChartImage src={flavorChartUrl} />*/}
-      {/*  </div>*/}
-      {/*</Modal>*/}
       <ProductHeader
         productName="Cupcakes"
         backgroundImage={data.cupcakesHeaderImage}
@@ -80,9 +69,9 @@ const CupcakesPage = ({data}: CupcakeProps) => {
         leftContent={handleLeftHeaderContent()}
         rightContent={handleRightHeaderContent()}
       />
-      {/*<DailyMenuSection>*/}
-      {/*  <Button onClick={() => setIsModalOpen(true)} text="View Daily Menu" size="XLARGE"/>*/}
-      {/*</DailyMenuSection>*/}
+      <DailyMenuSection>
+        <Button url={flavorChartUrl} text="View Daily Menu" size="XLARGE" openInNewTab/>
+      </DailyMenuSection>
       <SeasonalProductCarousel products={seasonalCupcakes} />
       <ProductsList products={everyDayCupcakes} />
       <CupcakeDailyFlavors cupcakes={dailyCupcakes}/>
@@ -117,12 +106,6 @@ const DailyMenuSection = styled.div`
     padding: ${sizing(40)} 0;
     margin: ${sizing(50)} 0;
   }
-`;
-
-const FlavorChartImage = styled.img`
-  width: 100%;
-  max-width: ${sizing(500)};
-  height: auto;
 `;
 
 const HeaderLeftContent = styled.div`
