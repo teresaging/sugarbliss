@@ -131,6 +131,11 @@ export type Store = {
     // tslint:disable-next-line:no-any
     json: any;
   }
+  storeMap: {
+    file: {
+      url: string;
+    }
+  }
 }
 
 export type About = {

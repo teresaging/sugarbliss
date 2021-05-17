@@ -42,6 +42,7 @@ const options = {
 const StorePage = ({data}: StorePageProps) => {
 
   const hoursData = data.allContentfulStore.nodes[0].childContentfulStoreHoursRichTextNode;
+  const storeImageUrl = data.allContentfulStore.nodes[0].storeMap.file.url;
 
   return (
     <Layout>
@@ -54,7 +55,7 @@ const StorePage = ({data}: StorePageProps) => {
             </Hours>
          </HoursContainer>
          <MapContainer>
-          <Image fluid={data.storeMapImage.childImageSharp.fluid} />
+          <Image src={storeImageUrl} />
          </MapContainer>
        </Content>
     </Layout>
@@ -92,7 +93,7 @@ const MapContainer = styled.div`
   margin: auto;
 `;
 
-const Image = styled(Img)`
+const Image = styled.img`
   width: 100%;
   height: auto;
 `;
@@ -129,6 +130,11 @@ export const query = graphql`
         }
         childContentfulStoreHoursRichTextNode {
           json
+        }
+        storeMap {
+          file {
+            url
+          }
         }
       }
     }
