@@ -89,6 +89,7 @@ export type Cookies = {
 export type BarsBrownies = {
   name: string;
   description?: string;
+  type: string;
 }
 
 export type OtherGoodies = {

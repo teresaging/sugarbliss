@@ -22,7 +22,18 @@ type BarsBrowniesQueryProps = {
 type BarsBrowniesPageProps = PageProps<BarsBrowniesQueryProps>;
 
 const BarsBrowniesPage = ({data}: BarsBrowniesPageProps) => {
-  const products = data.allContentfulBarsAndBrownies.nodes;
+  const everydayFlavors = data.allContentfulBarsAndBrownies.nodes.filter((flavor) => flavor.type === 'everyday');
+  const rotatingFlavors = data.allContentfulBarsAndBrownies.nodes.filter((flavor) => flavor.type === 'rotating');
+
+
+  const renderSection = ({title = '', flavors}) => {
+    return (
+      <Section>
+        <ProductList title={title} flavors={flavors} />
+      </Section>
+    )
+  }
+
 
   return (
     <Layout>
@@ -31,7 +42,10 @@ const BarsBrowniesPage = ({data}: BarsBrowniesPageProps) => {
         <Price>$4 Each | $44 per Dozen</Price>
       </PricesContainer>
       <Content>
-        <ProductList flavors={products} />
+        <Row>
+          {Boolean(everydayFlavors) && renderSection({title: 'Everyday Flavors', flavors: everydayFlavors})}
+          {Boolean(rotatingFlavors) && renderSection({title: 'Rotating Flavors', flavors: rotatingFlavors})}
+        </Row>
       </Content>
       <OrderFooter backgroundImage={data.barsBrowniesFooterImage} />
     </Layout>
@@ -45,7 +59,27 @@ const Content = styled.div`
     margin: ${sizing(100)} auto ${sizing(75)} auto;
   }
   @media all and (min-width: 992px) {
-    width: 90%;
+    width: 65%;
+  }
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  @media all and (min-width: 991px) {
+    flex-direction: row;
+  }
+`;
+
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: ${sizing(20)};
+  @media all and (min-width: 768px) {
+    margin-bottom: ${sizing(80)}
   }
 `;
 
@@ -102,6 +136,7 @@ export const query = graphql`
       nodes {
         name
         description
+        type
       }
     }
   }
