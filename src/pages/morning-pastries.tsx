@@ -54,8 +54,12 @@ const MorningPastriesPage = ({data}: MorningPastriesProps) => {
   const scones = getSconesData();
 
   const otherTreats = data.allContentfulMorningPastries?.nodes?.filter((item) => {
-    return item.name !== 'Muffins' && item.name !== 'Scones';
+    return item.name !== 'Muffins' && item.name !== 'Scones' && item.category !== 'Breakfast Catering';
   }).reverse();
+
+  const breakfastCatering = data.allContentfulMorningPastries?.nodes?.filter((item) => {
+    return item.category === 'Breakfast Catering';
+  });
 
   return (
     <Layout>
@@ -74,8 +78,19 @@ const MorningPastriesPage = ({data}: MorningPastriesProps) => {
       </Row>
       {Boolean(otherTreats) && (
         <OtherTreatsContainer>
-          <Title>Other Treats</Title>
           {otherTreats.map((item, idx) => (
+            <OtherTreat key={idx}>
+              <ProductTitle>{item.name}</ProductTitle>
+              {Boolean(item.description) && <OtherTreatDescription>{item.description}</OtherTreatDescription>}
+              <OtherTreatsPrice>{Boolean(item.dozenPrice) ? `Single: $${item.price} | Dozen: $${item.dozenPrice}` : `$${item.price}` }</OtherTreatsPrice>
+            </OtherTreat>
+          ))}
+        </OtherTreatsContainer>
+      )}
+      {Boolean(breakfastCatering) && (
+        <OtherTreatsContainer>
+          <Title>Breakfast Catering</Title>
+          {breakfastCatering.map((item, idx) => (
             <OtherTreat key={idx}>
               <OtherTreatName>{item.name}</OtherTreatName>
               {Boolean(item.description) && <OtherTreatDescription>{item.description}</OtherTreatDescription>}
@@ -120,6 +135,15 @@ const Title = styled.p`
   text-align: center;
   @media all and (min-width: 768px) {
     margin-bottom: ${sizing(50)};
+    ${fonts.cursiveText['900']};
+  }
+`
+
+const ProductTitle = styled.p`
+  ${fonts.cursiveText['600']};
+  text-align: center;
+  @media all and (min-width: 768px) {
+    margin-bottom: ${sizing(10)};
     ${fonts.cursiveText['900']};
   }
 `
@@ -185,6 +209,7 @@ query MorningPastriesQuery {
       flavors
       price
       dozenPrice
+      category
     }
   }
   productBreakfastCupcakesImage: file(absolutePath: {regex: "/\\/images\\/homepage-product-section\\/products_breakfastcupcakes\\.jpg/"}) {

@@ -62,6 +62,7 @@ export type MorningPastry = {
   flavors?: string[];
   price?: number;
   dozenPrice?: number;
+  category?: string;
 }
 
 export type FrostingShot = {
