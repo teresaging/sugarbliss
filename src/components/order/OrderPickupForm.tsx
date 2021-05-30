@@ -81,6 +81,7 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
     const isSameDayBefore11 = isSameDay && Number(CST_CURRENT_DATE_TIME.hour()) < 11;
     const isSameDay11 = isSameDay && Number(CST_CURRENT_DATE_TIME.hour()) === 11;
     const isWeekend = selectedDate.format('dddd') === 'Saturday' || selectedDate.format('dddd') === 'Sunday';
+    const isSaturday = selectedDate.format('dddd') === 'Saturday';
 
     let datesArray = [];
     if (isSameDayBefore11) {
@@ -142,10 +143,6 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
     } else {
       datesArray = [
         {
-          value: '9am-10am',
-          text: '9am - 10am',
-        },
-        {
           value: '10am-11am',
           text: '10am - 11am',
         },
@@ -167,6 +164,7 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
         },
       ]
       if (!isWeekend) { datesArray = [...datesArray, {value: '4pm-5pm', text: '4pm - 5pm'}]; }
+      if (!isSaturday) { datesArray = [{value: '9am-10am', text: '9am - 10am'}, ...datesArray]}
     }
 
     return datesArray.map((date, idx) => {
