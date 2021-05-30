@@ -220,6 +220,10 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
               errors.zipCode = 'Required';
             }
 
+            if (!values.phone) {
+              errors.phone = 'Required';
+            }
+
             if (values.zipCode?.length > 4 && values.time) {
               const price = getDeliveryPrice({zipCode: values.zipCode, time: values.time});
               if (price !== null) {

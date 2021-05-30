@@ -189,7 +189,10 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
             if (!values.time) {
               errors.time = 'Required';
             }
-
+            if (!values.phone) {
+              errors.phone = 'Required';
+            }
+            
             return errors;
           }}
           render={({ handleSubmit, submitting, values, hasValidationErrors }) => {
