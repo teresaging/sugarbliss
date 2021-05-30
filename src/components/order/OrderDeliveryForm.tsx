@@ -22,16 +22,12 @@ import {
   CheckBoxContainer,
   Disclaimer,
 } from './Styled';
+import { StoreClosedDates } from '../../sharedTypes';
 
 const LATE_AFTERNOON_TIME = '12pm-4pm';
 
 const currentCentralHour = moment().format('H');
 const CST_CURRENT_DATE_TIME = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
-
-
-export const disableSundays = (date) => {
-  return date.getDay() === 0;
-}
 
 type Values = {
   date: Date | string;
@@ -65,9 +61,10 @@ type Props = {
   addItemToCart: Function;
   setDayOfWeek: Function;
   setOrderDate: Function;
+  storeClosedDates: StoreClosedDates[];
 }
 
-const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderDate}: Props) => {
+const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderDate, storeClosedDates}: Props) => {
 
   const [ canDeliver, setCanDeliver ] = useState(false);
   const [ deliveryPrice, setDeliveryPrice ] = useState(0);
@@ -181,6 +178,19 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
     return nextDay;
   }
 
+  const disabledDates = (date) => {
+    // disable all Sundays
+    if (date.getDay() === 0) {
+      return true;
+    }
+    let shouldDisable = false;
+    storeClosedDates.forEach((closedDate) => {
+      shouldDisable = moment(closedDate.date).format('M D') === moment(date).format('M D');
+    })
+
+    return shouldDisable;
+  }
+
   return (
     <Container>
       <Title marginBottom={0}>Local Delivery</Title>
@@ -240,7 +250,7 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
                   variant="inline"
                   format="MM-dd"
                   dateFunsUtils={DateFnsUtils}
-                  shouldDisableDate={disableSundays}
+                  shouldDisableDate={disabledDates}
                   minDate={handleMinDate()}
                   disablePast
                   allowKeyboardControl

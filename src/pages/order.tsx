@@ -13,7 +13,7 @@ import Cart from '../components/order/Cart';
 import styled from '@emotion/styled';
 import { fonts, Button, Tabs } from '../design-system';
 import { sizing, colors, allDeliveryPrices } from '../utils';
-import { OrderForm, Cupcake, Macaron, CakePop, Cookies, MorningPastry } from '../sharedTypes';
+import { OrderForm, Cupcake, Macaron, CakePop, Cookies, MorningPastry, StoreClosedDates } from '../sharedTypes';
 
 const CURRENT_YEAR = moment().year();
 
@@ -35,6 +35,9 @@ type OrderQueryProps = {
   };
   allContentfulMorningPastries: {
     nodes: MorningPastry[];
+  };
+  allContentfulStoreClosedDates: {
+    nodes: StoreClosedDates[];
   };
 };
 
@@ -60,6 +63,7 @@ const OrderPage = ({data}: OrderProps) => {
       name: data.tabName,
     }
   });
+  const storeClosedDates = data?.allContentfulStoreClosedDates?.nodes || [];
 
   const { state, addItem, removeItem } = useContext(SnipcartContext);
   const { cartQuantity, cartItems } = state;
@@ -280,6 +284,7 @@ const OrderPage = ({data}: OrderProps) => {
                 setOrderDate={setOrderDate}
                 addItemToCart={addItemToCart}
                 handleNextStep={goToNextStep}
+                storeClosedDates={storeClosedDates}
               />
               ) :
               (
@@ -288,6 +293,7 @@ const OrderPage = ({data}: OrderProps) => {
                   setOrderDate={setOrderDate}
                   addItemToCart={addItemToCart}
                   handleNextStep={goToNextStep}
+                  storeClosedDates={storeClosedDates}
                 />
               )
             }
@@ -496,6 +502,11 @@ export const query = graphql`
       nodes {
         name
         flavors
+      }
+    }
+    allContentfulStoreClosedDates {
+      nodes {
+        date
       }
     }
   }

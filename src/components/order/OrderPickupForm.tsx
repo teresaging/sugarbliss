@@ -6,8 +6,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import moment from 'moment';
 
 import { colors } from '../../utils';
-import { disableSundays } from './OrderDeliveryForm';
 import { Container, Title, FormContainer, Row, SubmitButton, SubTitle, Disclaimer } from './Styled';
+import { StoreClosedDates } from '../../sharedTypes';
 
 const CST_CURRENT_DATE_TIME = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' }));
 
@@ -16,9 +16,10 @@ type Props = {
   addItemToCart: Function;
   setDayOfWeek: Function;
   setOrderDate: Function;
+  storeClosedDates: StoreClosedDates[];
 }
 
-const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderDate}: Props) => {
+const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderDate, storeClosedDates}: Props) => {
   const handleSubmit = async (values) => {
     await addItemToCart({
       id: 'pickup',
@@ -58,6 +59,19 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
     const nextDay = moment(new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })).add(1, 'day');
 
     return nextDay;
+  }
+
+  const disabledDates = (date) => {
+    // disable all Sundays
+    if (date.getDay() === 0) {
+      return true;
+    }
+    let shouldDisable = false;
+    storeClosedDates.forEach((closedDate) => {
+      shouldDisable = moment(closedDate.date).format('M D') === moment(date).format('M D');
+    })
+
+    return shouldDisable;
   }
 
   const renderDates = (pickupDate) => {
@@ -190,7 +204,7 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
                     variant="inline"
                     format="yyyy-MM-dd"
                     dateFunsUtils={DateFnsUtils}
-                    shouldDisableDate={disableSundays}
+                    shouldDisableDate={disabledDates}
                     minDate={handleMinDate()}
                     required
                   />

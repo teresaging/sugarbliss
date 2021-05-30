@@ -209,3 +209,7 @@ export type HomePageContent = {
     };
   }
 }
+
+export type StoreClosedDates = {
+  date: Date;
+}
