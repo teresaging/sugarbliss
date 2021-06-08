@@ -67,8 +67,11 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
       return true;
     }
     let shouldDisable = false;
+
     storeClosedDates.forEach((closedDate) => {
-      shouldDisable = moment(closedDate.date).format('M D') === moment(date).format('M D');
+      if (parseInt(moment(closedDate.date).format('MD')) === parseInt(moment(date).format('MD'))) {
+        shouldDisable = true;
+      }
     })
 
     return shouldDisable;
@@ -192,7 +195,7 @@ const OrderPickupForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrderD
             if (!values.phone) {
               errors.phone = 'Required';
             }
-            
+
             return errors;
           }}
           render={({ handleSubmit, submitting, values, hasValidationErrors }) => {

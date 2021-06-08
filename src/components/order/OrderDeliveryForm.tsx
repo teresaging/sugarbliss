@@ -185,7 +185,9 @@ const OrderDeliveryForm = ({handleNextStep, addItemToCart, setDayOfWeek, setOrde
     }
     let shouldDisable = false;
     storeClosedDates.forEach((closedDate) => {
-      shouldDisable = moment(closedDate.date).format('M D') === moment(date).format('M D');
+      if (parseInt(moment(closedDate.date).format('MD')) === parseInt(moment(date).format('MD'))) {
+        shouldDisable = true;
+      }
     })
 
     return shouldDisable;
