@@ -213,3 +213,23 @@ export type HomePageContent = {
 export type StoreClosedDates = {
   date: Date;
 }
+
+export type PartyAndGiftsContent = {
+  name: string;
+  image: {
+    file: {
+      url: string;
+    }
+  };
+  description?: {
+    childMarkdownRemark: {
+      rawMarkdownBody: string;
+    }
+  };
+}
+
+export type PartyAndGifts = {
+  title: string;
+  order: number;
+  content?: PartyAndGiftsContent[];
+}

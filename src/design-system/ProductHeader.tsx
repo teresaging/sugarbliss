@@ -10,7 +10,7 @@ import { fonts } from './Fonts';
 type FluidImage = { childImageSharp: {fluid: FluidObject} };
 
 type Props = {
-  backgroundImage: FluidImage;
+  backgroundImage?: FluidImage;
   underlineImage: FluidImage;
   productName: string;
   isFullWidth?: boolean;
@@ -23,7 +23,9 @@ const ProductHeader = ({backgroundImage, underlineImage, productName, isFullWidt
   if (isFullWidth) {
     return (
       <FullWidthContainer>
-        <BackgroundImage fluid={backgroundImage.childImageSharp.fluid} />
+        {Boolean(backgroundImage) && (
+          <BackgroundImage fluid={backgroundImage.childImageSharp.fluid} />
+        )}
         <TextContainer>
           <FullWidthText>{productName}</FullWidthText>
           <Underline fluid={underlineImage.childImageSharp.fluid}/>
@@ -37,17 +39,19 @@ const ProductHeader = ({backgroundImage, underlineImage, productName, isFullWidt
       <Container>
         <Text>{productName}</Text>
         <Underline fluid={underlineImage.childImageSharp.fluid}/>
-        <ContentContainer>
-          <LeftContentContainer>
-            {leftContent}
-          </LeftContentContainer>
-          <CircleImageContainer>
-            <CircleImage fluid={backgroundImage.childImageSharp.fluid} alt={productName}/>
-          </CircleImageContainer>
-          <RightContentContainer>
-            {rightContent}
-          </RightContentContainer>
-        </ContentContainer>
+        {Boolean(backgroundImage) && (
+          <ContentContainer>
+            <LeftContentContainer>
+              {leftContent}
+            </LeftContentContainer>
+            <CircleImageContainer>
+              <CircleImage fluid={backgroundImage.childImageSharp.fluid} alt={productName}/>
+            </CircleImageContainer>
+            <RightContentContainer>
+              {rightContent}
+            </RightContentContainer>
+          </ContentContainer>
+        )}
       </Container>
     );
   }
@@ -56,9 +60,11 @@ const ProductHeader = ({backgroundImage, underlineImage, productName, isFullWidt
     <Container>
       <Text>{productName}</Text>
       <Underline fluid={underlineImage.childImageSharp.fluid}/>
-      <CircleImageContainer>
-        <CircleImage fluid={backgroundImage.childImageSharp.fluid} alt={productName}/>
-      </CircleImageContainer>
+      {Boolean(backgroundImage) && (
+        <CircleImageContainer>
+          <CircleImage fluid={backgroundImage.childImageSharp.fluid} alt={productName}/>
+        </CircleImageContainer>
+      )}
     </Container>
   );
 };

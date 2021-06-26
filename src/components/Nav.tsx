@@ -59,10 +59,10 @@ export const NavData = [
         name: 'Services',
         url: '/',
         children: [
-            // {
-            //     name: 'Party & Gifts',
-            //     url: '/',
-            // },
+            {
+                name: 'Party & Gifts',
+                url: '/party-gifts',
+            },
             {
                 name: 'Catering',
                 url: '/catering',
