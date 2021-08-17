@@ -77,10 +77,10 @@ export const NavData = [
             // },
         ],
     },
-    // {
-    //     name: 'Press',
-    //     url: '/',
-    // },
+    {
+        name: 'Press',
+        url: '/press',
+    },
     {
         name: 'Store',
         url: '/store',

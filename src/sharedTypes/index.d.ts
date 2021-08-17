@@ -233,3 +233,14 @@ export type PartyAndGifts = {
   order: number;
   content?: PartyAndGiftsContent[];
 }
+
+export type Press = {
+  name: string;
+  site?: string;
+  link?: string;
+  pdf?: {
+    file: {
+      url: string;
+    }
+  }
+}
