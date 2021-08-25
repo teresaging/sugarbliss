@@ -244,3 +244,10 @@ export type Press = {
     }
   }
 }
+
+export type FAQ = {
+  question: string;
+  answer?: {
+    answer: string; // weird contentful object
+  };
+}

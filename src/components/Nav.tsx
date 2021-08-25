@@ -85,10 +85,10 @@ export const NavData = [
         name: 'Store',
         url: '/store',
     },
-    // {
-    //     name: 'Faq',
-    //     url: '/',
-    // },
+    {
+        name: 'Faq',
+        url: '/faq',
+    },
     {
         name: 'About',
         url: '/about',
