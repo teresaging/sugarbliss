@@ -4,8 +4,8 @@ import { FluidObject } from 'gatsby-image'
 import styled from '@emotion/styled';
 
 import Layout from '../components/layout';
-import { ProductHeader, fonts } from '../design-system';
-import { sizing, colors } from '../utils';
+import { ProductHeader } from '../design-system';
+import { sizing } from '../utils';
 import { FAQ } from '../sharedTypes';
 import FAQItem from '../components/FAQItem';
 
