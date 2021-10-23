@@ -71,10 +71,10 @@ export const NavData = [
                 name: 'Weddings',
                 url: '/weddings',
             },
-            // {
-            //     name: 'Sweets Cart',
-            //     url: '/',
-            // },
+            {
+                name: 'Sweets Cart',
+                url: '/sweets-cart',
+            },
         ],
     },
     {

@@ -1,3 +1,9 @@
+type Image = {
+  file: {
+    url: string;
+  }
+}
+
 export type SeasonalDate = {
   name: string;
   startDate: Date;
@@ -250,4 +256,28 @@ export type FAQ = {
   answer?: {
     answer: string; // weird contentful object
   };
+}
+
+type SweetsCartProduct = {
+  name: string;
+  image: Image;
+  description: {
+    childMarkdownRemark: {
+      rawMarkdownBody: string;
+    }
+  }
+  flavors: string[];
+  price: number;
+  dozenPrice: number;
+}
+
+export type SweetsCartPage = {
+  sweetsCartImage: Image;
+  sweetsCartInformation: {
+    childMarkdownRemark: {
+      rawMarkdownBody: string;
+    }
+  }
+  brochure: Image;
+  products: SweetsCartProduct[];
 }

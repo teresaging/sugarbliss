@@ -29,8 +29,6 @@ type CupcakeProps = PageProps<CupcakeQueryProps>;
 
 const CupcakesPage = ({data}: CupcakeProps) => {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const seasonalCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isSeasonal);
   const dailyCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isDaily);
   const everyDayCupcakes = data.allContentfulCupcake.nodes.filter((cupcake) => cupcake.isEverydayFlavor);
