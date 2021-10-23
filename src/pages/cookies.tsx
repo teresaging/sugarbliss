@@ -39,7 +39,7 @@ const CookiesPage = ({data}: CookiesPageProps) => {
     <Layout>
       <ProductHeader backgroundImage={data.cookiesHeaderImage} underlineImage={data.underlineImage} productName="Cookies" />
       <PricesContainer>
-        <Price>$3 Each | $34 per Dozen</Price>
+        <Price>$3.25 Each | $36 per Dozen</Price>
       </PricesContainer>
       <Content>
         <Row>
