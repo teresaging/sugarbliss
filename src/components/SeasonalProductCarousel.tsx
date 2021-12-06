@@ -24,7 +24,7 @@ const groomProductDataForCarousel = (products) => {
   return groomedData.sort((a , b) => a.startDate - b.startDate);
 };
 
-const SeasonalProductCarousel = ({products}: Props) => {
+const SeasonalProductCarousel = ({products}: Props) => {''
 
   const currentDate = moment();
 
@@ -38,9 +38,16 @@ const SeasonalProductCarousel = ({products}: Props) => {
 
     for (let i = 0; i < product.seasonalDatesAvailable?.length; i++) {
       const startDateMonth = moment(product.seasonalDatesAvailable[i].startDate).month();
-      if (startDateMonth === currentDate.month() || startDateMonth === currentDate.month() + 1 ) {
-        product.seasonalDatesAvailable[i].active = true;
-        isCurrentProduct = true;
+      if (currentDate.month() === 11) { // if in december, get january too
+        if (startDateMonth === currentDate.month() || startDateMonth === 0 ) {
+          product.seasonalDatesAvailable[i].active = true;
+          isCurrentProduct = true;
+        }
+      } else {
+        if (startDateMonth === currentDate.month() || startDateMonth === currentDate.month() + 1 ) {
+          product.seasonalDatesAvailable[i].active = true;
+          isCurrentProduct = true;
+        }
       }
     }
 

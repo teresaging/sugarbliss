@@ -117,6 +117,7 @@ const OrderPage = ({data}: OrderProps) => {
   }, [step])
 
   useEffect(() => {
+    const formattedOrderDate = moment(orderDate).year(CURRENT_YEAR);
     const cupcakeFlavors = orderFormData?.cupcakeData?.filter((cupcake) => {
       if (cupcake.isEverydayFlavor && cupcake.name !== 'Gluten Free' && !cupcake.isVeganFlavor) {
         return true;
@@ -127,7 +128,7 @@ const OrderPage = ({data}: OrderProps) => {
         for (let i = 0; i < cupcake.seasonalDatesAvailable.length; i++) {
           const startDate = moment(cupcake.seasonalDatesAvailable[i].startDate).set('year', CURRENT_YEAR);
           const endDate = moment(cupcake.seasonalDatesAvailable[i].endDate).set('year', CURRENT_YEAR);
-          if (moment(orderDate) >= startDate && moment(orderDate) <= endDate) {
+          if (formattedOrderDate >= startDate && formattedOrderDate <= endDate) {
             isProductAvailable = true;
           }
         }
@@ -158,7 +159,7 @@ const OrderPage = ({data}: OrderProps) => {
         for (let i = 0; i < macaron.seasonalDatesAvailable.length; i++) {
           const startDate = moment(macaron.seasonalDatesAvailable[i].startDate).set('year', CURRENT_YEAR);
           const endDate = moment(macaron.seasonalDatesAvailable[i].endDate).set('year', CURRENT_YEAR);
-          if (moment(orderDate) >= startDate && moment(orderDate) <= endDate) {
+          if (formattedOrderDate >= startDate && formattedOrderDate <= endDate) {
             isProductAvailable = true;
           }
         }
@@ -176,7 +177,7 @@ const OrderPage = ({data}: OrderProps) => {
         for (let i = 0; i < cakePop.seasonalDatesAvailable.length; i++) {
           const startDate = moment(cakePop.seasonalDatesAvailable[i].startDate).set('year', CURRENT_YEAR);
           const endDate = moment(cakePop.seasonalDatesAvailable[i].endDate).set('year', CURRENT_YEAR);
-          if (moment(orderDate) >= startDate && moment(orderDate) <= endDate) {
+          if (formattedOrderDate >= startDate && formattedOrderDate <= endDate) {
             isProductAvailable = true;
           }
         }
@@ -216,7 +217,7 @@ const OrderPage = ({data}: OrderProps) => {
       PickupOrDeliveryItem.map(async (item) => {
         return removeItem(item.uniqueId);
       });
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
