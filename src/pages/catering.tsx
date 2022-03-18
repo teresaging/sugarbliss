@@ -77,7 +77,7 @@ const CateringPage = ({data}: CateringPageProps) => {
               <PackagePriceContainer>
                 {sweetsCateringPriceData.smallPrice && (<Text>Small ${sweetsCateringPriceData.smallPrice} {sweetsCateringPriceData.smallServingSize && `(${sweetsCateringPriceData.smallServingSize})`}</Text>)}
                 {sweetsCateringPriceData.mediumPrice && (<Text>Medium ${sweetsCateringPriceData.mediumPrice} {sweetsCateringPriceData.mediumServingSize && `(${sweetsCateringPriceData.mediumServingSize})`}</Text>)}
-                {sweetsCateringPriceData.largePrice && (<Text>Medium ${sweetsCateringPriceData.largePrice} {sweetsCateringPriceData.largeServingSize && `(${sweetsCateringPriceData.largeServingSize})`}</Text>)}
+                {sweetsCateringPriceData.largePrice && (<Text>Large ${sweetsCateringPriceData.largePrice} {sweetsCateringPriceData.largeServingSize && `(${sweetsCateringPriceData.largeServingSize})`}</Text>)}
               </PackagePriceContainer>
             </ProductContent>
             <PackageImageContainer>
