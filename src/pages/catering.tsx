@@ -77,7 +77,7 @@ const CateringPage = ({data}: CateringPageProps) => {
               <PackagePriceContainer>
                 {sweetsCateringPriceData.smallPrice && (<Text>Small ${sweetsCateringPriceData.smallPrice} {sweetsCateringPriceData.smallServingSize && `(${sweetsCateringPriceData.smallServingSize})`}</Text>)}
                 {sweetsCateringPriceData.mediumPrice && (<Text>Medium ${sweetsCateringPriceData.mediumPrice} {sweetsCateringPriceData.mediumServingSize && `(${sweetsCateringPriceData.mediumServingSize})`}</Text>)}
-                {sweetsCateringPriceData.largePrice && (<Text>Medium ${sweetsCateringPriceData.largePrice} {sweetsCateringPriceData.largeServingSize && `(${sweetsCateringPriceData.largeServingSize})`}</Text>)}
+                {sweetsCateringPriceData.largePrice && (<Text>Large ${sweetsCateringPriceData.largePrice} {sweetsCateringPriceData.largeServingSize && `(${sweetsCateringPriceData.largeServingSize})`}</Text>)}
               </PackagePriceContainer>
             </ProductContent>
             <PackageImageContainer>
@@ -100,8 +100,9 @@ const CateringPage = ({data}: CateringPageProps) => {
               ))}
               <PackagePriceContainer>
                 {breakfastCateringPriceData.smallPrice && (<Text>Small ${breakfastCateringPriceData.smallPrice} {breakfastCateringPriceData.smallServingSize && `(${breakfastCateringPriceData.smallServingSize})`}</Text>)}
-                {breakfastCateringPriceData.mediumPrice && (<Text>Medium ${breakfastCateringPriceData.mediumPrice} {breakfastCateringPriceData.mediumServingSize && `(${breakfastCateringPriceData.mediumServingSize})`}</Text>)}
-                {breakfastCateringPriceData.largePrice && (<Text>Medium ${breakfastCateringPriceData.largePrice} {breakfastCateringPriceData.largeServingSize && `(${breakfastCateringPriceData.largeServingSize})`}</Text>)}
+                {breakfastCateringPriceData.
+                Price && (<Text>Medium ${breakfastCateringPriceData.mediumPrice} {breakfastCateringPriceData.mediumServingSize && `(${breakfastCateringPriceData.mediumServingSize})`}</Text>)}
+                {breakfastCateringPriceData.largePrice && (<Text>Large ${breakfastCateringPriceData.largePrice} {breakfastCateringPriceData.largeServingSize && `(${breakfastCateringPriceData.largeServingSize})`}</Text>)}
               </PackagePriceContainer>
               {Boolean(breakfastCateringPackageAddOns) &&
                 <BreakfastCateringAddOns>
