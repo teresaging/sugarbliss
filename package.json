@@ -1,8 +1,17 @@
 {
-  "name": "Sugar Bliss Cakes",
+  "name": "sugar-bliss-cakes",
   "description": "Sugar Bliss is an independent woman minority owned bakery in downtown Chicago.",
   "version": "1.0.0",
   "author": "Merissa Acosta",
+  "engines": {
+    "node": "16.18.1"
+  },
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write '**/*.tsx'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@contentful/rich-text-react-renderer": "^14.1.2",
@@ -34,14 +43,14 @@
     "gatsby-plugin-offline": "^3.5.0",
     "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
     "gatsby-plugin-react-helmet": "^3.5.0",
-    "gatsby-plugin-sharp": "^2.9.0",
+    "gatsby-plugin-sharp": "^2.14.4",
     "gatsby-plugin-snipcart-advanced": "git+https://git@github.com/merissaacosta/gatsby-plugin-snipcart-advanced.git",
     "gatsby-plugin-typescript": "^2.7.0",
     "gatsby-source-contentful": "^2.3.56",
     "gatsby-source-filesystem": "^2.6.1",
     "gatsby-source-instagram": "^0.9.0",
     "gatsby-transformer-remark": "^2.11.0",
-    "gatsby-transformer-sharp": "^2.7.0",
+    "gatsby-transformer-sharp": "^2.12.1",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "mui-rff": "^3.0.3",
@@ -61,13 +70,6 @@
   "keywords": [
     "gatsby"
   ],
-  "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write '**/*.tsx'",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "devDependencies": {
     "prettier": "^2.2.0",
     "tslint": "^6.1.3",
