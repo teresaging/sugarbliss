@@ -38,10 +38,6 @@ export const NavData = [
                 url: '/bars-brownies',
             },
             {
-                name: 'Morning Pastries',
-                url: '/morning-pastries',
-            },
-            {
                 name: 'Frosting Shots',
                 url: '/frosting-shots',
             },

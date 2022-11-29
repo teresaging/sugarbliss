@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import { FluidObject } from 'gatsby-image';
 
@@ -38,9 +38,9 @@ const CupcakesPage = ({data}: CupcakeProps) => {
     <HeaderLeftContent>
         <IntroTitle>Regular Cupcakes:</IntroTitle>
       <div>
-        <IntroText>Single: $3.95 | Dozen: $45</IntroText>
-        <IntroText>Gluten Free - Single: $4.25 | Dozen: $48</IntroText>
-        <IntroText>Vegan - Single: $4.50 | Dozen: $50</IntroText>
+        <IntroText>Single: $4.75 | Dozen: $52</IntroText>
+        <IntroText>Gluten Free - Single: $4.75 | Dozen: $52</IntroText>
+        <IntroText>Vegan - Single: $4.75 | Dozen: $52</IntroText>
       </div>
     </HeaderLeftContent>
   );
@@ -50,8 +50,8 @@ const CupcakesPage = ({data}: CupcakeProps) => {
       <HeaderRightContent>
         <IntroTitle>Mini Cupcakes: </IntroTitle>
         <div>
-          <IntroText>Single: $2 | Dozen: $22</IntroText>
-          <IntroText>Gluten Free - Dozen: $25</IntroText>
+          <IntroText>Single: $2.50 | Dozen: $28</IntroText>
+          <IntroText>Gluten Free - Dozen: $28</IntroText>
           <IntroText>Vegan - Dozen: $28</IntroText>
         </div>
       </HeaderRightContent>

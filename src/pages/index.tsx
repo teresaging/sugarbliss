@@ -71,11 +71,6 @@ const IndexPage = ({data}: IndexProps) => {
       fluidImage: data.productBarsAndBrowniesImage.childImageSharp.fluid,
       url: '/bars-brownies',
     },
-    {
-      name: 'Morning Pastries',
-      fluidImage: data.productBreakfastCupcakesImage.childImageSharp.fluid,
-      url: '/morning-pastries',
-    },
     // {
     //   name: 'Sweet Crepes',
     //   fluidImage: data.productCrepesImage.childImageSharp.fluid,

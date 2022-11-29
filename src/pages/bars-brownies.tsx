@@ -39,7 +39,7 @@ const BarsBrowniesPage = ({data}: BarsBrowniesPageProps) => {
     <Layout>
       <ProductHeader productName="Bars & Brownies" backgroundImage={data.barsBrowniesHeaderImage} underlineImage={data.underlineImage}  />
       <PricesContainer>
-        <Price>$4.25 Each | $48 per Dozen</Price>
+        <Price>$4.75 Each | $52 per Dozen</Price>
       </PricesContainer>
       <Content>
         <Row>
