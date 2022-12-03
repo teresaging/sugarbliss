@@ -34,7 +34,7 @@ const MacaronsPage = ({data}: MacaronsProps) => {
     <Layout>
       <ProductHeader productName="Macarons" backgroundImage={data.macaronsHeaderImage} underlineImage={data.underlineImage} />
       <PricesContainer>
-        <Price>$2.75 Each | Box of 6: $16 | Box of 12: $30</Price>
+        <Price>$2.75 each | Box of 6 - $16 | Box of 12 - $30</Price>
       </PricesContainer>
       <SeasonalProductCarousel products={seasonalMacarons} />
       <ProductsList products={everyDayFlavors} />
